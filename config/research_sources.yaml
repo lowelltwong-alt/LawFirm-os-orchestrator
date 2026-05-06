@@ -1,0 +1,22 @@
+sources:
+  - id: arxiv_math_ai
+    kind: arxiv
+    authority_tier: 1
+    categories: ["math", "cs.AI", "cs.LG", "cs.DS", "cs.CR"]
+    allowed: true
+  - id: official_lab_blogs
+    kind: lab_blog
+    authority_tier: 1
+    allowed: true
+  - id: standards_bodies
+    kind: standards
+    authority_tier: 1
+    allowed: true
+  - id: github_repos
+    kind: repository
+    authority_tier: 3
+    allowed: true
+  - id: social_posts
+    kind: social
+    authority_tier: 4
+    allowed: false

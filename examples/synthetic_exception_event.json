@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "input_id": "syn-2026-0001",
+  "synthetic": true,
+  "contains_real_client_data": false,
+  "contains_real_matter_data": false,
+  "source_type": "synthetic_fixture",
+  "route_hint": "route.workflow_escalation.v1",
+  "confidentiality_label": "synthetic",
+  "privilege_label": "none",
+  "source_claim_refs": [
+    {
+      "claim_ref": "synthetic://document/email-001",
+      "sha256": "9d8f5d2a4f2f7e3b8b8d4d70f7d0f28b4f1b8a2410c8221bf1e5b8fbe0d9d101"
+    }
+  ],
+  "payload": {
+    "summary": "Synthetic workflow escalation example",
+    "observed_facts": [
+      "deadline reminder failed",
+      "approval not present"
+    ]
+  }
+}

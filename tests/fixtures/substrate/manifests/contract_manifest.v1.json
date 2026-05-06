@@ -1,0 +1,11 @@
+{
+  "manifest_id": "manifest-v1",
+  "manifest_version": "1.0",
+  "policy_bundle_id": "runtime-policy-v1",
+  "canonical_schema_keys": [
+    "exception-event-v1"
+  ],
+  "registry_refs": [
+    "registry/exception-route-registry.json"
+  ]
+}

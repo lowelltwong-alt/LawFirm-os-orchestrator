@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "route_id": "route.retrieval_miss.v1",
+      "event_class": "retrieval_miss",
+      "allowed_source_layers": [
+        "retrieval"
+      ],
+      "promotion_gate_required": true,
+      "allowed_raw_actions": [
+        "route_for_review",
+        "aggregate_pressure",
+        "attach_evidence_only"
+      ],
+      "prohibited_direct_actions": [
+        "canonical_ontology_write",
+        "taxonomy_rewrite",
+        "schema_mutation",
+        "policy_overwrite",
+        "address_system_mutation"
+      ]
+    },
+    {
+      "route_id": "route.workflow_escalation.v1",
+      "event_class": "workflow_escalation",
+      "allowed_source_layers": [
+        "workflow"
+      ],
+      "promotion_gate_required": true,
+      "allowed_raw_actions": [
+        "route_for_review",
+        "aggregate_pressure",
+        "attach_evidence_only"
+      ],
+      "prohibited_direct_actions": [
+        "canonical_ontology_write",
+        "taxonomy_rewrite",
+        "schema_mutation",
+        "policy_overwrite",
+        "address_system_mutation"
+      ]
+    },
+    {
+      "route_id": "route.authority_conflict_override.v1",
+      "event_class": "authority_conflict_override",
+      "allowed_source_layers": [
+        "governance"
+      ],
+      "promotion_gate_required": true,
+      "allowed_raw_actions": [
+        "route_for_review",
+        "aggregate_pressure",
+        "attach_evidence_only"
+      ],
+      "prohibited_direct_actions": [
+        "canonical_ontology_write",
+        "taxonomy_rewrite",
+        "schema_mutation",
+        "policy_overwrite",
+        "address_system_mutation"
+      ]
+    }
+  ],
+  "global_controls": {
+    "unknown_route_policy": "fail_validation",
+    "unknown_event_class_policy": "fail_validation"
+  }
+}

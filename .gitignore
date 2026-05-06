@@ -1,0 +1,7 @@
+.lawfirm-os-orchestrator/
+.pytest_cache/
+.venv/
+__pycache__/
+*.egg-info/
+build/
+dist/

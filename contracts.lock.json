@@ -1,0 +1,14 @@
+{
+  "contract_repo": "lowelltwong-alt/LawFirm-os-semantic-substrate",
+  "contract_ref_type": "git_sha",
+  "contract_sha": "a9df5e75319ecdd4e100321be35b51e88bb75ba8",
+  "generated_at": "2026-05-06T00:00:00Z",
+  "generated_by": "lawfirm-os-orchestrator",
+  "non_claims": [
+    "no production runtime",
+    "no real client data",
+    "no real matter data",
+    "no substrate mutation",
+    "no autonomous writes"
+  ]
+}
