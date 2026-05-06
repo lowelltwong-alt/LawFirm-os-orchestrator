@@ -1,0 +1,3 @@
+{"case_id":"eval-retrieval-miss-001","route_id":"route.retrieval_miss.v1","event_class":"retrieval_miss"}
+{"case_id":"eval-workflow-escalation-001","route_id":"route.workflow_escalation.v1","event_class":"workflow_escalation"}
+{"case_id":"eval-authority-conflict-001","route_id":"route.authority_conflict_override.v1","event_class":"authority_conflict_override"}
