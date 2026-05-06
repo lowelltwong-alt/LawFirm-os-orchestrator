@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "proposal_id": "proposal_validator_threshold_example",
+  "hypothesis_id": "upgrade_hypothesis_validator_threshold_example",
+  "experiment_plan_id": "experiment_plan_validator_threshold_shadow_example",
+  "target_surface": "validators",
+  "affected_metric": "first_pass_validation_rate",
+  "candidate_change_summary": "Proposal-only stricter validation threshold comparison; no runtime defaults are changed.",
+  "eval_suite_ref": "evals/fixtures/classify_exception_cases.jsonl",
+  "baseline_ref": "current-local-mvp",
+  "success_metrics": [
+    "first_pass_validation_rate",
+    "route_exact_match_rate",
+    "event_class_exact_match_rate"
+  ],
+  "failure_thresholds": {
+    "route_exact_match_rate": 0.0,
+    "event_class_exact_match_rate": 0.0,
+    "first_pass_validation_rate": 0.0,
+    "evidence_completeness_rate": 0.0,
+    "high_confidence_error_rate": 0.0,
+    "average_model_calls_per_run": 0.0
+  },
+  "candidate_metric_overrides": {
+    "route_exact_match_rate": 1.0,
+    "event_class_exact_match_rate": 1.0,
+    "first_pass_validation_rate": 1.0,
+    "evidence_completeness_rate": 1.0,
+    "high_confidence_error_rate": 0.0,
+    "average_model_calls_per_run": 1.0
+  },
+  "notes": "Curated synthetic fixture comparison only."
+}
