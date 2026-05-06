@@ -4,6 +4,8 @@
 
 Semantic Substrate publishes meaning. Orchestrator executes bounded workflows and builds evidence packets. Exception Lake Runtime validates and records runtime evidence. Humans approve semantic promotion.
 
+Before V1 buildout work, read `docs/seed/00_CODEX_READ_FIRST.md`.
+
 ## Stop immediately if a task asks for
 
 - real client or matter data;
