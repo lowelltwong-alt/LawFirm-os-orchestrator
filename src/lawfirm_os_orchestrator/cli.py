@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from lawfirm_os_orchestrator.commands.classify_exception import run as run_classify_exception
+from lawfirm_os_orchestrator.commands.learning import run as run_learning
 from lawfirm_os_orchestrator.commands.research_radar import run as run_research_radar
 
 
@@ -28,6 +29,29 @@ def build_parser() -> argparse.ArgumentParser:
     list_signals = radar_sub.add_parser("list-signals")
     list_signals.add_argument("--signals", default=".lawfirm-os-orchestrator/research/signals.jsonl")
     list_signals.add_argument("--stdout", choices=["json", "text"], default="text")
+
+    learning = sub.add_parser("learning")
+    learning_sub = learning.add_subparsers(dest="learning_command", required=True)
+    shadow = learning_sub.add_parser("run-shadow-eval")
+    shadow.add_argument("--proposal", required=True)
+    shadow.add_argument("--fixture", default="evals/fixtures/classify_exception_cases.jsonl")
+    shadow.add_argument("--gold", default="evals/gold/classify_exception_gold.jsonl")
+    shadow.add_argument("--substrate", default="tests/fixtures/substrate")
+    shadow.add_argument("--artifacts", default=".lawfirm-os-orchestrator/shadow_eval/artifacts")
+    shadow.add_argument("--out", default=".lawfirm-os-orchestrator/shadow_eval/latest_shadow_eval.json")
+    shadow.add_argument("--stdout", choices=["json", "text"], default="text")
+    proposal = learning_sub.add_parser("build-upgrade-proposal")
+    proposal.add_argument("--input", required=True)
+    proposal.add_argument("--out", default=".lawfirm-os-orchestrator/upgrade_proposals")
+    proposal.add_argument("--stdout", choices=["json", "text"], default="text")
+    task = learning_sub.add_parser("render-codex-task")
+    task.add_argument("--input", required=True)
+    task.add_argument("--out", default=".lawfirm-os-orchestrator/codex_task_drafts/example")
+    task.add_argument("--stdout", choices=["json", "text"], default="text")
+    insight = learning_sub.add_parser("score-insight")
+    insight.add_argument("--input", required=True)
+    insight.add_argument("--out")
+    insight.add_argument("--stdout", choices=["json", "text"], default="text")
     return parser
 
 
@@ -43,6 +67,13 @@ def main(argv: list[str] | None = None) -> int:
         return code
     if args.command == "research-radar":
         code, summary = run_research_radar(args)
+        if args.stdout == "json":
+            print(json.dumps(summary, indent=2, sort_keys=False))
+        else:
+            print(summary.get("status", "unknown"))
+        return code
+    if args.command == "learning":
+        code, summary = run_learning(args)
         if args.stdout == "json":
             print(json.dumps(summary, indent=2, sort_keys=False))
         else:
