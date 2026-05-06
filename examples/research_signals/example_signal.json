@@ -1,0 +1,26 @@
+{
+  "signal_type": "external_research_discovery",
+  "source_kind": "paper",
+  "source_tier": 1,
+  "source_uri": "https://example.org/research/evaluator-guided-search",
+  "title": "Evaluator-guided search for proposal-only validator improvements",
+  "published_at": "2026-05-01",
+  "credibility": 0.8,
+  "claims": [
+    {
+      "claim": "A deterministic evaluator can guide search over candidate validator changes before human review.",
+      "claim_type": "algorithmic_pattern",
+      "evidence_strength": "medium_high"
+    }
+  ],
+  "relevance": {
+    "target_surfaces": [
+      "evals",
+      "validators"
+    ],
+    "score": 0.85,
+    "possible_upgrade": "Create a shadow experiment for evaluator-guided validator proposals.",
+    "risk": "Proposal-only; no autonomous code mutation or canon mutation."
+  },
+  "recommended_action": "create_shadow_experiment"
+}
