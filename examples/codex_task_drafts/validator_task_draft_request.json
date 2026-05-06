@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "action_recommendation": {
+    "schema_version": "1.0",
+    "proposal_id": "upgrade_proposal_validator_threshold_example",
+    "action_type": "draft_codex_task",
+    "target_surface": "validators",
+    "risk_level": "medium",
+    "rationale": "Draft a bounded local task for reviewer-approved validator work.",
+    "recommended_effort_level": "High"
+  },
+  "codex_task_draft": {
+    "schema_version": "1.0",
+    "semantics": "proposal_only",
+    "may_execute": false,
+    "may_apply_patch": false,
+    "may_push_git": false,
+    "may_write_sibling_repo": false,
+    "may_mutate_canon": false,
+    "codex_task_draft_id": "codex_task_draft_validator_threshold_example",
+    "recommendation_id": "action_recommendation_placeholder",
+    "codex_level": "High",
+    "route": "Use the approved upgrade proposal to plan a bounded validator improvement.",
+    "mode": "Local git work only after separate human approval.",
+    "allowed_paths": [
+      "src/lawfirm_os_orchestrator/policy/**",
+      "src/lawfirm_os_orchestrator/evals/**",
+      "tests/**"
+    ],
+    "forbidden_paths": [
+      "../LawFirm-os-semantic-substrate/**",
+      "../LawFirm-os-exceptions-lake-runtime/**",
+      "production_connectors/**"
+    ],
+    "validation_commands": [
+      "python -m pytest",
+      "python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json"
+    ],
+    "stop_conditions": [
+      "Stop if real client or matter data is required.",
+      "Stop if Semantic Substrate mutation is required.",
+      "Stop if Exception Lake writes would become default.",
+      "Stop if production connectors are required."
+    ],
+    "expected_artifacts": [
+      "bounded implementation diff",
+      "updated tests",
+      "validation results"
+    ],
+    "prompt_markdown": "Implement only the separately approved validator change. Keep all work local, proposal-scoped, and synthetic-fixture backed.",
+    "created_at": "2026-05-06T00:00:00Z"
+  }
+}

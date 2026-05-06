@@ -103,10 +103,13 @@ def sample_models():
     draft = CodexTaskDraft(
         recommendation_id=recommendation.action_recommendation_id,
         codex_level="High",
+        route="Draft a bounded local validator task.",
+        mode="Local artifact drafting only.",
         allowed_paths=["src/lawfirm_os_orchestrator/policy/**", "tests/**"],
         forbidden_paths=["../LawFirm-os-semantic-substrate/**", "../LawFirm-os-exceptions-lake-runtime/**"],
         validation_commands=["python -m pytest"],
         stop_conditions=["Stop if real client or matter data is required."],
+        expected_artifacts=["codex_task_draft.md"],
         prompt_markdown="Draft a proposal-only validator improvement for human review.",
     )
     return [defect, correction, pressure, candidate, hypothesis, plan, result, proposal, recommendation, draft]
@@ -189,9 +192,12 @@ def test_codex_task_draft_rejects_forbidden_execution_language():
         CodexTaskDraft(
             recommendation_id="recommendation_001",
             codex_level="High",
+            route="Draft a bounded local validator task.",
+            mode="Local artifact drafting only.",
             allowed_paths=["src/**"],
             forbidden_paths=["../LawFirm-os-semantic-substrate/**"],
             validation_commands=["python -m pytest"],
             stop_conditions=["Stop if real data is required."],
+            expected_artifacts=["codex_task_draft.md"],
             prompt_markdown="Implement and git push the change.",
         )

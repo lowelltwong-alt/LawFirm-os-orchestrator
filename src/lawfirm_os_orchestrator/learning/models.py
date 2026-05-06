@@ -187,10 +187,13 @@ class CodexTaskDraft(LearningModel):
     codex_task_draft_id: str = Field(default_factory=lambda: new_id("codex_task_draft"), min_length=1)
     recommendation_id: str = Field(min_length=1)
     codex_level: Literal["Low", "Medium", "High", "Extra High"]
+    route: str = Field(min_length=1)
+    mode: str = Field(min_length=1)
     allowed_paths: list[str] = Field(min_length=1)
     forbidden_paths: list[str] = Field(min_length=1)
     validation_commands: list[str] = Field(min_length=1)
     stop_conditions: list[str] = Field(min_length=1)
+    expected_artifacts: list[str] = Field(min_length=1)
     prompt_markdown: str = Field(min_length=1)
     created_at: str = Field(default_factory=utc_now)
 
@@ -210,10 +213,13 @@ class CodexTaskDraft(LearningModel):
         haystack = " ".join(
             [
                 self.prompt_markdown,
+                self.route,
+                self.mode,
                 " ".join(self.allowed_paths),
                 " ".join(self.forbidden_paths),
                 " ".join(self.validation_commands),
                 " ".join(self.stop_conditions),
+                " ".join(self.expected_artifacts),
             ]
         ).lower()
         matches = [phrase for phrase in forbidden_phrases if phrase in haystack]
