@@ -35,6 +35,16 @@ class TargetSurface(StrEnum):
     CODEX_TASK_DRAFTS = "codex_task_drafts"
 
 
+class MethodCategory(StrEnum):
+    EVALUATOR_GUIDED_SEARCH = "evaluator_guided_search"
+    VERIFIER_GUIDED_VALIDATION = "verifier_guided_validation"
+    RETRIEVAL_RANKING = "retrieval_ranking"
+    CONFIDENCE_CALIBRATION = "confidence_calibration"
+    MODEL_ROUTING = "model_routing"
+    OBSERVABILITY = "observability"
+    OTHER = "other"
+
+
 class DefectCategory(StrEnum):
     SEMANTIC = "semantic"
     STRUCTURAL = "structural"
@@ -156,6 +166,23 @@ class ActionRecommendation(LearningModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+class AlgorithmInsight(LearningModel):
+    algorithm_insight_id: str = Field(default_factory=lambda: new_id("algorithm_insight"), min_length=1)
+    source_ref: str = Field(min_length=1)
+    claim: str = Field(min_length=1)
+    method_category: MethodCategory
+    target_surface: TargetSurface
+    affected_metric: str = Field(min_length=1)
+    credibility: float = Field(ge=0.0, le=1.0)
+    relevance: float = Field(ge=0.0, le=1.0)
+    expected_lift: float = Field(ge=0.0, le=1.0)
+    verifiability: float = Field(ge=0.0, le=1.0)
+    risk: float = Field(gt=0.0, le=1.0)
+    implementation_cost: float = Field(gt=0.0, le=1.0)
+    experiment_plan_ref: str | None = None
+    created_at: str = Field(default_factory=utc_now)
+
+
 class CodexTaskDraft(LearningModel):
     codex_task_draft_id: str = Field(default_factory=lambda: new_id("codex_task_draft"), min_length=1)
     recommendation_id: str = Field(min_length=1)
@@ -205,6 +232,7 @@ LEARNING_MODEL_TYPES: tuple[type[LearningModel], ...] = (
     ShadowEvalResult,
     UpgradeProposal,
     ActionRecommendation,
+    AlgorithmInsight,
     CodexTaskDraft,
 )
 

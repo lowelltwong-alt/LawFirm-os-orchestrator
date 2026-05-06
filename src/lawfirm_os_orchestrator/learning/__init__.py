@@ -2,6 +2,7 @@
 
 from lawfirm_os_orchestrator.learning.models import (
     ActionRecommendation,
+    AlgorithmInsight,
     CodexTaskDraft,
     DefectTag,
     ExperimentPlan,
@@ -16,6 +17,7 @@ from lawfirm_os_orchestrator.learning.models import (
 
 __all__ = [
     "ActionRecommendation",
+    "AlgorithmInsight",
     "CodexTaskDraft",
     "DefectTag",
     "ExperimentPlan",

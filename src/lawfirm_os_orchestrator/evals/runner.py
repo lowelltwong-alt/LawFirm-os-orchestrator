@@ -7,6 +7,7 @@ from typing import Any
 from lawfirm_os_orchestrator.commands.classify_exception import run as run_classify_exception
 from lawfirm_os_orchestrator.evals.graders import grade_case, load_gold_labels, read_json_line, summarize_grades
 from lawfirm_os_orchestrator.substrate.reader import PathSubstrateClient
+from lawfirm_os_orchestrator.util.ids import new_id
 from lawfirm_os_orchestrator.util.json_io import write_json
 
 
@@ -36,13 +37,14 @@ def run_eval_suite(
     snapshot = PathSubstrateClient(substrate_root).load_snapshot()
     allowed_route_ids = set(snapshot.allowed_route_ids)
     allowed_event_classes = set(snapshot.allowed_event_classes)
+    suite_artifact_root = artifact_root / new_id("eval_run")
 
     grades: list[dict[str, Any]] = []
     for case in cases:
         case_id = str(case["case_id"])
         if case_id not in labels:
             raise ValueError(f"Missing gold label for case_id: {case_id}")
-        case_root = artifact_root / case_id
+        case_root = suite_artifact_root / case_id
         input_path = case_root / "input.json"
         write_json(input_path, case["input"])
         args = SimpleNamespace(

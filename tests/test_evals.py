@@ -31,6 +31,19 @@ def test_eval_suite_computes_required_metrics(tmp_path):
     assert metrics["average_model_calls_per_run"] == 1.0
 
 
+def test_eval_suite_model_call_metric_is_stable_across_repeated_runs(tmp_path):
+    kwargs = {
+        "fixture_path": ROOT / "evals" / "fixtures" / "classify_exception_cases.jsonl",
+        "gold_path": ROOT / "evals" / "gold" / "classify_exception_gold.jsonl",
+        "substrate_root": ROOT / "tests" / "fixtures" / "substrate",
+        "artifact_root": tmp_path / "artifacts",
+    }
+    first = run_eval_suite(**kwargs)
+    second = run_eval_suite(**kwargs)
+    assert first["metrics"]["average_model_calls_per_run"] == 1.0
+    assert second["metrics"]["average_model_calls_per_run"] == 1.0
+
+
 def test_unknown_predicted_route_fails_closed_in_grader(tmp_path):
     summary = {
         "status": "ok",

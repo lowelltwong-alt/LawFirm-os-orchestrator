@@ -5,6 +5,7 @@ from pydantic import ValidationError
 
 from lawfirm_os_orchestrator.learning.models import (
     ActionRecommendation,
+    AlgorithmInsight,
     CodexTaskDraft,
     DefectCategory,
     DefectTag,
@@ -177,6 +178,7 @@ def test_all_learning_models_use_strict_boundary_base():
         "ShadowEvalResult",
         "UpgradeProposal",
         "ActionRecommendation",
+        "AlgorithmInsight",
         "CodexTaskDraft",
     }
     assert {model_type.__name__ for model_type in LEARNING_MODEL_TYPES} == expected
