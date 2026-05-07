@@ -6,11 +6,17 @@
       "allowed_source_layers": [
         "retrieval"
       ],
+      "destination_loop": "retrieval_tuning",
       "promotion_gate_required": true,
       "allowed_raw_actions": [
         "route_for_review",
         "aggregate_pressure",
         "attach_evidence_only"
+      ],
+      "allowed_follow_on_families": [
+        "pressure-vector",
+        "adaptation-proposal",
+        "opportunity-object"
       ],
       "prohibited_direct_actions": [
         "canonical_ontology_write",
@@ -26,11 +32,17 @@
       "allowed_source_layers": [
         "workflow"
       ],
+      "destination_loop": "workflow_redesign",
       "promotion_gate_required": true,
       "allowed_raw_actions": [
         "route_for_review",
         "aggregate_pressure",
         "attach_evidence_only"
+      ],
+      "allowed_follow_on_families": [
+        "pressure-vector",
+        "adaptation-proposal",
+        "opportunity-object"
       ],
       "prohibited_direct_actions": [
         "canonical_ontology_write",
@@ -46,11 +58,17 @@
       "allowed_source_layers": [
         "governance"
       ],
+      "destination_loop": "governance_review",
       "promotion_gate_required": true,
       "allowed_raw_actions": [
         "route_for_review",
         "aggregate_pressure",
         "attach_evidence_only"
+      ],
+      "allowed_follow_on_families": [
+        "pressure-vector",
+        "adaptation-proposal",
+        "opportunity-object"
       ],
       "prohibited_direct_actions": [
         "canonical_ontology_write",

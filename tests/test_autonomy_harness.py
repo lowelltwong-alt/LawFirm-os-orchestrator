@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from lawfirm_os_orchestrator.autonomy.autonomy_gate import ActionDescriptor, ActionType, DataScope, RiskColor, classify_autonomy
+from lawfirm_os_orchestrator.autonomy.autonomy_gate import ActionDescriptor, RiskColor, classify_autonomy
 from lawfirm_os_orchestrator.harness.hardness_scorer import score_hardness
 from lawfirm_os_orchestrator.harness.harness_selector import select_harness
 from lawfirm_os_orchestrator.harness.leverage_scorer import OpportunityScorecard, score_leverage

@@ -10,6 +10,29 @@ from lawfirm_os_orchestrator.util.json_io import write_json
 from lawfirm_os_orchestrator.util.time import utc_now
 
 
+def packet_content_hash(packet: dict[str, Any]) -> str:
+    canonical_packet = dict(packet)
+    canonical_packet.pop("packet_hash", None)
+    return sha256_json(canonical_packet)
+
+
+def write_packet_and_manifest(packet_dir: Path, packet: dict[str, Any]) -> dict[str, Any]:
+    packet["packet_hash"] = packet_content_hash(packet)
+    write_json(packet_dir / "packet.json", packet)
+    manifest = {
+        "schema_version": "1.0",
+        "evidence_id": packet["evidence_id"],
+        "packet_hash": packet["packet_hash"],
+        "files": {},
+        "created_at": utc_now(),
+    }
+    for child in sorted(packet_dir.iterdir()):
+        if child.is_file() and child.name != "manifest.json":
+            manifest["files"][child.name] = sha256_file(child)
+    write_json(packet_dir / "manifest.json", manifest)
+    return manifest
+
+
 def build_packet(
     packet_dir: Path,
     event: SyntheticExceptionInput,
@@ -56,18 +79,5 @@ def build_packet(
         "human_review_required": True,
         "created_at": utc_now(),
     }
-    packet["packet_hash"] = sha256_json(packet)
-    write_json(packet_dir / "packet.json", packet)
-
-    manifest = {
-        "schema_version": "1.0",
-        "evidence_id": ids["evidence_id"],
-        "packet_hash": packet["packet_hash"],
-        "files": {},
-        "created_at": utc_now(),
-    }
-    for child in sorted(packet_dir.iterdir()):
-        if child.is_file() and child.name != "manifest.json":
-            manifest["files"][child.name] = sha256_file(child)
-    write_json(packet_dir / "manifest.json", manifest)
+    write_packet_and_manifest(packet_dir, packet)
     return packet

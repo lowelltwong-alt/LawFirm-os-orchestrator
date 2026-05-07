@@ -1,5 +1,14 @@
 # Recent Work
 
+## 2026-05-07 - Substrate Contract Lock Sync
+
+- Refreshed `contracts.lock.json` to pin the currently released Semantic Substrate commit `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12`.
+- Updated the contract-lock regression expectation and AI table of contents so runtime checks, documentation, and the attached substrate export agree.
+- Aligned the read-only route model with substrate-owned route metadata fields (`destination_loop`, `allowed_follow_on_families`) exposed by the released substrate checkout.
+- Removed local defaults from `SubstrateManifest` required fields so direct model construction cannot silently supply manifest authority values.
+- Contract surfaces between the older `d2ac7f504e67aa00985fbe53aa5350f940e8b529` pin and `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12` were checked across manifest, registry, schema, governance, and front-door paths; no contract-surface content drift was found.
+- No schemas, route IDs, event classes, runtime authority, Research Radar automation, model calls, external APIs, external writes, Substrate writes, or Exception Lake writes were added.
+
 ## PR04 - Inert Codex task packet builder
 
 - Added local Codex task packet generation from opportunity, scorecard, autonomy, and harness inputs.

@@ -13,7 +13,7 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 
 ## Contract Authority
 
-- `contracts.lock.json` - pins the substrate checkout at `LawFirm-os-semantic-substrate` commit `d2ac7f504e67aa00985fbe53aa5350f940e8b529`.
+- `contracts.lock.json` - pins the substrate checkout at `LawFirm-os-semantic-substrate` commit `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12`.
 - Substrate `manifests/contract_manifest.v1.json` - canonical orchestrator-facing manifest. Loading is manifest-first.
 - Substrate `registry/exception-route-registry.json` - canonical `route_id` and `event_class` authority.
 - `docs/CANONICAL_ROUTE_MAPPING.md` - maps local orchestrator labels to substrate authority and marks unmapped labels as non-canonical.

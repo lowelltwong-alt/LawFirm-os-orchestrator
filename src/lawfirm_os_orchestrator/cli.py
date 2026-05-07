@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 
 from lawfirm_os_orchestrator.commands.autonomy_harness import (
     run_generate_codex_task,

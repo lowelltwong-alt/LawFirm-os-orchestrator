@@ -38,18 +38,20 @@ class SyntheticExceptionInput(StrictModel):
 class CanonicalRoute(StrictModel):
     route_id: str
     event_class: str
-    allowed_source_layers: list[str] = []
+    allowed_source_layers: list[str] = Field(default_factory=list)
+    destination_loop: str | None = None
     promotion_gate_required: bool = True
-    allowed_raw_actions: list[str] = []
-    prohibited_direct_actions: list[str] = []
+    allowed_raw_actions: list[str] = Field(default_factory=list)
+    allowed_follow_on_families: list[str] = Field(default_factory=list)
+    prohibited_direct_actions: list[str] = Field(default_factory=list)
 
 
 class SubstrateManifest(StrictModel):
     manifest_id: str
-    manifest_version: str = "1.0"
-    policy_bundle_id: str = "runtime-policy-v1"
-    canonical_schema_keys: list[str] = []
-    registry_refs: list[str] = []
+    manifest_version: str
+    policy_bundle_id: str
+    canonical_schema_keys: list[str]
+    registry_refs: list[str]
 
 
 class ClassificationResult(StrictModel):
