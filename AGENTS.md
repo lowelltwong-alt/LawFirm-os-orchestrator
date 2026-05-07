@@ -16,6 +16,36 @@ The substrate is consumed read-only via the canonical orchestrator manifest at `
 
 Before V1 buildout work, read `docs/seed/00_CODEX_READ_FIRST.md` and `docs/CANONICAL_ROUTE_MAPPING.md`.
 
+## PR02 autonomy and harness doctrine
+
+This repo now includes local execution-plane autonomy and harness helpers. They are not canonical substrate authority.
+
+- Risk color controls authority.
+- Hardness controls harness depth only.
+- Leverage controls priority only.
+- Stakes sensitivity remains a PR07 roadmap item.
+- Green is limited to synthetic or metadata-only, local, reversible, preapproved-lane work.
+- Yellow may draft bounded local evidence or green-candidate recommendations, but cannot restore green.
+- Red stops execution authority and may only produce risk memos or human decision packets.
+
+## PR03 green-lane assumption watcher
+
+Green lanes are conditional and assumption-backed. The local watcher may map local signals to lane assumptions and recommend:
+
+- unchanged green when no assumption is affected;
+- yellow when assumptions become uncertain, weakened, stale, or review-worthy;
+- red when a hard red trigger appears.
+
+Agents may downgrade green or recommend green-candidate. Humans restore or create green authority.
+
+## PR04 inert Codex task packets
+
+Codex task packets are build instructions only. They may summarize objective, allowed paths, forbidden actions, tests, rollback rules, and review requirements.
+
+They must not execute Codex, Git, patches, tests, tools, models, network calls, external APIs, Semantic Substrate writes, Exception Lake writes, production releases, or green restoration.
+
+PR05, PR06, and PR07 remain future phases.
+
 ## Stop immediately if a task asks for
 
 - real client or matter data;
@@ -23,4 +53,7 @@ Before V1 buildout work, read `docs/seed/00_CODEX_READ_FIRST.md` and `docs/CANON
 - route/event-class authoring in this repo;
 - production connector writes;
 - hidden autonomous writes;
+- live Research Radar automation, live model calls, scheduled jobs, or external APIs;
+- automatic green restoration;
+- treating a Codex task packet as executable authority;
 - evidence packet build without manifest hash, source refs, validations, trace IDs, and packet hash.

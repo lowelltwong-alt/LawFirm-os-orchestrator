@@ -17,6 +17,35 @@ synthetic input
 -> Exception Lake disabled or dry-run by default
 ```
 
+PR02 adds deterministic local autonomy classification and harness selection:
+
+```text
+local action descriptor
+-> autonomy gate
+-> red/yellow/green decision
+-> hardness score
+-> leverage scorecard
+-> harness selector
+-> local harness plan artifact
+```
+
+This is execution-plane support only. Risk color controls authority, hardness controls harness depth, and leverage controls priority. Stakes-sensitive escalation is roadmapped for PR07.
+
+PR03 adds deterministic green-lane assumption watching:
+
+```text
+green-lane passport
++ local assumption records
++ local signal records
+-> assumption mapper
+-> red/yellow trigger detector
+-> local reclassification recommendation
+```
+
+Green lanes are conditional. Signals may downgrade green to yellow or red, but agents may not restore green authority.
+
+PR04 adds inert Codex task packet generation. Packets compress iteration context into local build instructions, but they do not execute Codex, Git, patches, tests, tools, models, network calls, Substrate writes, or Exception Lake writes.
+
 ## Quickstart
 
 ```bash
@@ -41,6 +70,7 @@ python -m lawfirm_os_orchestrator classify-exception \
 - no scheduled jobs;
 - no live Research Radar collection, external APIs, or autonomous research execution;
 - contract-lock validation is fail-closed on SHA drift or missing required manifest fields, including `policy_bundle_id`.
+- autonomy and harness outputs are local orchestrator records only, not canonical substrate schemas.
 
 ## Substrate consumption
 
@@ -62,3 +92,46 @@ The substrate is pinned in `contracts.lock.json`. Lock fields:
 ## First throughput metric
 
 Accepted, contract-locked proposed exception packets per reviewer hour.
+
+## PR02 local autonomy and harness commands
+
+```bash
+python -m lawfirm_os_orchestrator classify-autonomy \
+  --action path/to/action.json \
+  --out .lawfirm-os-orchestrator/autonomy/latest.json \
+  --stdout json
+
+python -m lawfirm_os_orchestrator select-harness \
+  --autonomy .lawfirm-os-orchestrator/autonomy/latest.json \
+  --scorecard path/to/scorecard.json \
+  --out .lawfirm-os-orchestrator/harness/latest.json \
+  --stdout json
+```
+
+These commands do not run Git, patch files, call models, call networks, write to the Semantic Substrate, or write to the Exception Lake.
+
+## PR03 local green-lane watcher command
+
+```bash
+python -m lawfirm_os_orchestrator watch-green-lanes \
+  --signals path/to/signals.json \
+  --lanes path/to/green_lanes.json \
+  --out .lawfirm-os-orchestrator/autonomy/watch.json \
+  --stdout json
+```
+
+This command reads local files, writes a local JSON artifact, and can only recommend unchanged, yellow, or red lane status. Human approval is required to restore green.
+
+## PR04 inert Codex task packet command
+
+```bash
+python -m lawfirm_os_orchestrator generate-codex-task \
+  --opportunity path/to/opportunity.json \
+  --scorecard path/to/scorecard.json \
+  --autonomy path/to/autonomy.json \
+  --harness path/to/harness.json \
+  --out .lawfirm-os-orchestrator/harness/codex_task_packet.json \
+  --stdout json
+```
+
+The packet is a local artifact for human review. Risk color controls authority; hardness and leverage can change review detail, never authority.

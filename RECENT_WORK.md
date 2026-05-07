@@ -1,5 +1,30 @@
 # Recent Work
 
+## PR04 - Inert Codex task packet builder
+
+- Added local Codex task packet generation from opportunity, scorecard, autonomy, and harness inputs.
+- Added inert agent review plan construction for review-scope records only.
+- Added CLI command `generate-codex-task`.
+- Preserved authority boundaries: packets are build instructions only and do not execute Codex, Git, patches, tests, models, tools, network, Substrate writes, or Lake writes.
+- Left PR05, PR06, and PR07 as future phases.
+
+## PR03 - Orchestrator green-lane assumption watcher
+
+- Added local green-lane passport and assumption-signal mapping support.
+- Added deterministic red/yellow trigger detection and downgrade-only reclassification output.
+- Added CLI command `watch-green-lanes`.
+- Preserved green authority boundary: agents may downgrade or recommend green-candidate, but humans restore green.
+- Preserved local-only operation: no live Research Radar automation, model calls, scheduled jobs, external APIs, external writes, Git execution, Semantic Substrate writes, or Exception Lake writes.
+
+## PR02 - Orchestrator autonomy gate and harness selector
+
+- Added local deterministic autonomy classification for red/yellow/green execution-plane decisions.
+- Added local hardness scoring, leverage scoring, and harness plan selection.
+- Added CLI commands `classify-autonomy` and `select-harness`.
+- Updated safety scanning so new local-only modules cannot import process or network modules.
+- Preserved substrate authority: no canonical route IDs, event classes, schemas, governance doctrine, or promotion authority are defined here.
+- Preserved runtime boundaries: no live Research Radar automation, model calls, scheduled jobs, external APIs, external writes, Semantic Substrate writes, or Exception Lake writes.
+
 ## 2026-05-06 - Phase 2 Front-Door Documentation Completion
 
 Codex task / PR: Final verification gap cleanup for root AI front-door docs.

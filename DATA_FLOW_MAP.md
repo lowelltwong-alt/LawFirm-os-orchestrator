@@ -33,10 +33,21 @@ flowchart LR
     HUM["Human Governance\nreview + promotion outside runtime"]
     RR["Research Radar local import\nmetadata-only, non-authoritative"]
     LEARN["Learning artifacts\nshadow evals + proposals + task drafts"]
+    AUTO["PR02 autonomy gate\nrisk color controls authority"]
+    HAR["PR02 harness selector\nhardness controls depth\nleverage controls priority"]
+    WATCH["PR03 green-lane watcher\nassumption drift downgrade only"]
+    TASK["PR04 Codex task packet builder\ninert build instructions only"]
 
     SS -->|"read-only manifest-first contracts"| OR
     OR -->|"validated synthetic run records"| LED
     OR -->|"contract-locked evidence packet"| PKT
+    OR -->|"local action descriptor"| AUTO
+    AUTO -->|"local autonomy decision + hardness score"| HAR
+    HAR -->|"local harness plan artifact"| LEARN
+    OR -->|"local green-lane passports + local signals"| WATCH
+    WATCH -->|"yellow/red recommendation only"| LEARN
+    HAR -->|"autonomy + harness + scorecard"| TASK
+    TASK -->|"local inert task packet"| LEARN
     PKT -->|"disabled by default / dry-run only when explicit"| EL
     RR -->|"local JSON/Markdown signals only"| LEARN
     LEARN -->|"proposal-only artifacts"| HUM
@@ -74,6 +85,10 @@ sequenceDiagram
 ## Current Commands
 
 - `classify-exception`
+- `classify-autonomy`
+- `select-harness`
+- `watch-green-lanes`
+- `generate-codex-task`
 - `research-radar import-local`
 - `research-radar list-signals`
 - `learning run-shadow-eval`
@@ -96,11 +111,17 @@ Implemented locally:
 - action recommendations and inert Codex task drafts
 - learning-loop CLI surfaces
 - safety regression suite
+- PR02 autonomy gate and harness selector
+- PR03 green-lane assumption watcher
+- PR04 inert Codex task packet builder
 
 Still non-authoritative and local-only:
 
 - Research Radar source metadata in `config/research_sources.yaml`
 - learning proposals, recommendations, and task drafts
+- autonomy decisions, hardness scores, leverage scores, and harness plans
+- green-lane watch recommendations and reclassification evidence
+- Codex task packets and inert agent review plans
 - all Phase 2 upgrade and decision-support artifacts
 
 ## Hard Prohibitions
