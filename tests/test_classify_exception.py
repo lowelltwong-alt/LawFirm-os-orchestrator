@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
 from lawfirm_os_orchestrator.commands.classify_exception import run
+from lawfirm_os_orchestrator.evidence.packet import packet_content_hash
 from lawfirm_os_orchestrator.substrate.reader import PathSubstrateClient
+from lawfirm_os_orchestrator.util.hashing import sha256_file
+from lawfirm_os_orchestrator.util.json_io import read_json
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -50,7 +54,51 @@ def test_dry_run_lake_writes_receipt(tmp_path):
     assert (packet_dir / "ingest_receipt.json").exists()
 
 
+def test_final_packet_hash_and_manifest_are_fresh_after_lake_handoff(tmp_path):
+    code, summary = run(args(tmp_path, lake_mode="dry-run"))
+    assert code == 0
+    packet_dir = Path(summary["evidence_packet_path"])
+    packet_path = packet_dir / "packet.json"
+    manifest_path = packet_dir / "manifest.json"
+    packet = read_json(packet_path)
+    manifest = read_json(manifest_path)
+
+    assert "lake_handoff" in packet
+    assert packet["packet_hash"] == packet_content_hash(packet)
+    assert manifest["packet_hash"] == packet["packet_hash"]
+    assert manifest["files"]["packet.json"] == sha256_file(packet_path)
+    assert "stdout_summary.json" in manifest["files"]
+    assert manifest["files"]["stdout_summary.json"] == sha256_file(packet_dir / "stdout_summary.json")
+
+
 def test_substrate_client_has_no_write_methods():
     client = PathSubstrateClient(ROOT / "tests" / "fixtures" / "substrate")
     forbidden = [name for name in dir(client) if name.startswith(("write", "update", "delete", "mutate"))]
     assert forbidden == []
+
+
+def test_fixture_substrate_is_allowed_but_still_records_contract_lock():
+    snapshot = PathSubstrateClient(ROOT / "tests" / "fixtures" / "substrate").load_snapshot()
+
+    assert snapshot.contract_lock.contract_repo == "LawFirm-os-semantic-substrate"
+    assert snapshot.contract_lock.contract_sha == "d2ac7f504e67aa00985fbe53aa5350f940e8b529"
+
+
+def test_non_fixture_substrate_without_git_checkout_fails_closed(tmp_path):
+    substrate = tmp_path / "LawFirm-os-semantic-substrate"
+    shutil.copytree(ROOT / "tests" / "fixtures" / "substrate", substrate)
+
+    with pytest.raises(ValueError, match="not a readable git checkout"):
+        PathSubstrateClient(substrate).load_snapshot()
+
+
+def test_wrong_substrate_git_sha_fails_closed(tmp_path):
+    substrate = tmp_path / "LawFirm-os-semantic-substrate"
+    shutil.copytree(ROOT / "tests" / "fixtures" / "substrate", substrate)
+    git_dir = substrate / ".git"
+    (git_dir / "refs" / "heads").mkdir(parents=True)
+    (git_dir / "HEAD").write_text("ref: refs/heads/main\n", encoding="utf-8")
+    (git_dir / "refs" / "heads" / "main").write_text("0" * 40 + "\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="does not match contracts.lock.json SHA"):
+        PathSubstrateClient(substrate).load_snapshot()

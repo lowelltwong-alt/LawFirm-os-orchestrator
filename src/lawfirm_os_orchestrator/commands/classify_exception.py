@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from lawfirm_os_orchestrator.domain.models import SyntheticExceptionInput
-from lawfirm_os_orchestrator.evidence.packet import build_packet
+from lawfirm_os_orchestrator.evidence.packet import build_packet, write_packet_and_manifest
 from lawfirm_os_orchestrator.lake.clients import build_lake_client
 from lawfirm_os_orchestrator.ledger.writer import JsonlLedgerWriter
 from lawfirm_os_orchestrator.model_router.mock import MockClassificationAdapter
@@ -104,7 +104,6 @@ def run(args) -> tuple[int, dict[str, Any]]:
         lake_client = build_lake_client(args.lake_mode)
         receipt = lake_client.handoff(packet, packet_dir)
         packet["lake_handoff"] = receipt.model_dump()
-        write_json(packet_dir / "packet.json", packet)
         summary = {
             "run_id": ids["run_id"],
             "status": "ok" if receipt.status != "rejected" else "lake_rejected",
@@ -119,6 +118,7 @@ def run(args) -> tuple[int, dict[str, Any]]:
             "lake": receipt.model_dump(),
         }
         write_json(packet_dir / "stdout_summary.json", summary)
+        write_packet_and_manifest(packet_dir, packet)
         ledger.append(_ledger_record(ids, snapshot, 4, "evidence_packet_build", "success", evidence_id=ids["evidence_id"]))
         ledger.append(_ledger_record(ids, snapshot, 5, "run_completed", "success", evidence_id=ids["evidence_id"], lake_mode=args.lake_mode, handoff_attempted=receipt.attempted))
         if receipt.status == "rejected" and args.lake_mode == "runtime-safe":

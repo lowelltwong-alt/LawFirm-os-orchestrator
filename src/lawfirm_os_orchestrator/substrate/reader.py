@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from lawfirm_os_orchestrator.domain.models import CanonicalRoute, SubstrateManifest
+from lawfirm_os_orchestrator.substrate.contract_lock import DEFAULT_CONTRACT_LOCK_PATH, ContractLock, validate_contract_checkout
 from lawfirm_os_orchestrator.util.hashing import sha256_file
 from lawfirm_os_orchestrator.util.json_io import read_json
 
@@ -27,6 +28,7 @@ class SubstrateSnapshot:
     manifest_hash: str
     routes: list[CanonicalRoute]
     route_registry_hash: str
+    contract_lock: ContractLock
 
     @property
     def allowed_route_ids(self) -> list[str]:
@@ -52,10 +54,17 @@ class PathSubstrateClient:
     substrate's governance/ORCHESTRATOR_BOUNDARY.md for the field contract.
     """
 
-    def __init__(self, root: Path):
+    def __init__(self, root: Path, *, lock_path: Path = DEFAULT_CONTRACT_LOCK_PATH, allow_test_fixture: bool = True):
         self.root = root.resolve()
+        self.lock_path = lock_path
+        self.allow_test_fixture = allow_test_fixture
 
     def load_snapshot(self) -> SubstrateSnapshot:
+        contract_lock = validate_contract_checkout(
+            substrate_root=self.root,
+            lock_path=self.lock_path,
+            allow_test_fixture=self.allow_test_fixture,
+        )
         manifest_path = self.root / CANONICAL_MANIFEST_RELATIVE_PATH
         route_path = self.root / ROUTE_REGISTRY_RELATIVE_PATH
         if not manifest_path.exists():
@@ -92,4 +101,5 @@ class PathSubstrateClient:
             manifest_hash=sha256_file(manifest_path),
             routes=routes,
             route_registry_hash=sha256_file(route_path),
+            contract_lock=contract_lock,
         )

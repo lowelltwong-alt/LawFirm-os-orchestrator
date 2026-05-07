@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from lawfirm_os_orchestrator.discovery.models import DiscoveryClaim, DiscoveryRelevance, DiscoverySignal
+from lawfirm_os_orchestrator.discovery.models import DiscoverySignal
 from lawfirm_os_orchestrator.evals.graders import read_json_line
 from lawfirm_os_orchestrator.util.hashing import sha256_file
 from lawfirm_os_orchestrator.util.json_io import read_json
