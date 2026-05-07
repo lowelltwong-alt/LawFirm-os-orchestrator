@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -16,9 +17,12 @@ class ContractLock:
     contract_repo: str
     contract_ref_type: str
     contract_sha: str
+    archive_tree_sha256: str | None
     preferred_manifest_path: str
     fallback_allowed_when_manifest_absent: bool
     policy_bundle_id_required: bool
+    validated_ref_type: str | None = None
+    validated_ref: str | None = None
 
 
 def load_contract_lock(path: Path = DEFAULT_CONTRACT_LOCK_PATH) -> ContractLock:
@@ -28,22 +32,48 @@ def load_contract_lock(path: Path = DEFAULT_CONTRACT_LOCK_PATH) -> ContractLock:
         contract_repo=str(raw.get("contract_repo", "")),
         contract_ref_type=str(raw.get("contract_ref_type", "")),
         contract_sha=str(raw.get("contract_sha", "")),
+        archive_tree_sha256=raw.get("archive_tree_sha256"),
         preferred_manifest_path=str(manifest_loading.get("preferred_path", "")),
         fallback_allowed_when_manifest_absent=bool(manifest_loading.get("fallback_allowed_when_manifest_absent", True)),
         policy_bundle_id_required=bool(manifest_loading.get("policy_bundle_id_required", False)),
     )
-    missing = [field for field, value in lock.__dict__.items() if value in ("", None)]
+    missing = [
+        field
+        for field in (
+            "contract_repo",
+            "contract_ref_type",
+            "contract_sha",
+            "preferred_manifest_path",
+        )
+        if getattr(lock, field) in ("", None)
+    ]
     if missing:
         raise ValueError(f"contracts.lock.json is missing required fields: {missing}")
     if lock.contract_ref_type != "git_sha":
         raise ValueError(f"unsupported contract_ref_type: {lock.contract_ref_type}")
     if len(lock.contract_sha) != 40:
         raise ValueError("contracts.lock.json contract_sha must be a full 40-character git SHA")
+    if lock.archive_tree_sha256 is not None and len(lock.archive_tree_sha256) != 64:
+        raise ValueError("contracts.lock.json archive_tree_sha256 must be a 64-character SHA-256 hex digest")
     if lock.fallback_allowed_when_manifest_absent:
         raise ValueError("contracts.lock.json must fail closed when the manifest is absent")
     if not lock.policy_bundle_id_required:
         raise ValueError("contracts.lock.json must require policy_bundle_id")
     return lock
+
+
+def contract_lock_record(lock: ContractLock) -> dict[str, Any]:
+    return {
+        "contract_repo": lock.contract_repo,
+        "contract_ref_type": lock.contract_ref_type,
+        "contract_sha": lock.contract_sha,
+        "archive_tree_sha256": lock.archive_tree_sha256,
+        "validated_ref_type": lock.validated_ref_type,
+        "validated_ref": lock.validated_ref,
+        "preferred_manifest_path": lock.preferred_manifest_path,
+        "fallback_allowed_when_manifest_absent": lock.fallback_allowed_when_manifest_absent,
+        "policy_bundle_id_required": lock.policy_bundle_id_required,
+    }
 
 
 def _git_dir(root: Path) -> Path | None:
@@ -93,6 +123,27 @@ def resolve_git_head(root: Path) -> str | None:
     return _read_packed_ref(git_dir, ref)
 
 
+def archive_tree_sha256(root: Path) -> str:
+    """Hash an extracted substrate tree without trusting git metadata.
+
+    This is an explicit archive mode, not a git SHA substitute. The digest
+    binds relative paths and file bytes for a local extracted contract tree.
+    """
+
+    digest = hashlib.sha256()
+    for path in sorted(root.rglob("*")):
+        if not path.is_file():
+            continue
+        relative = path.relative_to(root)
+        if any(part in {".git", "__pycache__", ".pytest_cache", ".ruff_cache"} for part in relative.parts):
+            continue
+        digest.update(relative.as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def validate_contract_checkout(
     *,
     substrate_root: Path,
@@ -106,8 +157,28 @@ def validate_contract_checkout(
     if root.name != lock.contract_repo:
         raise ValueError(f"substrate path {root} does not match locked contract repo {lock.contract_repo}")
     head = resolve_git_head(root)
-    if head is None:
-        raise ValueError(f"substrate path {root} is not a readable git checkout for locked contracts")
-    if head != lock.contract_sha:
-        raise ValueError(f"substrate git SHA {head} does not match contracts.lock.json SHA {lock.contract_sha}")
-    return lock
+    if head is not None:
+        if head != lock.contract_sha:
+            raise ValueError(f"substrate git SHA {head} does not match contracts.lock.json SHA {lock.contract_sha}")
+        return ContractLock(
+            **{**lock.__dict__, "validated_ref_type": "git_sha", "validated_ref": head}
+        )
+    if lock.archive_tree_sha256 is None:
+        raise ValueError(
+            f"substrate path {root} is not a readable git checkout and contracts.lock.json "
+            "does not include explicit archive_tree_sha256"
+        )
+    observed_tree_hash = archive_tree_sha256(root)
+    if observed_tree_hash != lock.archive_tree_sha256:
+        raise ValueError(
+            "substrate archive tree hash "
+            f"{observed_tree_hash} does not match contracts.lock.json archive_tree_sha256 "
+            f"{lock.archive_tree_sha256}"
+        )
+    return ContractLock(
+        **{
+            **lock.__dict__,
+            "validated_ref_type": "archive_tree_sha256",
+            "validated_ref": observed_tree_hash,
+        }
+    )

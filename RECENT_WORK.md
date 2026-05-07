@@ -1,5 +1,14 @@
 # Recent Work
 
+## 2026-05-07 - Kernel A+ Runtime-Safe Handoff Patch
+
+- Added explicit archive-tree contract validation mode alongside the existing git SHA lock. Git checkouts still validate against `contract_sha`; extracted archives validate only against the separate `archive_tree_sha256` lock field.
+- Recorded contract validation results in ledger records, `substrate_snapshot.json`, and `packet.json`.
+- Added `lake/envelope.py` to map orchestrator classifications into Exception Lake `exception-event` payloads using route-owned fields from the Substrate route registry.
+- Wired `runtime-safe` Lake mode to the Exception Lake API behind dual opt-in: `--lake-mode runtime-safe` plus `LAWFIRM_OS_ORCHESTRATOR_ALLOW_RUNTIME_SAFE=true`.
+- Added cross-repo smoke coverage for live sibling Substrate loading and final evidence packet manifest/hash integrity.
+- Preserved default Lake mode as disabled, synthetic-only input policy, no Substrate writes, no route/event invention, and fail-closed contract behavior.
+
 ## 2026-05-07 - Substrate Contract Lock Sync
 
 - Refreshed `contracts.lock.json` to pin the currently released Semantic Substrate commit `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12`.

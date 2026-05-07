@@ -33,6 +33,8 @@ def _ledger_record(ids: dict[str, str], snapshot: Any, step_index: int, step_typ
         "manifest_id": snapshot.manifest.manifest_id,
         "manifest_hash": snapshot.manifest_hash,
         "policy_bundle_id": snapshot.manifest.policy_bundle_id,
+        "contract_ref_type": snapshot.contract_lock.validated_ref_type,
+        "contract_ref": snapshot.contract_lock.validated_ref,
         "environment": "local",
         "command_name": "classify-exception",
         "step_index": step_index,
@@ -102,7 +104,13 @@ def run(args) -> tuple[int, dict[str, Any]]:
     try:
         packet = build_packet(packet_dir, event, snapshot, classification, validations, ids, policy_gate, model_request, model_response)
         lake_client = build_lake_client(args.lake_mode)
-        receipt = lake_client.handoff(packet, packet_dir)
+        receipt = lake_client.handoff(
+            packet,
+            packet_dir,
+            event=event,
+            snapshot=snapshot,
+            classification=classification,
+        )
         packet["lake_handoff"] = receipt.model_dump()
         summary = {
             "run_id": ids["run_id"],
