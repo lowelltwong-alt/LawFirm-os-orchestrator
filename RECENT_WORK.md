@@ -1,5 +1,13 @@
 # Recent Work
 
+## PR03 - Orchestrator green-lane assumption watcher
+
+- Added local green-lane passport and assumption-signal mapping support.
+- Added deterministic red/yellow trigger detection and downgrade-only reclassification output.
+- Added CLI command `watch-green-lanes`.
+- Preserved green authority boundary: agents may downgrade or recommend green-candidate, but humans restore green.
+- Preserved local-only operation: no live Research Radar automation, model calls, scheduled jobs, external APIs, external writes, Git execution, Semantic Substrate writes, or Exception Lake writes.
+
 ## PR02 - Orchestrator autonomy gate and harness selector
 
 - Added local deterministic autonomy classification for red/yellow/green execution-plane decisions.

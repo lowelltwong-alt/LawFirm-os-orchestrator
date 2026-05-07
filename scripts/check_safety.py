@@ -19,6 +19,7 @@ CHECKED_LOCAL_ONLY_DIRS = (
     APP_ROOT / "evals",
     APP_ROOT / "harness",
     APP_ROOT / "learning",
+    APP_ROOT / "research",
 )
 
 

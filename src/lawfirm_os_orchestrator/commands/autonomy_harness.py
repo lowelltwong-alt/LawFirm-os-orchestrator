@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from lawfirm_os_orchestrator.autonomy.autonomy_gate import ActionDescriptor, AutonomyDecision, classify_autonomy
+from lawfirm_os_orchestrator.autonomy.green_lane_watcher import watch_green_lanes
 from lawfirm_os_orchestrator.harness.hardness_scorer import HardnessScore, score_hardness
 from lawfirm_os_orchestrator.harness.harness_selector import select_harness
 from lawfirm_os_orchestrator.harness.leverage_scorer import OpportunityScorecard, score_leverage
@@ -67,5 +68,12 @@ def run_select_harness(args) -> tuple[int, dict[str, Any]]:
         }
         write_json(Path(args.out), result)
         return 0, _with_status(result)
+    except Exception as exc:
+        return EXIT_AUTONOMY_HARNESS, {"status": "failed_validation", "error": str(exc)}
+
+
+def run_watch_green_lanes(args) -> tuple[int, dict[str, Any]]:
+    try:
+        return 0, watch_green_lanes(signals_path=Path(args.signals), lanes_path=Path(args.lanes), out_path=Path(args.out))
     except Exception as exc:
         return EXIT_AUTONOMY_HARNESS, {"status": "failed_validation", "error": str(exc)}

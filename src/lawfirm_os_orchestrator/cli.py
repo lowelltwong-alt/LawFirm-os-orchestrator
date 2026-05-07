@@ -4,7 +4,11 @@ import argparse
 import json
 from pathlib import Path
 
-from lawfirm_os_orchestrator.commands.autonomy_harness import run_classify_autonomy, run_select_harness
+from lawfirm_os_orchestrator.commands.autonomy_harness import (
+    run_classify_autonomy,
+    run_select_harness,
+    run_watch_green_lanes,
+)
 from lawfirm_os_orchestrator.commands.classify_exception import run as run_classify_exception
 from lawfirm_os_orchestrator.commands.learning import run as run_learning
 from lawfirm_os_orchestrator.commands.research_radar import run as run_research_radar
@@ -22,6 +26,11 @@ def build_parser() -> argparse.ArgumentParser:
     harness.add_argument("--scorecard", required=True)
     harness.add_argument("--out", required=True)
     harness.add_argument("--stdout", choices=["json", "text"], default="text")
+    watcher = sub.add_parser("watch-green-lanes")
+    watcher.add_argument("--signals", required=True)
+    watcher.add_argument("--lanes", required=True)
+    watcher.add_argument("--out", required=True)
+    watcher.add_argument("--stdout", choices=["json", "text"], default="text")
     classify = sub.add_parser("classify-exception")
     classify.add_argument("--input", required=True)
     classify.add_argument("--substrate", default="tests/fixtures/substrate")
@@ -77,6 +86,13 @@ def main(argv: list[str] | None = None) -> int:
         return code
     if args.command == "select-harness":
         code, summary = run_select_harness(args)
+        if args.stdout == "json":
+            print(json.dumps(summary, indent=2, sort_keys=False))
+        else:
+            print(summary.get("status", "unknown"))
+        return code
+    if args.command == "watch-green-lanes":
+        code, summary = run_watch_green_lanes(args)
         if args.stdout == "json":
             print(json.dumps(summary, indent=2, sort_keys=False))
         else:

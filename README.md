@@ -31,6 +31,19 @@ local action descriptor
 
 This is execution-plane support only. Risk color controls authority, hardness controls harness depth, and leverage controls priority. Stakes-sensitive escalation is roadmapped for PR07.
 
+PR03 adds deterministic green-lane assumption watching:
+
+```text
+green-lane passport
++ local assumption records
++ local signal records
+-> assumption mapper
+-> red/yellow trigger detector
+-> local reclassification recommendation
+```
+
+Green lanes are conditional. Signals may downgrade green to yellow or red, but agents may not restore green authority.
+
 ## Quickstart
 
 ```bash
@@ -94,3 +107,15 @@ python -m lawfirm_os_orchestrator select-harness \
 ```
 
 These commands do not run Git, patch files, call models, call networks, write to the Semantic Substrate, or write to the Exception Lake.
+
+## PR03 local green-lane watcher command
+
+```bash
+python -m lawfirm_os_orchestrator watch-green-lanes \
+  --signals path/to/signals.json \
+  --lanes path/to/green_lanes.json \
+  --out .lawfirm-os-orchestrator/autonomy/watch.json \
+  --stdout json
+```
+
+This command reads local files, writes a local JSON artifact, and can only recommend unchanged, yellow, or red lane status. Human approval is required to restore green.

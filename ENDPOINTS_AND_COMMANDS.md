@@ -65,6 +65,22 @@ Important controls:
 - harness depth never upgrades risk authority;
 - outputs are local orchestrator artifacts only.
 
+### watch-green-lanes
+
+```powershell
+python -m lawfirm_os_orchestrator watch-green-lanes --signals path/to/signals.json --lanes path/to/green_lanes.json --out .lawfirm-os-orchestrator/autonomy/watch.json --stdout json
+```
+
+Purpose: evaluate local signals against green-lane assumptions and recommend unchanged, yellow, or red lane status.
+
+Important controls:
+
+- signals may downgrade green to yellow or red;
+- agents may recommend green-candidate but may not restore green;
+- human restoration is required for any green restoration;
+- Research Radar remains local-file scaffold only;
+- no live crawling, model calls, scheduled jobs, external APIs, external writes, Git operations, Substrate writes, or Lake writes.
+
 ### research-radar import-local
 
 ```powershell
@@ -133,3 +149,4 @@ python scripts/check_safety.py
 - Local operational labels are documented in `docs/CANONICAL_ROUTE_MAPPING.md` and are not canonical authority.
 - `config/research_sources.yaml` is metadata-only and non-authoritative.
 - PR02 autonomy and harness records are execution-plane local artifacts only.
+- PR03 green-lane watcher records are execution-plane local artifacts only.

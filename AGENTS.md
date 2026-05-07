@@ -28,6 +28,16 @@ This repo now includes local execution-plane autonomy and harness helpers. They 
 - Yellow may draft bounded local evidence or green-candidate recommendations, but cannot restore green.
 - Red stops execution authority and may only produce risk memos or human decision packets.
 
+## PR03 green-lane assumption watcher
+
+Green lanes are conditional and assumption-backed. The local watcher may map local signals to lane assumptions and recommend:
+
+- unchanged green when no assumption is affected;
+- yellow when assumptions become uncertain, weakened, stale, or review-worthy;
+- red when a hard red trigger appears.
+
+Agents may downgrade green or recommend green-candidate. Humans restore or create green authority.
+
 ## Stop immediately if a task asks for
 
 - real client or matter data;
@@ -36,4 +46,5 @@ This repo now includes local execution-plane autonomy and harness helpers. They 
 - production connector writes;
 - hidden autonomous writes;
 - live Research Radar automation, live model calls, scheduled jobs, or external APIs;
+- automatic green restoration;
 - evidence packet build without manifest hash, source refs, validations, trace IDs, and packet hash.
