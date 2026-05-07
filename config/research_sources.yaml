@@ -1,3 +1,24 @@
+phase: pre-pr07-draft
+non_authoritative: true
+metadata_only: true
+authorizes_live_collection: false
+authorizes_external_api_use: false
+authorizes_model_calls: false
+authorizes_external_writes: false
+authorizes_scheduled_jobs: false
+boundary_note: >
+  Local pre-PR07 draft mirror of the substrate's
+  registry/research-radar-source-registry.json (also marked
+  non_authoritative). Metadata-only and non-authorizing. Does not
+  authorize live crawling, scheduled jobs, model calls, external APIs,
+  external writes, or production research automation. Research Radar
+  outputs are candidate evidence only; they may recommend
+  green-to-yellow or green-to-red downgrades, but may not restore green
+  or promote canon. PR07 may later formalize, supersede, or reconcile
+  this draft. The orchestrator currently does not load this YAML in
+  src/.
+upstream_substrate_registry: registry/research-radar-source-registry.json
+
 sources:
   - id: arxiv_math_ai
     kind: arxiv

@@ -1,14 +1,26 @@
 {
-  "contract_repo": "lowelltwong-alt/LawFirm-os-semantic-substrate",
+  "contract_repo": "LawFirm-os-semantic-substrate",
+  "contract_repo_human_label": "Law Firm OS Semantic Substrate",
   "contract_ref_type": "git_sha",
-  "contract_sha": "a9df5e75319ecdd4e100321be35b51e88bb75ba8",
+  "contract_sha": "d2ac7f504e67aa00985fbe53aa5350f940e8b529",
   "generated_at": "2026-05-06T00:00:00Z",
-  "generated_by": "lawfirm-os-orchestrator",
+  "generated_by": "LawFirm-os-orchestrator",
+  "manifest_first_loading": {
+    "preferred_path": "manifests/contract_manifest.v1.json",
+    "fallback_allowed_when_manifest_absent": false,
+    "policy_bundle_id_required": true
+  },
   "non_claims": [
     "no production runtime",
     "no real client data",
     "no real matter data",
     "no substrate mutation",
-    "no autonomous writes"
+    "no autonomous writes",
+    "no live model calls",
+    "no scheduled jobs",
+    "no live research crawling",
+    "no external APIs",
+    "no external writes",
+    "no invented route_id or event_class"
   ]
 }
