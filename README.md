@@ -44,6 +44,8 @@ green-lane passport
 
 Green lanes are conditional. Signals may downgrade green to yellow or red, but agents may not restore green authority.
 
+PR04 adds inert Codex task packet generation. Packets compress iteration context into local build instructions, but they do not execute Codex, Git, patches, tests, tools, models, network calls, Substrate writes, or Exception Lake writes.
+
 ## Quickstart
 
 ```bash
@@ -119,3 +121,17 @@ python -m lawfirm_os_orchestrator watch-green-lanes \
 ```
 
 This command reads local files, writes a local JSON artifact, and can only recommend unchanged, yellow, or red lane status. Human approval is required to restore green.
+
+## PR04 inert Codex task packet command
+
+```bash
+python -m lawfirm_os_orchestrator generate-codex-task \
+  --opportunity path/to/opportunity.json \
+  --scorecard path/to/scorecard.json \
+  --autonomy path/to/autonomy.json \
+  --harness path/to/harness.json \
+  --out .lawfirm-os-orchestrator/harness/codex_task_packet.json \
+  --stdout json
+```
+
+The packet is a local artifact for human review. Risk color controls authority; hardness and leverage can change review detail, never authority.

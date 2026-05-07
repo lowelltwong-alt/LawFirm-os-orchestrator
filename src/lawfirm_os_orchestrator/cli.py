@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from lawfirm_os_orchestrator.commands.autonomy_harness import (
+    run_generate_codex_task,
     run_classify_autonomy,
     run_select_harness,
     run_watch_green_lanes,
@@ -31,6 +32,13 @@ def build_parser() -> argparse.ArgumentParser:
     watcher.add_argument("--lanes", required=True)
     watcher.add_argument("--out", required=True)
     watcher.add_argument("--stdout", choices=["json", "text"], default="text")
+    task_packet = sub.add_parser("generate-codex-task")
+    task_packet.add_argument("--opportunity", required=True)
+    task_packet.add_argument("--scorecard", required=True)
+    task_packet.add_argument("--autonomy", required=True)
+    task_packet.add_argument("--harness", required=True)
+    task_packet.add_argument("--out", required=True)
+    task_packet.add_argument("--stdout", choices=["json", "text"], default="text")
     classify = sub.add_parser("classify-exception")
     classify.add_argument("--input", required=True)
     classify.add_argument("--substrate", default="tests/fixtures/substrate")
@@ -93,6 +101,13 @@ def main(argv: list[str] | None = None) -> int:
         return code
     if args.command == "watch-green-lanes":
         code, summary = run_watch_green_lanes(args)
+        if args.stdout == "json":
+            print(json.dumps(summary, indent=2, sort_keys=False))
+        else:
+            print(summary.get("status", "unknown"))
+        return code
+    if args.command == "generate-codex-task":
+        code, summary = run_generate_codex_task(args)
         if args.stdout == "json":
             print(json.dumps(summary, indent=2, sort_keys=False))
         else:

@@ -1,5 +1,13 @@
 # Recent Work
 
+## PR04 - Inert Codex task packet builder
+
+- Added local Codex task packet generation from opportunity, scorecard, autonomy, and harness inputs.
+- Added inert agent review plan construction for review-scope records only.
+- Added CLI command `generate-codex-task`.
+- Preserved authority boundaries: packets are build instructions only and do not execute Codex, Git, patches, tests, models, tools, network, Substrate writes, or Lake writes.
+- Left PR05, PR06, and PR07 as future phases.
+
 ## PR03 - Orchestrator green-lane assumption watcher
 
 - Added local green-lane passport and assumption-signal mapping support.

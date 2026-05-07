@@ -38,6 +38,14 @@ Green lanes are conditional and assumption-backed. The local watcher may map loc
 
 Agents may downgrade green or recommend green-candidate. Humans restore or create green authority.
 
+## PR04 inert Codex task packets
+
+Codex task packets are build instructions only. They may summarize objective, allowed paths, forbidden actions, tests, rollback rules, and review requirements.
+
+They must not execute Codex, Git, patches, tests, tools, models, network calls, external APIs, Semantic Substrate writes, Exception Lake writes, production releases, or green restoration.
+
+PR05, PR06, and PR07 remain future phases.
+
 ## Stop immediately if a task asks for
 
 - real client or matter data;
@@ -47,4 +55,5 @@ Agents may downgrade green or recommend green-candidate. Humans restore or creat
 - hidden autonomous writes;
 - live Research Radar automation, live model calls, scheduled jobs, or external APIs;
 - automatic green restoration;
+- treating a Codex task packet as executable authority;
 - evidence packet build without manifest hash, source refs, validations, trace IDs, and packet hash.

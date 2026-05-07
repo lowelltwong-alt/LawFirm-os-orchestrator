@@ -36,7 +36,7 @@ Required manifest fields include `manifest_id`, `manifest_version`, `policy_bund
 - `src/lawfirm_os_orchestrator/discovery/` - local-only Research Radar import helpers.
 - `src/lawfirm_os_orchestrator/learning/` - proposal-only learning objects, scoring, shadow evals, proposal packets, recommendations, and task draft rendering.
 - `src/lawfirm_os_orchestrator/autonomy/` - PR02 local autonomy gate and PR03 green-lane watcher. Risk color controls authority.
-- `src/lawfirm_os_orchestrator/harness/` - PR02 hardness, leverage, and harness selection. Hardness controls harness depth; leverage controls priority.
+- `src/lawfirm_os_orchestrator/harness/` - PR02 hardness, leverage, harness selection, and PR04 inert Codex task packet generation. Hardness controls harness depth; leverage controls priority.
 - `src/lawfirm_os_orchestrator/research/` - PR03 local research-signal record ingestion for watcher inputs. This is not live Research Radar automation.
 
 Phase 2 is partially implemented as local-only scaffolding. Research signals, algorithm insights, shadow evals, upgrade proposals, recommendations, and Codex task drafts are inert artifacts unless a human separately approves future work.
@@ -44,6 +44,8 @@ Phase 2 is partially implemented as local-only scaffolding. Research signals, al
 PR02 is implemented as execution-plane local records and CLI artifacts only. It does not define canonical schemas, route IDs, event classes, governance doctrine, or promotion decisions. PR07 will add fuller stakes and reversibility modeling.
 
 PR03 is implemented as local green-lane assumption watching. It may recommend downgrades to yellow/red but never restores green.
+
+PR04 is implemented as local inert Codex task packet generation. It compresses iteration context without granting authority or executing work. PR05/PR06/PR07 remain future phases.
 
 ## Hard Boundaries
 

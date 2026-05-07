@@ -36,6 +36,7 @@ flowchart LR
     AUTO["PR02 autonomy gate\nrisk color controls authority"]
     HAR["PR02 harness selector\nhardness controls depth\nleverage controls priority"]
     WATCH["PR03 green-lane watcher\nassumption drift downgrade only"]
+    TASK["PR04 Codex task packet builder\ninert build instructions only"]
 
     SS -->|"read-only manifest-first contracts"| OR
     OR -->|"validated synthetic run records"| LED
@@ -45,6 +46,8 @@ flowchart LR
     HAR -->|"local harness plan artifact"| LEARN
     OR -->|"local green-lane passports + local signals"| WATCH
     WATCH -->|"yellow/red recommendation only"| LEARN
+    HAR -->|"autonomy + harness + scorecard"| TASK
+    TASK -->|"local inert task packet"| LEARN
     PKT -->|"disabled by default / dry-run only when explicit"| EL
     RR -->|"local JSON/Markdown signals only"| LEARN
     LEARN -->|"proposal-only artifacts"| HUM
@@ -85,6 +88,7 @@ sequenceDiagram
 - `classify-autonomy`
 - `select-harness`
 - `watch-green-lanes`
+- `generate-codex-task`
 - `research-radar import-local`
 - `research-radar list-signals`
 - `learning run-shadow-eval`
@@ -109,6 +113,7 @@ Implemented locally:
 - safety regression suite
 - PR02 autonomy gate and harness selector
 - PR03 green-lane assumption watcher
+- PR04 inert Codex task packet builder
 
 Still non-authoritative and local-only:
 
@@ -116,6 +121,7 @@ Still non-authoritative and local-only:
 - learning proposals, recommendations, and task drafts
 - autonomy decisions, hardness scores, leverage scores, and harness plans
 - green-lane watch recommendations and reclassification evidence
+- Codex task packets and inert agent review plans
 - all Phase 2 upgrade and decision-support artifacts
 
 ## Hard Prohibitions

@@ -81,6 +81,22 @@ Important controls:
 - Research Radar remains local-file scaffold only;
 - no live crawling, model calls, scheduled jobs, external APIs, external writes, Git operations, Substrate writes, or Lake writes.
 
+### generate-codex-task
+
+```powershell
+python -m lawfirm_os_orchestrator generate-codex-task --opportunity path/to/opportunity.json --scorecard path/to/scorecard.json --autonomy path/to/autonomy.json --harness path/to/harness.json --out .lawfirm-os-orchestrator/harness/codex_task_packet.json --stdout json
+```
+
+Purpose: generate an inert local Codex task packet from opportunity, scorecard, autonomy, and harness inputs.
+
+Important controls:
+
+- packet is build instructions only;
+- packet does not execute Codex, Git, patches, tests, tools, models, network, external APIs, Substrate writes, or Lake writes;
+- red packets require human approval and can only recommend risk memo or decision packet output;
+- yellow packets may recommend draft evidence and review only;
+- green packets remain limited to local reversible work inside a preapproved lane.
+
 ### research-radar import-local
 
 ```powershell
@@ -150,3 +166,4 @@ python scripts/check_safety.py
 - `config/research_sources.yaml` is metadata-only and non-authoritative.
 - PR02 autonomy and harness records are execution-plane local artifacts only.
 - PR03 green-lane watcher records are execution-plane local artifacts only.
+- PR04 Codex task packets are inert execution-plane local artifacts only.

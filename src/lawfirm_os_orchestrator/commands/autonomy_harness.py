@@ -5,6 +5,7 @@ from typing import Any
 
 from lawfirm_os_orchestrator.autonomy.autonomy_gate import ActionDescriptor, AutonomyDecision, classify_autonomy
 from lawfirm_os_orchestrator.autonomy.green_lane_watcher import watch_green_lanes
+from lawfirm_os_orchestrator.harness.codex_task_builder import write_codex_task_packet
 from lawfirm_os_orchestrator.harness.hardness_scorer import HardnessScore, score_hardness
 from lawfirm_os_orchestrator.harness.harness_selector import select_harness
 from lawfirm_os_orchestrator.harness.leverage_scorer import OpportunityScorecard, score_leverage
@@ -75,5 +76,18 @@ def run_select_harness(args) -> tuple[int, dict[str, Any]]:
 def run_watch_green_lanes(args) -> tuple[int, dict[str, Any]]:
     try:
         return 0, watch_green_lanes(signals_path=Path(args.signals), lanes_path=Path(args.lanes), out_path=Path(args.out))
+    except Exception as exc:
+        return EXIT_AUTONOMY_HARNESS, {"status": "failed_validation", "error": str(exc)}
+
+
+def run_generate_codex_task(args) -> tuple[int, dict[str, Any]]:
+    try:
+        return 0, write_codex_task_packet(
+            opportunity_path=Path(args.opportunity),
+            scorecard_path=Path(args.scorecard),
+            autonomy_path=Path(args.autonomy),
+            harness_path=Path(args.harness),
+            out_path=Path(args.out),
+        )
     except Exception as exc:
         return EXIT_AUTONOMY_HARNESS, {"status": "failed_validation", "error": str(exc)}
