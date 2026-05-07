@@ -1,5 +1,29 @@
 # Recent Work
 
+## 2026-05-06 - Phase 2 Front-Door Documentation Completion
+
+Codex task / PR: Final verification gap cleanup for root AI front-door docs.
+
+Files changed:
+- Added `AI_TABLE_OF_CONTENTS.md` to orient future AI work around execution-plane boundaries, manifest-first substrate consumption, current command surfaces, and local-only Phase 2 learning/research scaffolds.
+- Added `ENDPOINTS_AND_COMMANDS.md` to list current CLI and script surfaces. The document states that the repo has no HTTP server, daemon, MCP server mode, production connectors, live Research Radar automation, model calls, external APIs, or external writes.
+- Added `DATA_FLOW_MAP.md` with Mermaid-ready execution-plane flow and sequence diagrams. The map shows control-plane read-only substrate consumption, local ledger/evidence packet output, disabled-by-default Exception Lake handoff, proposal-only learning artifacts, and human-approved promotion outside runtime.
+
+Schemas changed:
+- None.
+
+Contracts changed:
+- None. `contracts.lock.json` unchanged.
+
+Runtime behavior changed:
+- None.
+
+Risk color:
+- Green. Documentation-only front-door completion.
+
+Harness level:
+- H0 documentation alignment plus existing validation.
+
 ## 2026-05-06 — Cross-Repo Coherence Patch 3: Substrate Manifest Consumption And Canonical Route Mapping
 
 Codex task / PR: Cross-repo coherence fix train Patch 3 (orchestrator side).
