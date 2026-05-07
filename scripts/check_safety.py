@@ -13,9 +13,11 @@ APP_ROOT = ROOT / "src" / "lawfirm_os_orchestrator"
 FORBIDDEN_SUBSTRATE_PREFIXES = ("write", "update", "delete", "mutate", "create", "save", "append")
 FORBIDDEN_RUNTIME_IMPORT_ROOTS = {"requests", "httpx", "urllib", "socket", "subprocess"}
 CHECKED_LOCAL_ONLY_DIRS = (
+    APP_ROOT / "autonomy",
     APP_ROOT / "commands",
     APP_ROOT / "discovery",
     APP_ROOT / "evals",
+    APP_ROOT / "harness",
     APP_ROOT / "learning",
 )
 

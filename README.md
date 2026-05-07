@@ -17,6 +17,20 @@ synthetic input
 -> Exception Lake disabled or dry-run by default
 ```
 
+PR02 adds deterministic local autonomy classification and harness selection:
+
+```text
+local action descriptor
+-> autonomy gate
+-> red/yellow/green decision
+-> hardness score
+-> leverage scorecard
+-> harness selector
+-> local harness plan artifact
+```
+
+This is execution-plane support only. Risk color controls authority, hardness controls harness depth, and leverage controls priority. Stakes-sensitive escalation is roadmapped for PR07.
+
 ## Quickstart
 
 ```bash
@@ -41,6 +55,7 @@ python -m lawfirm_os_orchestrator classify-exception \
 - no scheduled jobs;
 - no live Research Radar collection, external APIs, or autonomous research execution;
 - contract-lock validation is fail-closed on SHA drift or missing required manifest fields, including `policy_bundle_id`.
+- autonomy and harness outputs are local orchestrator records only, not canonical substrate schemas.
 
 ## Substrate consumption
 
@@ -62,3 +77,20 @@ The substrate is pinned in `contracts.lock.json`. Lock fields:
 ## First throughput metric
 
 Accepted, contract-locked proposed exception packets per reviewer hour.
+
+## PR02 local autonomy and harness commands
+
+```bash
+python -m lawfirm_os_orchestrator classify-autonomy \
+  --action path/to/action.json \
+  --out .lawfirm-os-orchestrator/autonomy/latest.json \
+  --stdout json
+
+python -m lawfirm_os_orchestrator select-harness \
+  --autonomy .lawfirm-os-orchestrator/autonomy/latest.json \
+  --scorecard path/to/scorecard.json \
+  --out .lawfirm-os-orchestrator/harness/latest.json \
+  --stdout json
+```
+
+These commands do not run Git, patch files, call models, call networks, write to the Semantic Substrate, or write to the Exception Lake.

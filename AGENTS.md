@@ -16,6 +16,18 @@ The substrate is consumed read-only via the canonical orchestrator manifest at `
 
 Before V1 buildout work, read `docs/seed/00_CODEX_READ_FIRST.md` and `docs/CANONICAL_ROUTE_MAPPING.md`.
 
+## PR02 autonomy and harness doctrine
+
+This repo now includes local execution-plane autonomy and harness helpers. They are not canonical substrate authority.
+
+- Risk color controls authority.
+- Hardness controls harness depth only.
+- Leverage controls priority only.
+- Stakes sensitivity remains a PR07 roadmap item.
+- Green is limited to synthetic or metadata-only, local, reversible, preapproved-lane work.
+- Yellow may draft bounded local evidence or green-candidate recommendations, but cannot restore green.
+- Red stops execution authority and may only produce risk memos or human decision packets.
+
 ## Stop immediately if a task asks for
 
 - real client or matter data;
@@ -23,4 +35,5 @@ Before V1 buildout work, read `docs/seed/00_CODEX_READ_FIRST.md` and `docs/CANON
 - route/event-class authoring in this repo;
 - production connector writes;
 - hidden autonomous writes;
+- live Research Radar automation, live model calls, scheduled jobs, or external APIs;
 - evidence packet build without manifest hash, source refs, validations, trace IDs, and packet hash.

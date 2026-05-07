@@ -34,6 +34,37 @@ Important controls:
 - `runtime-safe` remains guarded by explicit configuration and fail-closed tests.
 - real client or matter data fails the synthetic gate.
 
+### classify-autonomy
+
+```powershell
+python -m lawfirm_os_orchestrator classify-autonomy --action path/to/action.json --out .lawfirm-os-orchestrator/autonomy/latest.json --stdout json
+```
+
+Purpose: classify a local action descriptor into a red/yellow/green autonomy decision and deterministic hardness score.
+
+Important controls:
+
+- risk color controls authority;
+- hard red triggers override hardness and leverage;
+- green is conditional on synthetic or metadata-only, local-only, reversible, preapproved-lane work;
+- yellow can prepare bounded local drafts or green-candidate recommendations, but cannot restore green;
+- red may only produce proposal-only risk memos or human decision packets.
+
+### select-harness
+
+```powershell
+python -m lawfirm_os_orchestrator select-harness --autonomy .lawfirm-os-orchestrator/autonomy/latest.json --scorecard path/to/scorecard.json --out .lawfirm-os-orchestrator/harness/latest.json --stdout json
+```
+
+Purpose: combine an autonomy decision, hardness score, and local scorecard into a harness plan.
+
+Important controls:
+
+- hardness controls harness depth only;
+- leverage controls priority only;
+- harness depth never upgrades risk authority;
+- outputs are local orchestrator artifacts only.
+
 ### research-radar import-local
 
 ```powershell
@@ -101,3 +132,4 @@ python scripts/check_safety.py
 - Canonical `route_id` and `event_class` values come only from the substrate.
 - Local operational labels are documented in `docs/CANONICAL_ROUTE_MAPPING.md` and are not canonical authority.
 - `config/research_sources.yaml` is metadata-only and non-authoritative.
+- PR02 autonomy and harness records are execution-plane local artifacts only.

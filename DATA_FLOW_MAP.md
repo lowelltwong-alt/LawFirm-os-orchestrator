@@ -33,10 +33,15 @@ flowchart LR
     HUM["Human Governance\nreview + promotion outside runtime"]
     RR["Research Radar local import\nmetadata-only, non-authoritative"]
     LEARN["Learning artifacts\nshadow evals + proposals + task drafts"]
+    AUTO["PR02 autonomy gate\nrisk color controls authority"]
+    HAR["PR02 harness selector\nhardness controls depth\nleverage controls priority"]
 
     SS -->|"read-only manifest-first contracts"| OR
     OR -->|"validated synthetic run records"| LED
     OR -->|"contract-locked evidence packet"| PKT
+    OR -->|"local action descriptor"| AUTO
+    AUTO -->|"local autonomy decision + hardness score"| HAR
+    HAR -->|"local harness plan artifact"| LEARN
     PKT -->|"disabled by default / dry-run only when explicit"| EL
     RR -->|"local JSON/Markdown signals only"| LEARN
     LEARN -->|"proposal-only artifacts"| HUM
@@ -74,6 +79,8 @@ sequenceDiagram
 ## Current Commands
 
 - `classify-exception`
+- `classify-autonomy`
+- `select-harness`
 - `research-radar import-local`
 - `research-radar list-signals`
 - `learning run-shadow-eval`
@@ -96,11 +103,13 @@ Implemented locally:
 - action recommendations and inert Codex task drafts
 - learning-loop CLI surfaces
 - safety regression suite
+- PR02 autonomy gate and harness selector
 
 Still non-authoritative and local-only:
 
 - Research Radar source metadata in `config/research_sources.yaml`
 - learning proposals, recommendations, and task drafts
+- autonomy decisions, hardness scores, leverage scores, and harness plans
 - all Phase 2 upgrade and decision-support artifacts
 
 ## Hard Prohibitions

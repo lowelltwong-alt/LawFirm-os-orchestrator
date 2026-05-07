@@ -1,5 +1,14 @@
 # Recent Work
 
+## PR02 - Orchestrator autonomy gate and harness selector
+
+- Added local deterministic autonomy classification for red/yellow/green execution-plane decisions.
+- Added local hardness scoring, leverage scoring, and harness plan selection.
+- Added CLI commands `classify-autonomy` and `select-harness`.
+- Updated safety scanning so new local-only modules cannot import process or network modules.
+- Preserved substrate authority: no canonical route IDs, event classes, schemas, governance doctrine, or promotion authority are defined here.
+- Preserved runtime boundaries: no live Research Radar automation, model calls, scheduled jobs, external APIs, external writes, Semantic Substrate writes, or Exception Lake writes.
+
 ## 2026-05-06 - Phase 2 Front-Door Documentation Completion
 
 Codex task / PR: Final verification gap cleanup for root AI front-door docs.

@@ -26,3 +26,12 @@ include-package-data = true
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["lawfirm_os_orchestrator*"]
+
+[tool.pytest.ini_options]
+norecursedirs = [
+  ".git",
+  ".lawfirm-os-orchestrator",
+  ".pytest_cache",
+  ".tmp_pytest_pr02",
+  "tmp_pytest_pr02*",
+]

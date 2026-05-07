@@ -35,8 +35,12 @@ Required manifest fields include `manifest_id`, `manifest_version`, `policy_bund
 - `config/research_sources.yaml` - pre-PR07, metadata-only, non-authoritative source-class mirror. It does not authorize crawling, scheduled jobs, model calls, external APIs, external writes, or production research automation.
 - `src/lawfirm_os_orchestrator/discovery/` - local-only Research Radar import helpers.
 - `src/lawfirm_os_orchestrator/learning/` - proposal-only learning objects, scoring, shadow evals, proposal packets, recommendations, and task draft rendering.
+- `src/lawfirm_os_orchestrator/autonomy/` - PR02 local autonomy gate. Risk color controls authority.
+- `src/lawfirm_os_orchestrator/harness/` - PR02 hardness, leverage, and harness selection. Hardness controls harness depth; leverage controls priority.
 
 Phase 2 is partially implemented as local-only scaffolding. Research signals, algorithm insights, shadow evals, upgrade proposals, recommendations, and Codex task drafts are inert artifacts unless a human separately approves future work.
+
+PR02 is implemented as execution-plane local records and CLI artifacts only. It does not define canonical schemas, route IDs, event classes, governance doctrine, or promotion decisions. PR07 will add fuller stakes and reversibility modeling.
 
 ## Hard Boundaries
 
