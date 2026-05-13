@@ -1,0 +1,5 @@
+speaker_role: billing specialist
+speaker_job_key: billing_specialist
+source_type: manual_transcript
+
+Synthetic redacted example only. The process begins when the attorney or relationship partner forwards a carrier guideline email. I do not always see BillBlast first; sometimes I start in the insurance portal or a spreadsheet. I review the proforma, time entry, and billing checklist. If the portal rejects the invoice, we fix the narrative in the billing system and resubmit. The work is manual and repeated weekly. The proof is the rejection status, the corrected time entry, and the email thread.

@@ -1,0 +1,5 @@
+speaker_role: billing specialist
+speaker_job_key: billing_specialist
+source_type: manual_transcript
+
+This is a synthetic workflow example with no real client or matter data. The workflow usually starts when a carrier guideline update arrives by email or Teams. The billing manager updates an Excel checklist in SharePoint, but sometimes it is stale. I open BillBlast and the billing system during pre-bill review. I check the time entry narrative, matter code, invoice status, and carrier portal requirements. If the checklist is stale, I manually rewrite the narrative or send it back to the attorney. This causes rework, billing delay, and sometimes a write-down or denial. A portal rejection receipt or BillBlast status proves the problem happened.

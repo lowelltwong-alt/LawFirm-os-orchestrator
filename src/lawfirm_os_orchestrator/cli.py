@@ -12,6 +12,7 @@ from lawfirm_os_orchestrator.commands.autonomy_harness import (
 from lawfirm_os_orchestrator.commands.classify_exception import run as run_classify_exception
 from lawfirm_os_orchestrator.commands.learning import run as run_learning
 from lawfirm_os_orchestrator.commands.research_radar import run as run_research_radar
+from lawfirm_os_orchestrator.commands.workflow_atlas import run as run_workflow_atlas
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -45,6 +46,17 @@ def build_parser() -> argparse.ArgumentParser:
     classify.add_argument("--packet-out", default=".lawfirm-os-orchestrator/runs")
     classify.add_argument("--lake-mode", choices=["disabled", "dry-run", "runtime-safe"], default="disabled")
     classify.add_argument("--stdout", choices=["json", "text"], default="json")
+
+    atlas = sub.add_parser("workflow-atlas")
+    atlas_sub = atlas.add_subparsers(dest="workflow_atlas_command", required=True)
+    prep = atlas_sub.add_parser("prepare-meeting")
+    prep.add_argument("--topic", required=True)
+    prep.add_argument("--intake", action="append", required=True, help="Repeatable transcript or intake file path")
+    prep.add_argument("--substrate", default="tests/fixtures/substrate")
+    prep.add_argument("--ledger-dir", default=".lawfirm-os-orchestrator/ledger")
+    prep.add_argument("--out-dir", default=".lawfirm-os-orchestrator/workflow_atlas")
+    prep.add_argument("--lake-mode", choices=["disabled", "dry-run", "runtime-safe"], default="disabled")
+    prep.add_argument("--stdout", choices=["json", "text"], default="json")
 
     radar = sub.add_parser("research-radar")
     radar_sub = radar.add_subparsers(dest="research_command", required=True)
@@ -114,6 +126,14 @@ def main(argv: list[str] | None = None) -> int:
         return code
     if args.command == "classify-exception":
         code, summary = run_classify_exception(args)
+        if args.stdout == "json":
+            print(json.dumps(summary, indent=2, sort_keys=False))
+        else:
+            print(summary.get("status", "unknown"))
+        return code
+
+    if args.command == "workflow-atlas":
+        code, summary = run_workflow_atlas(args)
         if args.stdout == "json":
             print(json.dumps(summary, indent=2, sort_keys=False))
         else:

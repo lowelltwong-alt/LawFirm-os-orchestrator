@@ -1,0 +1,5 @@
+speaker_role: billing manager
+speaker_job_key: billing_manager
+source_type: manual_transcript
+
+This is synthetic. Carrier guideline updates usually arrive in Outlook email. I update a shared checklist and sometimes notify billing in Teams. The relationship partner may approve the change informally. Billing specialists use the checklist during pre-bill review. When the update is missed, the billing specialist has to send entries back to the attorney or correct the invoice in BillBlast. It affects realization, labor time, cycle time, and carrier compliance. We do not currently log every stale-guideline event in the Exception Lake because the workaround happens in email, Teams, and Excel.

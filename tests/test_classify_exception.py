@@ -81,7 +81,7 @@ def test_fixture_substrate_is_allowed_but_still_records_contract_lock():
     snapshot = PathSubstrateClient(ROOT / "tests" / "fixtures" / "substrate").load_snapshot()
 
     assert snapshot.contract_lock.contract_repo == "LawFirm-os-semantic-substrate"
-    assert snapshot.contract_lock.contract_sha == "43991155f0286e6d8bc5ba0bfe6b42407b1b3f12"
+    assert snapshot.contract_lock.contract_sha == "224dcadf374e54730a6719fcb1ead165c61ec48a"
     assert snapshot.routes[0].destination_loop == "retrieval_tuning"
     assert snapshot.routes[0].allowed_follow_on_families == [
         "pressure-vector",
