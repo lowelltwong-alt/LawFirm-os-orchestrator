@@ -1,0 +1,19 @@
+flowchart LR
+    SS[Semantic Substrate\nControl Plane] --> OR[Orchestrator\nExecution Plane]
+    OR --> EL[Exception Lake\nEvidence Plane]
+    EL --> GI[Governance Inbox]
+    GI -->|human-approved promotion only| SS
+
+    RR[Research Radar Signal\nlocal seed only] --> OR
+    OR --> CI[Compute Intelligence\nToken ROI / Game / Monte Carlo]
+    CI --> TP[Inert Task Packet]
+    TP --> EL
+
+    EL --> L[Learning Evidence]
+    L --> OPT[Self-Learning Optimizer\nproposal only]
+    OPT --> TP
+
+    FM[Frontier Math Radar\nwatchlist seed only] --> CI
+    CI -. no authority change .-> SS
+    OPT -. no self modification .-> OR
+    OR -. no direct canon mutation .-> SS

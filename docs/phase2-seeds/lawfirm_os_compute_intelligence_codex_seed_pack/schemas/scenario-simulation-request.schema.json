@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lawfirm-os.local/schemas/compute-intelligence/scenario-simulation-request.schema.json",
+  "title": "Scenario Simulation Request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "time_horizon_days",
+    "variables",
+    "iterations",
+    "authority",
+    "authority_note",
+    "policy_regime_id"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "scenario_id": {"type": "string"},
+    "policy_regime_id": {"type": "string", "minLength": 1},
+    "time_horizon_days": {"type": "integer", "minimum": 1},
+    "random_seed": {"type": "integer", "minimum": 0},
+    "simulator_version": {"type": "string"},
+    "token_budget_reference": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "default": 10000000,
+      "description": "Token budget used to normalize prep_cost_tokens into utility points. The simulator divides prep_cost_tokens by this value. Defaults to 10,000,000 if absent."
+    },
+    "game_state": {
+      "enum": [
+        "first_mover_race",
+        "waiting_game",
+        "coordination_game",
+        "arms_race",
+        "reputation_ruin_game",
+        "adversarial_game",
+        "option_portfolio_game",
+        "multi_state"
+      ]
+    },
+    "variables": {
+      "type": "object",
+      "required": [
+        "probability_breakthrough",
+        "future_token_cost_decline",
+        "future_model_capability_gain",
+        "competitor_adoption_probability",
+        "first_mover_advantage",
+        "prep_cost_tokens",
+        "prep_cost_attention",
+        "fallback_reuse_value",
+        "downside_risk",
+        "reputation_tail_risk",
+        "detection_lag"
+      ],
+      "properties": {
+        "probability_breakthrough": {"$ref": "#/$defs/triangular_0_1"},
+        "future_token_cost_decline": {"$ref": "#/$defs/triangular_0_1"},
+        "future_model_capability_gain": {"$ref": "#/$defs/triangular_nonnegative"},
+        "competitor_adoption_probability": {"$ref": "#/$defs/triangular_0_1"},
+        "first_mover_advantage": {"$ref": "#/$defs/triangular_0_1"},
+        "prep_cost_tokens": {"$ref": "#/$defs/triangular_nonnegative"},
+        "prep_cost_attention": {"$ref": "#/$defs/triangular_0_1"},
+        "fallback_reuse_value": {"$ref": "#/$defs/triangular_0_1"},
+        "downside_risk": {"$ref": "#/$defs/triangular_0_1"},
+        "reputation_tail_risk": {"$ref": "#/$defs/triangular_0_1"},
+        "detection_lag": {"$ref": "#/$defs/triangular_0_1"}
+      },
+      "additionalProperties": false
+    },
+    "iterations": {"type": "integer", "minimum": 10000, "default": 10000},
+    "authority": {"enum": ["decision_support", "advisory", "proposal"]},
+    "authority_note": {"const": "simulation_is_decision_support_only"}
+  },
+  "$defs": {
+    "triangular_0_1": {
+      "type": "object",
+      "required": ["low", "mode", "high"],
+      "properties": {
+        "low": {"type": "number", "minimum": 0, "maximum": 1},
+        "mode": {"type": "number", "minimum": 0, "maximum": 1},
+        "high": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "triangular_nonnegative": {
+      "type": "object",
+      "required": ["low", "mode", "high"],
+      "properties": {
+        "low": {"type": "number", "minimum": 0},
+        "mode": {"type": "number", "minimum": 0},
+        "high": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lawfirm-os.local/schemas/compute-intelligence/token-roi-record.schema.json",
+  "title": "Token ROI Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_id",
+    "risk_color",
+    "effective_compute_cost",
+    "value_components",
+    "authority",
+    "authority_note",
+    "policy_regime_id"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "record_id": {"type": "string"},
+    "policy_regime_id": {"type": "string", "minLength": 1},
+    "risk_color": {"enum": ["green", "yellow", "red", "green_candidate"]},
+    "effective_compute_cost": {
+      "type": "number",
+      "minimum": 0.1,
+      "description": "Algorithm floors effective compute cost at 0.1 (MEANINGFUL_FLOOR) to avoid division blowups. Records must respect that floor."
+    },
+    "token_shadow_price": {"type": "number", "minimum": 0},
+    "value_unit": {
+      "const": "normalized_reference_run_utility",
+      "description": "v2 seed pack only supports normalized reference-run utility. Mixed-unit handling (dollars, other) is deferred until PR11 calibration."
+    },
+    "value_components": {
+      "type": "object",
+      "required": ["present_value", "future_option_value", "strategic_position_value", "learning_value", "reputation_protection_value", "confidence"],
+      "properties": {
+        "present_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "future_option_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "strategic_position_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "learning_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "reputation_protection_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "rafvpt": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2.0,
+      "description": "Algorithm clamps rafvpt to [0, 2.0]; the upper bound matches the clamp in risk_adjusted_future_value_per_token() in token_roi.py."
+    },
+    "recommendation": {"type": "string"},
+    "authority": {"enum": ["decision_support", "advisory", "proposal"]},
+    "authority_note": {"const": "compute_roi_is_decision_support_only"},
+    "forbidden_actions": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

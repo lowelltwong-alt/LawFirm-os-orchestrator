@@ -1,0 +1,25 @@
+{
+  "schema_version": "0.2",
+  "scenario_id": "scenario.frontier_math_breakthrough_90d.v1",
+  "policy_regime_id": "policy-regime.seed-only.v1",
+  "time_horizon_days": 90,
+  "random_seed": 424242,
+  "simulator_version": "compute-intelligence-seed-v2",
+  "game_state": "multi_state",
+  "variables": {
+    "probability_breakthrough": {"low": 0.15, "mode": 0.35, "high": 0.65},
+    "future_token_cost_decline": {"low": 0.10, "mode": 0.40, "high": 0.80},
+    "future_model_capability_gain": {"low": 1.0, "mode": 1.4, "high": 3.0},
+    "competitor_adoption_probability": {"low": 0.20, "mode": 0.55, "high": 0.85},
+    "first_mover_advantage": {"low": 0.10, "mode": 0.60, "high": 1.00},
+    "prep_cost_tokens": {"low": 100000, "mode": 800000, "high": 3000000},
+    "prep_cost_attention": {"low": 0.10, "mode": 0.35, "high": 0.75},
+    "fallback_reuse_value": {"low": 0.20, "mode": 0.50, "high": 0.90},
+    "downside_risk": {"low": 0.05, "mode": 0.20, "high": 0.55},
+    "reputation_tail_risk": {"low": 0.01, "mode": 0.05, "high": 0.20},
+    "detection_lag": {"low": 0.05, "mode": 0.20, "high": 0.60}
+  },
+  "iterations": 10000,
+  "authority": "decision_support",
+  "authority_note": "simulation_is_decision_support_only"
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lawfirm-os.local/schemas/compute-intelligence/frontier-math-radar-item.schema.json",
+  "title": "Frontier Math Radar Item",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "radar_item_id",
+    "topic",
+    "relevance_to_os",
+    "source_refs",
+    "privilege_class",
+    "non_authoritative",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "radar_item_id": {"type": "string"},
+    "topic": {"type": "string"},
+    "relevance_to_os": {"type": "array", "items": {"type": "string"}},
+    "probability_of_arrival": {"type": "number", "minimum": 0, "maximum": 1},
+    "time_horizon_days": {"type": "integer", "minimum": 1},
+    "reputation_tail_risk": {"type": "number", "minimum": 0, "maximum": 1},
+    "privilege_class": {"enum": ["none", "work_product", "privileged", "privileged_with_third_party_present"]},
+    "source_refs": {"type": "array", "items": {"type": "string"}},
+    "non_authoritative": {"const": true},
+    "authority": {"enum": ["decision_support", "advisory", "proposal"]}
+  },
+  "additionalProperties": false
+}

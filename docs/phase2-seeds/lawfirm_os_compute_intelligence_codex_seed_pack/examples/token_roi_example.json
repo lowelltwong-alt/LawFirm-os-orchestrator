@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.2",
+  "record_id": "token-roi.synthetic-eval-harness-prep.v1",
+  "policy_regime_id": "policy-regime.seed-only.v1",
+  "risk_color": "yellow",
+  "effective_compute_cost": 0.42,
+  "token_shadow_price": 1.31,
+  "value_unit": "normalized_reference_run_utility",
+  "value_components": {
+    "present_value": 0.30,
+    "future_option_value": 0.80,
+    "strategic_position_value": 0.55,
+    "learning_value": 0.70,
+    "reputation_protection_value": 0.50,
+    "confidence": 0.65
+  },
+  "rafvpt": 0.88,
+  "recommendation": "stage_preparation_for_human_review",
+  "authority": "decision_support",
+  "authority_note": "compute_roi_is_decision_support_only",
+  "forbidden_actions": [
+    "override_ryg_authority",
+    "restore_green",
+    "mutate_canon",
+    "external_write",
+    "model_call",
+    "network_call"
+  ]
+}
