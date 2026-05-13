@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lawfirm-os.local/schemas/compute-intelligence/optimizer-recommendation.schema.json",
+  "title": "Self-Learning Compute Optimizer Recommendation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "recommendation_id",
+    "evidence_refs",
+    "recommendations",
+    "authority",
+    "authority_note",
+    "policy_regime_id"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "recommendation_id": {"type": "string"},
+    "policy_regime_id": {"type": "string", "minLength": 1},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["bucket", "sample_size", "roi", "risk_events", "recommended_action"],
+        "properties": {
+          "bucket": {"type": "string"},
+          "sample_size": {"type": "integer", "minimum": 0},
+          "roi": {"type": "number", "minimum": 0},
+          "risk_events": {"type": "integer", "minimum": 0},
+          "non_risk_success_ci_low": {"type": "number", "minimum": 0, "maximum": 1},
+          "non_risk_success_ci_high": {"type": "number", "minimum": 0, "maximum": 1},
+          "recommended_action": {
+            "enum": [
+              "propose_collect_more_evidence_for_human_review",
+              "propose_increase_for_human_review",
+              "propose_decrease_or_redesign_for_human_review",
+              "propose_reduce_or_add_validation_for_human_review",
+              "propose_hold_for_human_review"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "forbidden_actions": {"type": "array", "items": {"type": "string"}},
+    "authority": {"enum": ["decision_support", "advisory", "proposal"]},
+    "authority_note": {"const": "optimizer_recommendations_are_proposals_only"}
+  },
+  "additionalProperties": false
+}

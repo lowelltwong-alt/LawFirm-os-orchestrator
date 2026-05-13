@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.1",
+  "pack_id": "lawfirm-os-compute-intelligence-seeds-v0.1",
+  "status": "seed_only",
+  "phases": [
+    {
+      "phase_id": "PR09",
+      "title": "Compute Intelligence / Token ROI / Strategic Compute Allocation",
+      "target_repos": [
+        "LawFirm-os-orchestrator",
+        "LawFirm-os-semantic-substrate",
+        "exceptions-lake-runtime-main"
+      ],
+      "risk": "high",
+      "effort": "medium",
+      "status": "seed_only",
+      "implements_code_now": false,
+      "requires_human_approval_before_execution": true,
+      "allowed_now": [
+        "planning",
+        "task_packet",
+        "data_flow_seed",
+        "reference_algorithm"
+      ],
+      "forbidden_now": [
+        "authority_change",
+        "live_research",
+        "model_calls",
+        "external_calls",
+        "push"
+      ]
+    },
+    {
+      "phase_id": "PR10",
+      "title": "Game-State + Monte Carlo + What-If Scenario Engine",
+      "target_repos": [
+        "LawFirm-os-orchestrator",
+        "exceptions-lake-runtime-main"
+      ],
+      "risk": "high",
+      "effort": "medium-high",
+      "status": "seed_only",
+      "implements_code_now": false,
+      "requires_human_approval_before_execution": true,
+      "allowed_now": [
+        "planning",
+        "scenario_schema_seed",
+        "local_reference_algorithm"
+      ],
+      "forbidden_now": [
+        "live_external_data",
+        "automated_decisions",
+        "authority_change"
+      ]
+    },
+    {
+      "phase_id": "PR11",
+      "title": "Self-Learning Compute Optimizer",
+      "target_repos": [
+        "LawFirm-os-orchestrator",
+        "exceptions-lake-runtime-main"
+      ],
+      "risk": "extra_high_if_implemented",
+      "effort": "high",
+      "status": "seed_only",
+      "implements_code_now": false,
+      "requires_human_approval_before_execution": true,
+      "allowed_now": [
+        "planning",
+        "proposal_schema_seed"
+      ],
+      "forbidden_now": [
+        "self_modification",
+        "green_restoration",
+        "canon_mutation",
+        "external_actions"
+      ]
+    },
+    {
+      "phase_id": "PR12",
+      "title": "Frontier Math / Algorithmic Breakthrough Radar",
+      "target_repos": [
+        "LawFirm-os-orchestrator",
+        "LawFirm-os-semantic-substrate"
+      ],
+      "risk": "high",
+      "effort": "medium",
+      "status": "seed_only",
+      "implements_code_now": false,
+      "requires_human_approval_before_execution": true,
+      "allowed_now": [
+        "watchlist_seed",
+        "task_packet",
+        "local_readiness_scoring_design"
+      ],
+      "forbidden_now": [
+        "live_crawling",
+        "claiming_breakthrough",
+        "automatic_integration"
+      ]
+    }
+  ],
+  "seed_pack_version": "v2-patched",
+  "safety_artifacts": [
+    "KILL_SWITCH.md",
+    "scripts/check_seed_pack_safety.py"
+  ]
+}
