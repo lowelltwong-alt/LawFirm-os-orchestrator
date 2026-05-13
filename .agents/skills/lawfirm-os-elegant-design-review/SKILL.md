@@ -1,6 +1,6 @@
 ---
 name: elegant-design-review
-description: Use when reviewing a skill, algorithm, workflow, agent plan, repo change, or proposed automation for elegant simple design on the far side of complexity. Applies the Musk-style sequence: question requirements, delete, simplify/optimize, accelerate, automate last. Produces a design score, deletion candidates, simplification plan, and approval recommendation.
+description: "Use when reviewing a skill, algorithm, workflow, agent plan, repo change, or proposed automation for elegant simple design on the far side of complexity. Applies the Musk-style sequence: question requirements, delete, simplify/optimize, accelerate, automate last. Produces a design score, deletion candidates, simplification plan, and approval recommendation."
 metadata:
   version: "0.1.0"
   risk_tier: medium
