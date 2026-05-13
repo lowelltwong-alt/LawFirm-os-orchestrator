@@ -94,7 +94,7 @@ def test_non_fixture_substrate_without_git_checkout_fails_closed(tmp_path):
     substrate = tmp_path / "LawFirm-os-semantic-substrate"
     shutil.copytree(ROOT / "tests" / "fixtures" / "substrate", substrate)
 
-    with pytest.raises(ValueError, match="not a readable git checkout"):
+    with pytest.raises(ValueError, match="archive tree hash"):
         PathSubstrateClient(substrate).load_snapshot()
 
 

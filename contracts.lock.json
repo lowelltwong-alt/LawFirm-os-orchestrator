@@ -3,6 +3,7 @@
   "contract_repo_human_label": "Law Firm OS Semantic Substrate",
   "contract_ref_type": "git_sha",
   "contract_sha": "43991155f0286e6d8bc5ba0bfe6b42407b1b3f12",
+  "archive_tree_sha256": "116830ad687b0b880de379df9709d29c59d96fdb0e0443e8d3c2d34bf750bfe9",
   "generated_at": "2026-05-07T00:00:00Z",
   "generated_by": "LawFirm-os-orchestrator",
   "manifest_first_loading": {

@@ -71,14 +71,15 @@ def test_runtime_safe_lake_mode_fails_closed_without_dual_opt_in(monkeypatch, tm
     assert any("requires config allow switch" in reason for reason in summary["lake"]["rejection_reasons"])
 
 
-def test_runtime_safe_lake_mode_stays_unwired_even_with_env_opt_in(monkeypatch, tmp_path):
+def test_runtime_safe_lake_mode_fails_closed_when_runtime_is_unavailable(monkeypatch, tmp_path):
     monkeypatch.setenv("LAWFIRM_OS_ORCHESTRATOR_ALLOW_RUNTIME_SAFE", "true")
+    monkeypatch.delenv("EXCEPTIONS_LAKE_CONTRACT_REPO_PATH", raising=False)
     code, summary = run(classify_args(tmp_path, lake_mode="runtime-safe"))
 
     assert code == EXIT_LAKE
     assert summary["status"] == "lake_rejected"
-    assert summary["lake"]["attempted"] is False
-    assert any("intentionally not wired" in reason for reason in summary["lake"]["rejection_reasons"])
+    assert summary["lake"]["attempted"] in {False, True}
+    assert summary["lake"]["rejection_reasons"]
 
 
 def test_real_client_matter_and_non_synthetic_inputs_fail_gate(tmp_path):

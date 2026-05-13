@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from lawfirm_os_orchestrator.domain.models import ClassificationResult, SyntheticExceptionInput, ValidationResult
+from lawfirm_os_orchestrator.substrate.contract_lock import contract_lock_record
 from lawfirm_os_orchestrator.substrate.reader import SubstrateSnapshot
 from lawfirm_os_orchestrator.util.hashing import sha256_file, sha256_json
 from lawfirm_os_orchestrator.util.json_io import write_json
@@ -53,6 +54,8 @@ def build_packet(
         "route_registry_hash": snapshot.route_registry_hash,
         "allowed_route_ids": snapshot.allowed_route_ids,
         "allowed_event_classes": snapshot.allowed_event_classes,
+        "routes": [route.model_dump() for route in snapshot.routes],
+        "contract_lock": contract_lock_record(snapshot.contract_lock),
     })
     write_json(packet_dir / "model_request.json", model_request)
     write_json(packet_dir / "model_response.json", model_response)
@@ -70,6 +73,7 @@ def build_packet(
         "manifest_id": snapshot.manifest.manifest_id,
         "manifest_hash": snapshot.manifest_hash,
         "policy_bundle_id": snapshot.manifest.policy_bundle_id,
+        "contract_lock": contract_lock_record(snapshot.contract_lock),
         "synthetic": True,
         "route_decision": {"selected_route_id": classification.route_id, "allowed_event_classes": snapshot.allowed_event_classes},
         "proposal": classification.model_dump(),
