@@ -1,3 +1,25 @@
+# AI_WORK_START_HERE.md
+
+<!-- BEGIN LAWFIRM_OS_BOOTSTRAP -->
+Managed bootstrap for AI-assisted work in the LawFirm OS multi-repo workspace. Route through the canonical AI front door and Skill-Agent Control Plane, but preserve local repo operating doctrine.
+
+Required bootstrap read order:
+
+1. AGENTS.md
+2. skill-agent-manifest.json
+3. Semantic Substrate registry/ai-front-door-registry.json
+4. Semantic Substrate registry/skill-agent-control-plane-registry.json
+5. Semantic Substrate governance/SKILL_AGENT_CONTROL_PLANE_BOUNDARY.md
+
+Repo: LawFirm-os-orchestrator
+Plane: execution plane
+Repo purpose: Execution adapters, approvals, run ledgers, model/tool routing, and evidence packet assembly.
+This repo must not own: Canonical schemas, canonical lifecycle states, legal document indexing, raw legal payload storage.
+
+Run workspace preservation and control-plane validation before reporting success on managed patch work.
+<!-- END LAWFIRM_OS_BOOTSTRAP -->
+
+<!-- BEGIN REPO_SPECIFIC_INSTRUCTIONS -->
 # AI Work Start Here
 
 Canonical machine name: `LawFirm-os-orchestrator`. Plane: execution.
@@ -18,3 +40,18 @@ Green-lane discipline: green lanes are conditional; signals may downgrade green 
 Task-packet discipline: Codex task packets are inert build instructions only and must not execute tools, code, Git, models, network, Substrate writes, or Lake writes.
 Validation plan: run `python -m pytest`, `python scripts/check_safety.py --stdout json`, evals, and CLI smoke tests.
 Stop conditions: see `docs/decisions/synthetic_only_policy.md`.
+
+<!-- END REPO_SPECIFIC_INSTRUCTIONS -->
+
+## Skill-Agent Control Plane References
+
+- skill-agent-manifest.json
+- Semantic Substrate registry/skill-agent-control-plane-registry.json
+- Semantic Substrate registry/skill-agent-lifecycle-policy-registry.json
+- Semantic Substrate registry/skill-agent-quality-scoring-registry.json
+- Semantic Substrate scripts/validate_skill_agent_control_plane.py
+
+## Validation Commands
+
+    python -m pytest -q
+    python ../LawFirm-os-semantic-substrate/scripts/validate_skill_agent_control_plane.py --workspace ..
