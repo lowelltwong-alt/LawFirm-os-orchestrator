@@ -34,7 +34,7 @@ def test_real_sibling_substrate_classify_exception_dry_run_packet_integrity(tmp_
 
     assert summary["manifest_id"] == "lawfirm-os-semantic-substrate-orchestrator-manifest-v1"
     assert packet["contract_lock"]["validated_ref_type"] == "git_sha"
-    assert packet["contract_lock"]["validated_ref"] == "dfacbb5e29a85834e37bb393bc45e80ab2e3a204"
+    assert packet["contract_lock"]["validated_ref"] == "ee19cb8f332d35c67fdba4a6d24027ca673b422b"
     assert packet["packet_hash"] == packet_content_hash(packet)
     assert manifest["packet_hash"] == packet["packet_hash"]
     assert manifest["files"]["packet.json"] == sha256_file(packet_path)

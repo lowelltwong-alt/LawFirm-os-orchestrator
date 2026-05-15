@@ -1,0 +1,822 @@
+{
+  "schema_version": "repo_ci_test_manifest.v1",
+  "repo": "LawFirm-os-orchestrator",
+  "owning_plane": "orchestrator",
+  "architecture_role": "execution_plane",
+  "canonical_authority_allowed": false,
+  "central_router_authority": "../LawFirm-os-semantic-substrate/registry/ci-test-route-registry.json",
+  "test_artifacts": [
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_action_recommendations.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_action_recommendations.py",
+      "runner_command": "python -m pytest tests/test_action_recommendations.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_action_recommendations.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_action_recommendations.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_algorithm_scoring.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_algorithm_scoring.py",
+      "runner_command": "python -m pytest tests/test_algorithm_scoring.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_algorithm_scoring.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_algorithm_scoring.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_autonomy_harness.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_autonomy_harness.py",
+      "runner_command": "python -m pytest tests/test_autonomy_harness.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_autonomy_harness.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_autonomy_harness.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_classify_exception.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_classify_exception.py",
+      "runner_command": "python -m pytest tests/test_classify_exception.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_classify_exception.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_classify_exception.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_codex_task_packet_builder.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_codex_task_packet_builder.py",
+      "runner_command": "python -m pytest tests/test_codex_task_packet_builder.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_codex_task_packet_builder.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_codex_task_packet_builder.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_contract_lock.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_contract_lock.py",
+      "runner_command": "python -m pytest tests/test_contract_lock.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "contract_lock"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "contract_lock_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_contract_lock.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "contract_lock",
+        "protected",
+        "cross_repo"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_contract_lock.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 10,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_cross_repo_contract.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_cross_repo_contract.py",
+      "runner_command": "python -m pytest tests/test_cross_repo_contract.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "contract_lock",
+        "cross_repo_integration"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "contract_lock_change",
+        "cross_repo_integration_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_cross_repo_contract.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "contract_lock",
+        "cross_repo_integration",
+        "protected",
+        "cross_repo"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_cross_repo_contract.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 10,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_evals.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_evals.py",
+      "runner_command": "python -m pytest tests/test_evals.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "evaluation_surface"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "eval_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_evals.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_evals.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_green_lane_watcher.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_green_lane_watcher.py",
+      "runner_command": "python -m pytest tests/test_green_lane_watcher.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_green_lane_watcher.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_green_lane_watcher.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_lake_envelope.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_lake_envelope.py",
+      "runner_command": "python -m pytest tests/test_lake_envelope.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "exception_lake_evidence_boundary"
+      ],
+      "risk_tier": "high",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "evidence_boundary_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_lake_envelope.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "high"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_lake_envelope.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_learning_cli.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_learning_cli.py",
+      "runner_command": "python -m pytest tests/test_learning_cli.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "cli_surface"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_learning_cli.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_learning_cli.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_learning_models.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_learning_models.py",
+      "runner_command": "python -m pytest tests/test_learning_models.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_learning_models.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_learning_models.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_legal_knowledge_adapter.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_legal_knowledge_adapter.py",
+      "runner_command": "python -m pytest tests/test_legal_knowledge_adapter.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "legal_knowledge_context_bundle",
+        "adapter_surface"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "legal_knowledge_runtime_change",
+        "public_api_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_legal_knowledge_adapter.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_legal_knowledge_adapter.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_research_radar.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_research_radar.py",
+      "runner_command": "python -m pytest tests/test_research_radar.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "evaluation_surface"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "eval_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_research_radar.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_research_radar.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_safety_regressions.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_safety_regressions.py",
+      "runner_command": "python -m pytest tests/test_safety_regressions.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "security_safety_surface"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "security_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_safety_regressions.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "protected"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_safety_regressions.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 10,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_shadow_eval.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_shadow_eval.py",
+      "runner_command": "python -m pytest tests/test_shadow_eval.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "evaluation_surface"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "eval_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_shadow_eval.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_shadow_eval.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_upgrade_proposals.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_upgrade_proposals.py",
+      "runner_command": "python -m pytest tests/test_upgrade_proposals.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "repo_local_regression"
+      ],
+      "risk_tier": "medium",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "source_code_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_upgrade_proposals.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_upgrade_proposals.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_workflow_atlas.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_workflow_atlas.py",
+      "runner_command": "python -m pytest tests/test_workflow_atlas.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "ai_front_door",
+        "workflow_composition"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "ai_instruction_change",
+        "workflow_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_workflow_atlas.py",
+        "src/**/*.py"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "ai_front_door",
+        "protected"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "LawFirm-os-orchestrator tests/test_workflow_atlas.py changes",
+        "router selects matching architecture surface"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "promotion authority without governance decision"
+      ],
+      "expected_runtime_seconds": 10,
+      "full_regression_required": false
+    }
+  ],
+  "explicit_test_artifact_exclusions": [
+    {
+      "path": "tests/conftest.py",
+      "reason": "pytest support file, not standalone test artifact"
+    },
+    {
+      "path": "evals/fixtures/**",
+      "reason": "eval fixture data routed through registered eval tests, not standalone runner"
+    },
+    {
+      "path": "evals/gold/**",
+      "reason": "eval gold-label data routed through registered eval tests, not standalone runner"
+    }
+  ],
+  "must_not_own": [
+    "canonical lifecycle states",
+    "route authority",
+    "promotion authority without governance decision",
+    "AI front-door authority"
+  ],
+  "notes": "Generated by LawFirm OS CI Test Router Governance patch from the current test surface. Update this manifest whenever any test artifact is added, removed, or moved."
+}
