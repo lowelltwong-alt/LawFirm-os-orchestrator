@@ -79,9 +79,10 @@ def test_substrate_client_has_no_write_methods():
 
 def test_fixture_substrate_is_allowed_but_still_records_contract_lock():
     snapshot = PathSubstrateClient(ROOT / "tests" / "fixtures" / "substrate").load_snapshot()
+    expected_lock = read_json(ROOT / "contracts.lock.json")
 
     assert snapshot.contract_lock.contract_repo == "LawFirm-os-semantic-substrate"
-    assert snapshot.contract_lock.contract_sha == "ee19cb8f332d35c67fdba4a6d24027ca673b422b"
+    assert snapshot.contract_lock.contract_sha == expected_lock["contract_sha"]
     assert snapshot.routes[0].destination_loop == "retrieval_tuning"
     assert snapshot.routes[0].allowed_follow_on_families == [
         "pressure-vector",
@@ -94,7 +95,7 @@ def test_non_fixture_substrate_without_git_checkout_fails_closed(tmp_path):
     substrate = tmp_path / "LawFirm-os-semantic-substrate"
     shutil.copytree(ROOT / "tests" / "fixtures" / "substrate", substrate)
 
-    with pytest.raises(ValueError, match="archive tree hash"):
+    with pytest.raises(ValueError, match="not a git checkout"):
         PathSubstrateClient(substrate).load_snapshot()
 
 
@@ -106,5 +107,5 @@ def test_wrong_substrate_git_sha_fails_closed(tmp_path):
     (git_dir / "HEAD").write_text("ref: refs/heads/main\n", encoding="utf-8")
     (git_dir / "refs" / "heads" / "main").write_text("0" * 40 + "\n", encoding="utf-8")
 
-    with pytest.raises(ValueError, match="does not match contracts.lock.json SHA"):
+    with pytest.raises(ValueError, match="not present in the substrate git object database"):
         PathSubstrateClient(substrate).load_snapshot()

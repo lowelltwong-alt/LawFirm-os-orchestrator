@@ -33,8 +33,9 @@ def test_real_sibling_substrate_classify_exception_dry_run_packet_integrity(tmp_
     manifest = read_json(manifest_path)
 
     assert summary["manifest_id"] == "lawfirm-os-semantic-substrate-orchestrator-manifest-v1"
-    assert packet["contract_lock"]["validated_ref_type"] == "git_sha"
-    assert packet["contract_lock"]["validated_ref"] == "ee19cb8f332d35c67fdba4a6d24027ca673b422b"
+    expected_lock = read_json(ROOT / "contracts.lock.json")
+    assert packet["contract_lock"]["validated_ref_type"] == "contract_surface_sha256"
+    assert packet["contract_lock"]["validated_ref"] == expected_lock["contract_surface_lock"]["surface_sha256"]
     assert packet["packet_hash"] == packet_content_hash(packet)
     assert manifest["packet_hash"] == packet["packet_hash"]
     assert manifest["files"]["packet.json"] == sha256_file(packet_path)
