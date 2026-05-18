@@ -1,24 +1,28 @@
-"""ExecutionAuthority: deterministic evaluator that maps ExecutionRequest -> ExecutionDecision (PR-04).
+"""ExecutionAuthority: deterministic evaluator that maps ExecutionRequest -> ExecutionDecision (PR-04, hardened in PR-05.5).
 
-The evaluator is config-driven. Substrate registries (ai-front-door, tool-authority)
-provide the source-of-truth allow-lists in production. Tests inject an in-memory
-AuthorityConfig.
+The evaluator is config-driven. Substrate registries (ai-front-door,
+tool-authority) provide the source-of-truth allow-lists in production.
+Tests inject an in-memory AuthorityConfig.
+
+Reason codes and the semantic-mutation deny-list are imported from
+``lawfirm_os_orchestrator.substrate.reason_codes`` which loads them
+fail-closed from substrate's runtime-reason-codes-registry.json. No string
+literals for these enums appear in this module.
 
 Decision rules (in order):
-  1. unknown tool_id              -> denied (reason: unknown_tool)
-  2. unknown route_id             -> denied (reason: unknown_route)
-  3. unknown event_class          -> denied (reason: unknown_event_class)
-  4. semantic_mutation action     -> denied (reason: semantic_mutation_forbidden)
-  5. side_effect_class=external   -> denied (reason: external_writes_forbidden_in_mvp)
-  6. side_effect_class=write AND requires_approval -> requires_approval
-  7. side_effect_class=write      -> denied (reason: write_requires_explicit_approval_policy)
-  8. side_effect_class in {none, read} -> allowed
+  1. unknown tool_id              -> denied (UNKNOWN_TOOL)
+  2. unknown route_id             -> denied (UNKNOWN_ROUTE)
+  3. unknown event_class          -> denied (UNKNOWN_EVENT_CLASS)
+  4. semantic_mutation action     -> denied (SEMANTIC_MUTATION_FORBIDDEN)
+  5. side_effect_class=external   -> denied (EXTERNAL_WRITES_FORBIDDEN_IN_MVP)
+  6. side_effect_class=write AND requires_approval -> requires_approval (WRITE_REQUIRES_HUMAN_APPROVAL)
+  7. side_effect_class=write      -> denied (WRITE_REQUIRES_EXPLICIT_APPROVAL_POLICY)
+  8. side_effect_class in {none, read} -> allowed (ALLOWED_UNDER_AUTHORITY_POLICY)
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from typing import Iterable
 
 from lawfirm_os_orchestrator.domain.execution_decision import (
     ExecutionDecision,
@@ -26,17 +30,17 @@ from lawfirm_os_orchestrator.domain.execution_decision import (
     build_execution_decision,
 )
 from lawfirm_os_orchestrator.domain.execution_request import ExecutionRequest
-
-
-SEMANTIC_MUTATION_ACTIONS = frozenset({
-    "substrate_write",
-    "registry_mutate",
-    "schema_mutate",
-    "route_mutate",
-    "event_class_mutate",
-    "policy_mutate",
-    "promotion_decision",
-})
+from lawfirm_os_orchestrator.substrate.reason_codes import (
+    ALLOWED_UNDER_AUTHORITY_POLICY,
+    EXTERNAL_WRITES_FORBIDDEN_IN_MVP,
+    SEMANTIC_MUTATION_ACTIONS,
+    SEMANTIC_MUTATION_FORBIDDEN,
+    UNKNOWN_EVENT_CLASS,
+    UNKNOWN_ROUTE,
+    UNKNOWN_TOOL,
+    WRITE_REQUIRES_EXPLICIT_APPROVAL_POLICY,
+    WRITE_REQUIRES_HUMAN_APPROVAL,
+)
 
 
 @dataclass(frozen=True)
@@ -97,7 +101,7 @@ def evaluate(
             run_id=request.run_id,
             decided_at=decided_at,
             decision="allowed",
-            reason_code="allowed_under_authority_policy",
+            reason_code=ALLOWED_UNDER_AUTHORITY_POLICY,
             evaluator=config.evaluator_id,
             policy_ref=policy_ref,
         )
@@ -118,18 +122,18 @@ def evaluate(
         )
 
     if request.requested_tool_id not in config.allowed_tool_ids:
-        return _deny("unknown_tool")
+        return _deny(UNKNOWN_TOOL)
     if request.requested_route_id not in config.allowed_route_ids:
-        return _deny("unknown_route")
+        return _deny(UNKNOWN_ROUTE)
     if request.requested_event_class not in config.allowed_event_classes:
-        return _deny("unknown_event_class")
+        return _deny(UNKNOWN_EVENT_CLASS)
     if request.requested_action in SEMANTIC_MUTATION_ACTIONS:
-        return _deny("semantic_mutation_forbidden")
+        return _deny(SEMANTIC_MUTATION_FORBIDDEN)
     if request.requested_side_effect_class == "external":
-        return _deny("external_writes_forbidden_in_mvp")
+        return _deny(EXTERNAL_WRITES_FORBIDDEN_IN_MVP)
     if request.requested_side_effect_class == "write":
         if request.requested_action in config.write_actions_with_approval:
-            return _requires_approval("write_requires_human_approval")
-        return _deny("write_requires_explicit_approval_policy")
+            return _requires_approval(WRITE_REQUIRES_HUMAN_APPROVAL)
+        return _deny(WRITE_REQUIRES_EXPLICIT_APPROVAL_POLICY)
     # side_effect_class in {none, read}
     return _allow()

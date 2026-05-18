@@ -139,3 +139,91 @@ def test_v2_packet_carries_authority_lock_and_context_bundle_ref() -> None:
     assert packet["contract_surface_sha256"] == SURFACE
     assert packet["context_bundle_ref"]["context_bundle_id"] == "ctx-1"
     assert packet["context_bundle_ref"]["context_bundle_hash"] == "a" * 64
+
+
+# ---------- PR-05.5 tightened coverage: every required field + every section ----------
+
+
+def test_v2_packet_carries_required_top_level_fields() -> None:
+    packet = _minimal_packet()
+    assert packet["schema_version"] == "evidence_packet.v2"
+    assert packet["source_repo"] == "LawFirm-os-orchestrator"
+    assert packet["run_id"] == "run-1"
+    assert packet["evidence_packet_id"] == "pkt-1"
+    assert packet["generated_at"] == FIXED_AT
+
+
+def _base_kwargs(packet_dir=None):
+    mh = "0" * 64
+    if packet_dir is not None:
+        mh, _ = manifest_hash_for_dir(packet_dir)
+    return dict(
+        evidence_packet_id="pkt-1",
+        contract_surface_sha256=SURFACE,
+        context_bundle_id="ctx-1",
+        context_bundle_hash="a" * 64,
+        execution_authority_records=[
+            {"execution_request_hash": "b" * 64, "execution_decision_hash": "c" * 64}
+        ],
+        source_refs=[{"source_ref_id": "sref-1"}],
+        claim_refs=[{"claim_ref_id": "cref-1"}],
+        coverage_records=[{"coverage_record_id": "cov-1"}],
+        verification_records=[{"verification_record_id": "vrec-1"}],
+        approval_records=[{"approval_record_id": "appr-1"}],
+        defect_records=[{"defect_record_id": "def-1"}],
+        manifest_hash=mh,
+        generated_at=FIXED_AT,
+        run_id="run-1",
+    )
+
+
+@pytest.mark.parametrize(
+    "section, mutation",
+    [
+        ("source_refs", [{"source_ref_id": "sref-2"}, {"source_ref_id": "sref-3"}]),
+        ("claim_refs", [{"claim_ref_id": "cref-2"}]),
+        ("coverage_records", [{"coverage_record_id": "cov-2"}]),
+        ("verification_records", [{"verification_record_id": "vrec-2"}]),
+        ("approval_records", [{"approval_record_id": "appr-2"}]),
+        ("defect_records", [{"defect_record_id": "def-2"}]),
+        ("execution_authority_records", [
+            {"execution_request_hash": "1" * 64, "execution_decision_hash": "2" * 64},
+            {"execution_request_hash": "3" * 64, "execution_decision_hash": "4" * 64},
+        ]),
+    ],
+)
+def test_changing_any_section_changes_packet_hash(section: str, mutation: list) -> None:
+    base = _base_kwargs()
+    p1 = build_evidence_packet_v2(**base)
+    mutated = dict(base)
+    mutated[section] = mutation
+    p2 = build_evidence_packet_v2(**mutated)
+    assert p1["evidence_packet_hash"] != p2["evidence_packet_hash"], (
+        f"mutating {section} must change evidence_packet_hash (otherwise that section is not hashed)"
+    )
+
+
+def test_changing_contract_surface_sha256_changes_packet_hash() -> None:
+    base = _base_kwargs()
+    p1 = build_evidence_packet_v2(**base)
+    mutated = dict(base)
+    mutated["contract_surface_sha256"] = "f" * 64
+    p2 = build_evidence_packet_v2(**mutated)
+    assert p1["evidence_packet_hash"] != p2["evidence_packet_hash"]
+
+
+def test_changing_context_bundle_hash_changes_packet_hash() -> None:
+    base = _base_kwargs()
+    p1 = build_evidence_packet_v2(**base)
+    mutated = dict(base)
+    mutated["context_bundle_hash"] = "f" * 64
+    p2 = build_evidence_packet_v2(**mutated)
+    assert p1["evidence_packet_hash"] != p2["evidence_packet_hash"]
+
+
+def test_changing_source_repo_changes_packet_hash() -> None:
+    base = _base_kwargs()
+    p1 = build_evidence_packet_v2(**base)
+    p2 = build_evidence_packet_v2(**base, source_repo="LawFirm-os-some-other-repo")
+    # source_repo default is "LawFirm-os-orchestrator"; override should change the hash.
+    assert p1["evidence_packet_hash"] != p2["evidence_packet_hash"]
