@@ -15,7 +15,7 @@ from lawfirm_os_orchestrator.domain.agent_controls import (
 )
 from lawfirm_os_orchestrator.domain.models import SyntheticExceptionInput
 from lawfirm_os_orchestrator.substrate.reader import SubstrateSnapshot
-from lawfirm_os_orchestrator.util.hashing import sha256_file, sha256_json
+from lawfirm_os_orchestrator.util.hashing import sha256_file, sha256_json, sha256_text_file_lf
 from lawfirm_os_orchestrator.util.ids import new_id
 from lawfirm_os_orchestrator.util.json_io import read_json
 from lawfirm_os_orchestrator.util.time import utc_now
@@ -435,13 +435,13 @@ def prompt_integrity_gate(
             blocked = True
             reason = "prompt_file_missing"
         else:
-            actual_hash = sha256_file(prompt_file)
-            if actual_hash != prompt.prompt_sha256:
-                blocked = True
-                reason = "prompt_hash_mismatch"
-            elif not prompt.approved:
+            actual_hash = sha256_text_file_lf(prompt_file)
+            if not prompt.approved:
                 blocked = True
                 reason = "prompt_not_approved"
+            elif actual_hash != prompt.prompt_sha256:
+                blocked = True
+                reason = "prompt_hash_mismatch"
             elif not prompt.policy_bundle_id:
                 blocked = True
                 reason = "prompt_policy_bundle_missing"
