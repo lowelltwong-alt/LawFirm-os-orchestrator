@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -31,6 +32,10 @@ def _prompt_registry(tmp_path: Path, **record_updates) -> Path:
     return path
 
 
+def _sha256_text(text: str) -> str:
+    return "sha256:" + hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
 def test_prompt_hash_mismatch_blocks_action(tmp_path: Path) -> None:
     path = _prompt_registry(tmp_path, prompt_sha256="sha256:" + "0" * 64)
     code, summary = run(_args(tmp_path, prompt_registry=str(path)))
@@ -41,9 +46,24 @@ def test_prompt_hash_mismatch_blocks_action(tmp_path: Path) -> None:
 
 
 def test_unapproved_prompt_blocks_action(tmp_path: Path) -> None:
-    path = _prompt_registry(tmp_path, approved=False)
+    path = _prompt_registry(tmp_path, approved=False, prompt_sha256="sha256:" + "0" * 64)
     code, summary = run(_args(tmp_path, prompt_registry=str(path)))
 
     assert code == EXIT_POLICY
     assert summary["gate"] == "PromptIntegrityGate"
     assert summary["reason_code"] == "prompt_not_approved"
+
+
+def test_prompt_hash_uses_lf_normalized_utf8(tmp_path: Path) -> None:
+    prompt_text = "Classify one synthetic exception event.\nReturn a proposal only.\n"
+    prompt_path = tmp_path / "classify_exception_system.txt"
+    prompt_path.write_bytes(prompt_text.replace("\n", "\r\n").encode("utf-8"))
+    path = _prompt_registry(
+        tmp_path,
+        prompt_file=str(prompt_path),
+        prompt_sha256=_sha256_text(prompt_text),
+    )
+    code, summary = run(_args(tmp_path, prompt_registry=str(path)))
+
+    assert code == 0
+    assert summary["status"] == "ok"

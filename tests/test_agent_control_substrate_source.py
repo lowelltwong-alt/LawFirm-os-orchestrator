@@ -9,7 +9,7 @@ from lawfirm_os_orchestrator.policy.agent_hostile_controls import (
     DEFAULT_CLASSIFIER_TOOL_ID,
     DEFAULT_CLASSIFY_PROMPT_REF,
 )
-from lawfirm_os_orchestrator.util.hashing import sha256_file
+from lawfirm_os_orchestrator.util.hashing import sha256_text_file_lf
 from lawfirm_os_orchestrator.util.json_io import read_json
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +34,7 @@ def _substrate_controls(tmp_path: Path) -> Path:
     root = tmp_path / "LawFirm-os-semantic-substrate"
     registry = root / "registry"
     registry.mkdir(parents=True, exist_ok=True)
-    prompt_hash = sha256_file(ROOT / "prompts" / "runtime" / "classify_exception_system.txt")
+    prompt_hash = sha256_text_file_lf(ROOT / "prompts" / "runtime" / "classify_exception_system.txt")
     (registry / "prompt-registry.json").write_text(
         json.dumps(
             {
