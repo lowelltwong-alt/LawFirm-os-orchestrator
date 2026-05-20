@@ -1,0 +1,2 @@
+Classify one synthetic exception event using only the contract-locked substrate manifest supplied by the Orchestrator.
+Return a proposal only. Do not invent route IDs, event classes, schema authority, client facts, or substrate mutations.

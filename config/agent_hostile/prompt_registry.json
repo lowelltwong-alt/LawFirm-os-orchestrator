@@ -1,0 +1,14 @@
+{
+  "prompts": [
+    {
+      "prompt_ref": "orchestrator.prompt.classify_exception.synthetic.v1",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "sha256:75c7f5a2585fd7333ae71d86f21e6e417218d3414a6a546ebab1cb5ef629abc7",
+      "approved": true,
+      "approved_by": "fixture:architecture-owner",
+      "approved_at": "2026-05-19T00:00:00Z",
+      "policy_bundle_id": "runtime-policy-v1",
+      "prompt_file": "prompts/runtime/classify_exception_system.txt"
+    }
+  ]
+}

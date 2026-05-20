@@ -1,0 +1,24 @@
+{
+  "tools": [
+    {
+      "tool_id": "orchestrator.tool.synthetic_classify_exception.v1",
+      "version": "1.0.0",
+      "risk_class": "transform",
+      "input_schema_ref": "schema:exception-event-v1",
+      "output_schema_ref": "schema:classification-result-v1",
+      "allowed_actor_types": [
+        "agent"
+      ],
+      "auth_required": true,
+      "agent_identity_required": true,
+      "audit_event_required": true,
+      "approval_required": false,
+      "idempotency_required": false,
+      "data_domains": [
+        "synthetic_exception_input"
+      ],
+      "timeout_seconds": 30,
+      "retry_policy_ref": "retry:none:mvp"
+    }
+  ]
+}
