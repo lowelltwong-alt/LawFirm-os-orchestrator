@@ -1,5 +1,26 @@
 # Recent Work
 
+## Agent-hostile control layer completed
+
+Completed the first mature agent-hostile control layer across LawFirm OS.
+
+- Semantic Substrate now owns canonical agent-control schemas and registries.
+- Orchestrator enforces substrate-backed prompt, tool, endpoint, and revocation controls.
+- Evidence packets record agent-control provenance, including source, registry path, registry hash, contract SHA, and per-registry hashes.
+- Consumer repos refreshed `contracts.lock.json` to the new Substrate contract surface.
+- Prompt integrity hashing is LF-normalized for cross-platform stability across Windows CRLF and canonical LF text artifacts.
+
+Authority boundary:
+- Semantic Substrate owns governance contracts and canonical meaning.
+- Orchestrator owns runtime enforcement and evidence-packet assembly.
+- Exception Lake and other consumers remain pinned to Substrate contracts and must not redefine canon.
+
+Related merged work:
+- Semantic Substrate: agent-hostile control contracts.
+- Orchestrator: substrate-backed enforcement.
+- Orchestrator: prompt-integrity LF normalization.
+- Exception Lake, Skills Registry, and Legal Knowledge Runtime: contract lock refreshes.
+
 ## 2026-05-07 - Kernel A+ Runtime-Safe Handoff Patch
 
 - Added explicit archive-tree contract validation mode alongside the existing git SHA lock. Git checkouts still validate against `contract_sha`; extracted archives validate only against the separate `archive_tree_sha256` lock field.
