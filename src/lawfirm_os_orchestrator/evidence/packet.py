@@ -44,6 +44,12 @@ def build_packet(
     policy_gate: ValidationResult,
     model_request: dict[str, Any],
     model_response: dict[str, Any],
+    agent_identity: dict[str, Any] | None = None,
+    authz_decisions: list[dict[str, Any]] | None = None,
+    prompt_integrity: dict[str, Any] | None = None,
+    revocation_snapshot: dict[str, Any] | None = None,
+    blast_radius: dict[str, Any] | None = None,
+    agent_control_provenance: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     packet_dir.mkdir(parents=True, exist_ok=True)
     write_json(packet_dir / "input_event.json", event.model_dump())
@@ -61,6 +67,18 @@ def build_packet(
     write_json(packet_dir / "model_response.json", model_response)
     write_json(packet_dir / "classification_result.json", classification.model_dump())
     write_json(packet_dir / "validation_results.json", [v.model_dump() for v in validations])
+    if agent_identity is not None:
+        write_json(packet_dir / "agent_identity.json", agent_identity)
+    if authz_decisions is not None:
+        write_json(packet_dir / "authz_decisions.json", authz_decisions)
+    if prompt_integrity is not None:
+        write_json(packet_dir / "prompt_integrity.json", prompt_integrity)
+    if revocation_snapshot is not None:
+        write_json(packet_dir / "revocation_snapshot.json", revocation_snapshot)
+    if blast_radius is not None:
+        write_json(packet_dir / "blast_radius.json", blast_radius)
+    if agent_control_provenance is not None:
+        write_json(packet_dir / "agent_control_provenance.json", agent_control_provenance)
 
     packet = {
         "schema_version": "1.0",
@@ -83,5 +101,17 @@ def build_packet(
         "human_review_required": True,
         "created_at": utc_now(),
     }
+    if agent_identity is not None:
+        packet["agent_identity"] = agent_identity
+    if authz_decisions is not None:
+        packet["authz_decisions"] = authz_decisions
+    if prompt_integrity is not None:
+        packet["prompt_integrity"] = prompt_integrity
+    if revocation_snapshot is not None:
+        packet["revocation_snapshot"] = revocation_snapshot
+    if blast_radius is not None:
+        packet["blast_radius"] = blast_radius
+    if agent_control_provenance is not None:
+        packet["agent_control_provenance"] = agent_control_provenance
     write_packet_and_manifest(packet_dir, packet)
     return packet

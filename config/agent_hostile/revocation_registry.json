@@ -1,0 +1,14 @@
+{
+  "denied_tools": [],
+  "paused_routes": [],
+  "revoked_agents": {
+    "agent:revoked-demo": {
+      "revoked": true,
+      "revoked_at": "2026-05-19T00:00:00Z",
+      "revoked_by": "fixture:security-admin",
+      "reason": "agent_revoked",
+      "blocked_routes": [],
+      "blocked_tools": []
+    }
+  }
+}

@@ -8,6 +8,23 @@ from lawfirm_os_orchestrator.evidence.packet import build_packet, write_packet_a
 from lawfirm_os_orchestrator.lake.clients import build_lake_client
 from lawfirm_os_orchestrator.ledger.writer import JsonlLedgerWriter
 from lawfirm_os_orchestrator.model_router.mock import MockClassificationAdapter
+from lawfirm_os_orchestrator.policy.agent_hostile_controls import (
+    DEFAULT_AGENT_CONTROL_SOURCE,
+    DEFAULT_CLASSIFIER_TOOL_ID,
+    DEFAULT_CLASSIFY_PROMPT_REF,
+    DEFAULT_TENANT_ID,
+    PolicyDenied,
+    agent_identity_gate,
+    blast_radius_from_actor,
+    build_agent_identity,
+    load_revocation_state,
+    prompt_integrity_gate,
+    prompt_integrity_proof,
+    resolve_agent_control_registry_source,
+    revocation_gate,
+    revocation_snapshot,
+    tool_authority_gate,
+)
 from lawfirm_os_orchestrator.policy.gate import fail_reasons, preflight_policy, validate_classification
 from lawfirm_os_orchestrator.substrate.reader import PathSubstrateClient
 from lawfirm_os_orchestrator.util.hashing import sha256_file
@@ -20,6 +37,7 @@ EXIT_SUBSTRATE = 3
 EXIT_MODEL = 4
 EXIT_ARTIFACT = 5
 EXIT_LAKE = 6
+EXIT_POLICY = 7
 
 
 def _ledger_record(ids: dict[str, str], snapshot: Any, step_index: int, step_type: str, step_status: str, **extra: Any) -> dict[str, Any]:
@@ -73,6 +91,86 @@ def run(args) -> tuple[int, dict[str, Any]]:
     except Exception as exc:
         return EXIT_SUBSTRATE, {"status": "substrate_failed", "error": str(exc)}
 
+    tool_id = getattr(args, "tool_id", DEFAULT_CLASSIFIER_TOOL_ID)
+    prompt_ref = getattr(args, "prompt_ref", DEFAULT_CLASSIFY_PROMPT_REF)
+    source_arg = getattr(args, "agent_control_source", None)
+    if source_arg is None and any(
+        getattr(args, legacy_name, None)
+        for legacy_name in ("prompt_registry", "tool_manifest", "revocation_registry")
+    ):
+        source_arg = "local_fixture"
+    try:
+        agent_control_source = resolve_agent_control_registry_source(
+            source=source_arg or DEFAULT_AGENT_CONTROL_SOURCE,
+            substrate_root=getattr(args, "agent_control_substrate", None),
+            prompt_registry=getattr(args, "prompt_registry", None),
+            tool_manifest=getattr(args, "tool_manifest", None),
+            revocation_registry=getattr(args, "revocation_registry", None),
+        )
+    except Exception as exc:
+        return EXIT_POLICY, {
+            "status": "policy_denied",
+            "gate": "AgentControlRegistrySource",
+            "reason_code": "tool_manifest_invalid",
+            "error": str(exc),
+        }
+    prompt_registry = agent_control_source.prompt_registry_path
+    revocation_registry = agent_control_source.revocation_registry_path
+    tool_manifest = agent_control_source.tool_registry_path
+    agent_control_provenance = agent_control_source.provenance(
+        contract_sha=(
+            getattr(args, "agent_control_contract_sha", None)
+            or snapshot.contract_lock.validated_ref
+            or snapshot.contract_lock.contract_sha
+        ),
+    )
+    actor = build_agent_identity(
+        run_id=ids["run_id"],
+        event=event,
+        snapshot=snapshot,
+        agent_id=getattr(args, "agent_id", None),
+        delegating_user_id=getattr(args, "delegating_user_id", None),
+        tenant_id=getattr(args, "tenant_id", DEFAULT_TENANT_ID),
+        tool_id=tool_id,
+    )
+    authz_decisions = []
+    revocation_state = load_revocation_state(revocation_registry, actor)
+    prompt = None
+    try:
+        authz_decisions.append(agent_identity_gate(ids["run_id"], actor))
+        authz_decisions.append(
+            revocation_gate(
+                run_id=ids["run_id"],
+                actor=actor,
+                state=revocation_state,
+                route_id=event.route_hint,
+                tool_id=tool_id,
+                evidence_ref=str(revocation_registry) if revocation_registry else None,
+            )
+        )
+        authz_decisions.append(
+            tool_authority_gate(
+                run_id=ids["run_id"],
+                actor=actor,
+                tool_manifest_path=tool_manifest,
+                tool_id=tool_id,
+            )
+        )
+        prompt_decision, prompt = prompt_integrity_gate(
+            run_id=ids["run_id"],
+            actor=actor,
+            prompt_registry_path=prompt_registry,
+            prompt_ref=prompt_ref,
+        )
+        authz_decisions.append(prompt_decision)
+    except PolicyDenied as exc:
+        return EXIT_POLICY, {
+            "status": "policy_denied",
+            "gate": exc.decision.gate,
+            "reason_code": exc.decision.reason_code,
+            "decision": exc.decision.model_dump(mode="json"),
+        }
+
     ledger = JsonlLedgerWriter(ledger_path)
     try:
         policy_gate = preflight_policy(event)
@@ -88,6 +186,10 @@ def run(args) -> tuple[int, dict[str, Any]]:
             "allowed_route_ids": snapshot.allowed_route_ids,
             "allowed_event_classes": snapshot.allowed_event_classes,
             "input_hash": sha256_file(input_path),
+            "agent_instance_id": actor.agent_instance_id,
+            "tool_id": tool_id,
+            "prompt_ref": prompt_ref,
+            "prompt_sha256": prompt.prompt_sha256 if prompt else None,
         }
         classification = adapter.classify(event, snapshot)
         model_response = classification.model_dump()
@@ -102,7 +204,27 @@ def run(args) -> tuple[int, dict[str, Any]]:
 
     packet_dir = packet_root / ids["run_id"] / "evidence"
     try:
-        packet = build_packet(packet_dir, event, snapshot, classification, validations, ids, policy_gate, model_request, model_response)
+        packet = build_packet(
+            packet_dir,
+            event,
+            snapshot,
+            classification,
+            validations,
+            ids,
+            policy_gate,
+            model_request,
+            model_response,
+            agent_identity=actor.model_dump(mode="json"),
+            authz_decisions=[decision.model_dump(mode="json") for decision in authz_decisions],
+            prompt_integrity=prompt_integrity_proof(prompt),
+            revocation_snapshot=revocation_snapshot(
+                revocation_state,
+                route_id=classification.route_id,
+                tool_id=tool_id,
+            ),
+            blast_radius=blast_radius_from_actor(actor),
+            agent_control_provenance=agent_control_provenance,
+        )
         lake_client = build_lake_client(args.lake_mode)
         receipt = lake_client.handoff(
             packet,

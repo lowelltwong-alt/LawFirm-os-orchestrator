@@ -13,6 +13,12 @@ from lawfirm_os_orchestrator.commands.classify_exception import run as run_class
 from lawfirm_os_orchestrator.commands.learning import run as run_learning
 from lawfirm_os_orchestrator.commands.research_radar import run as run_research_radar
 from lawfirm_os_orchestrator.commands.workflow_atlas import run as run_workflow_atlas
+from lawfirm_os_orchestrator.policy.agent_hostile_controls import (
+    DEFAULT_AGENT_CONTROL_SOURCE,
+    DEFAULT_CLASSIFIER_TOOL_ID,
+    DEFAULT_CLASSIFY_PROMPT_REF,
+    DEFAULT_TENANT_ID,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -46,6 +52,17 @@ def build_parser() -> argparse.ArgumentParser:
     classify.add_argument("--packet-out", default=".lawfirm-os-orchestrator/runs")
     classify.add_argument("--lake-mode", choices=["disabled", "dry-run", "runtime-safe"], default="disabled")
     classify.add_argument("--stdout", choices=["json", "text"], default="json")
+    classify.add_argument("--agent-id")
+    classify.add_argument("--delegating-user-id")
+    classify.add_argument("--tenant-id", default=DEFAULT_TENANT_ID)
+    classify.add_argument("--tool-id", default=DEFAULT_CLASSIFIER_TOOL_ID)
+    classify.add_argument("--agent-control-source", choices=["substrate", "local-fixture", "local_fixture"], default=DEFAULT_AGENT_CONTROL_SOURCE)
+    classify.add_argument("--agent-control-substrate")
+    classify.add_argument("--agent-control-contract-sha")
+    classify.add_argument("--tool-manifest")
+    classify.add_argument("--prompt-ref", default=DEFAULT_CLASSIFY_PROMPT_REF)
+    classify.add_argument("--prompt-registry")
+    classify.add_argument("--revocation-registry")
 
     atlas = sub.add_parser("workflow-atlas")
     atlas_sub = atlas.add_subparsers(dest="workflow_atlas_command", required=True)

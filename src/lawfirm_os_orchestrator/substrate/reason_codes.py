@@ -117,6 +117,8 @@ WRITE_REQUIRES_HUMAN_APPROVAL = _require(_REASON, "write_requires_human_approval
 WRITE_REQUIRES_EXPLICIT_APPROVAL_POLICY = _require(_REASON, "write_requires_explicit_approval_policy")
 
 EXECUTION_DECISION_REASON_CODES: frozenset[str] = _VOCABS[_REASON]
+for _value in EXECUTION_DECISION_REASON_CODES:
+    globals().setdefault(_value.upper(), _require(_REASON, _value))
 
 
 # ---------- runtime.semantic_mutation_actions deny-list ----------
