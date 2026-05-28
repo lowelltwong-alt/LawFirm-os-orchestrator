@@ -19,6 +19,36 @@ This repo must not own: Canonical schemas, canonical lifecycle states, legal doc
 Run workspace preservation and control-plane validation before reporting success on managed patch work.
 <!-- END LAWFIRM_OS_BOOTSTRAP -->
 
+## Load before orchestration work: AI strategy and decision models
+
+Before changing orchestration behavior, model routing, tool authority, approval gates, autonomy policy, or evidence-packet structure, load the Semantic Substrate strategy and decision-model doctrine.
+
+Required read order:
+
+```text
+../LawFirm-os-semantic-substrate/registry/ai-front-door-registry.json
+../LawFirm-os-semantic-substrate/AI_TABLE_OF_CONTENTS.md
+../LawFirm-os-semantic-substrate/governance/AI_STRATEGY_DOCTRINE.md
+../LawFirm-os-semantic-substrate/governance/DECISION_BOTTLENECK_AND_DECISION_MODELS.md
+../LawFirm-os-semantic-substrate/registry/decision-model-registry.seed.json
+```
+
+Operating interpretation:
+
+1. The Orchestrator executes decision models; it does not invent them.
+2. Model output is proposal-only.
+3. Evidence packets are decision-support units, not canon.
+4. Throughput means accepted, decision-ready packets per reviewer hour, not raw model output.
+5. Vendor/model/framework choice is an adapter decision under policy, not AI strategy.
+6. Every high-stakes run should carry `decision_model_id` in the run ledger and evidence packet.
+7. If a run has no applicable decision model, downgrade to `needs_review` or block until governance supplies one.
+
+Design rule:
+
+```text
+No autonomous escalation in capability without a decision model, evidence minimum, approval rule, and revocation path.
+```
+
 <!-- BEGIN REPO_SPECIFIC_INSTRUCTIONS -->
 # AI Work Start Here
 
