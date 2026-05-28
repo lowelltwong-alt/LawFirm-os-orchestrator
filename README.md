@@ -89,6 +89,16 @@ The substrate is pinned in `contracts.lock.json`. Lock fields:
 - `generated_at: <ISO8601>`
 - `generated_by: LawFirm-os-orchestrator`
 
+## Decision-model gates
+
+The orchestrator consumes, but does not own, the Semantic Substrate AI strategy and decision-model doctrine:
+
+- `../LawFirm-os-semantic-substrate/governance/AI_STRATEGY_DOCTRINE.md`
+- `../LawFirm-os-semantic-substrate/governance/DECISION_BOTTLENECK_AND_DECISION_MODELS.md`
+- `../LawFirm-os-semantic-substrate/registry/decision-model-registry.seed.json`
+- `docs/ai-workflow/decision-model-gates.md`
+- `docs/decisions/ADR-002-ai-strategy-and-decision-bottleneck.md`
+
 ## First throughput metric
 
 Accepted, contract-locked proposed exception packets per reviewer hour.
