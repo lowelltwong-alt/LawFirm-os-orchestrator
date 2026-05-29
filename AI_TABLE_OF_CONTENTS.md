@@ -16,7 +16,7 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 - `contracts.lock.json` - pins the substrate checkout at `LawFirm-os-semantic-substrate` commit `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12`.
 - Substrate `manifests/contract_manifest.v1.json` - canonical orchestrator-facing manifest. Loading is manifest-first.
 - Substrate `registry/exception-route-registry.json` - canonical `route_id` and `event_class` authority.
-- Substrate `governance/AI_STRATEGY_DOCTRINE.md` - canonical AI strategy doctrine.
+- Substrate `governance/AI_STRATEGY_DOCTRINE.md` - proposed AI strategy doctrine to consult, not override; not canon until approved in Semantic Substrate.
 - Substrate `governance/DECISION_BOTTLENECK_AND_DECISION_MODELS.md` - canonical decision-bottleneck and decision-model doctrine.
 - Substrate `registry/decision-model-registry.seed.json` - canonical seed decision-model registry consumed by orchestration guidance.
 - `docs/CANONICAL_ROUTE_MAPPING.md` - maps local orchestrator labels to substrate authority and marks unmapped labels as non-canonical.
@@ -24,6 +24,12 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 - `docs/decisions/ADR-002-ai-strategy-and-decision-bottleneck.md` - accepted ADR for orchestrator consumption of the doctrine.
 
 Required manifest fields include `manifest_id`, `manifest_version`, `policy_bundle_id`, `canonical_schema_keys`, and `registry_refs`. The reader fails closed if the manifest is missing or required fields are absent; `policy_bundle_id` must not be silently defaulted.
+
+## AI Strategy Doctrine Dependency
+
+- Consult, do not override, `../LawFirm-os-semantic-substrate/governance/AI_STRATEGY_DOCTRINE.md` for AI strategy, model/provider strategy, vendor lock-in, proprietary context, Legal Context Bundles, context quality, structured matter records, institutional knowledge encoding, Shannon / entropy / uncertainty framing, skill trust, AI governance boundaries, model routing policy, and orchestration governance.
+- Runtime repos remain consumers of this doctrine and do not become semantic authority.
+- This TOC does not imply automatic runtime routing unless an existing Semantic Substrate routing registry supports that behavior.
 
 ## Commands And Local Surfaces
 
