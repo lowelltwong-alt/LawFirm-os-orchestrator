@@ -1,3 +1,13 @@
+---
+artifact: true
+artifact_type: technical_crosswalk
+status: proposed
+canon_status: not_canon_until_approved
+authority: explanatory_only
+review_cycle: 6 months
+stale_after: 2026-11-29
+---
+
 # Shannon Channel Model for Orchestration
 
 Status: Non-canonical concept note.
@@ -7,7 +17,7 @@ Authority: Explanatory only. Does not change runtime behavior, invent route IDs,
 
 The orchestrator is a transmitter/receiver inside a governed communication channel that runs from substrate canon to runtime evidence. Route classification, autonomy gating, harness selection, and structured-output validation are exactly the redundancy and error-control mechanisms that information theory describes. This note explains why those gates are not bureaucracy; it does not change any of them, propose new ones, or imply that high entropy alone is a promotion signal.
 
-Master conceptual reference: `../_shared/SHANNON_INFORMATION_THEORY_FOR_AI_GOVERNANCE_MASTER.md` (workspace-shared, non-canonical).
+Conceptual lineage: this note draws on Shannon (1948), Cover & Thomas (*Elements of Information Theory*), and MacKay (*Information Theory, Inference, and Learning Algorithms*); see the **References** section. No file outside this repository is required to read this note.
 
 ## Boundary
 
@@ -162,4 +172,3 @@ Conceptual only.
 - Claude E. Shannon, "A Mathematical Theory of Communication," 1948.
 - Thomas M. Cover and Joy A. Thomas, *Elements of Information Theory*, Wiley.
 - David J. C. MacKay, *Information Theory, Inference, and Learning Algorithms*, Cambridge University Press.
-- Workspace-shared master file: `../_shared/SHANNON_INFORMATION_THEORY_FOR_AI_GOVERNANCE_MASTER.md`.
