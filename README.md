@@ -145,3 +145,11 @@ python -m lawfirm_os_orchestrator generate-codex-task \
 ```
 
 The packet is a local artifact for human review. Risk color controls authority; hardness and leverage can change review detail, never authority.
+
+## AI Strategy Doctrine Dependency
+
+- Orchestrator consumes AI strategy doctrine from `../LawFirm-os-semantic-substrate/governance/AI_STRATEGY_DOCTRINE.md`.
+- Orchestrator may use Legal Context Bundles as pre-model context artifacts.
+- Orchestrator emits Evidence Packets as post-model runtime evidence.
+- Orchestrator must not define canonical strategy doctrine, context-quality schemas, entropy metric IDs, institutional-knowledge authority, route IDs, or event classes.
+- Orchestrator must fail closed or escalate when context quality, provenance, privilege, permission, contract pin, or prompt integrity is insufficient.
