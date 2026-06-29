@@ -72,6 +72,12 @@ python -m lawfirm_os_orchestrator classify-exception \
 - contract-lock validation is fail-closed on SHA drift or missing required manifest fields, including `policy_bundle_id`.
 - autonomy and harness outputs are local orchestrator records only, not canonical substrate schemas.
 
+## Governance Dependency-Map Mirror
+
+This repo carries `.ai/control/governance-dependency-map-mirror.json` as a local mirror of the upstream governance dependency map in `LawFirm-os-semantic-substrate/registry/governance-dependency-map.json`.
+
+If governance-facing Orchestrator files change, check the upstream governance dependency map and update the local mirror, AI work router, AI table of contents, README, validator, and tests when affected. The mirror is downstream enforcement only; it cannot override Semantic Substrate governance, create canonical route or event authority, authorize external writes, or turn workflow convenience into legal/compliance authority.
+
 ## Substrate consumption
 
 The orchestrator loads contracts from a pinned substrate checkout in this order:
