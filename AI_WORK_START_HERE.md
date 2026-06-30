@@ -27,6 +27,7 @@ Required read order:
 
 ```text
 ../LawFirm-os-semantic-substrate/registry/ai-front-door-registry.json
+../LawFirm-os-semantic-substrate/registry/governance-dependency-map.json
 ../LawFirm-os-semantic-substrate/AI_TABLE_OF_CONTENTS.md
 ../LawFirm-os-semantic-substrate/governance/AI_STRATEGY_DOCTRINE.md
 ../LawFirm-os-semantic-substrate/governance/DECISION_BOTTLENECK_AND_DECISION_MODELS.md
@@ -48,6 +49,8 @@ Design rule:
 ```text
 No autonomous escalation in capability without a decision model, evidence minimum, approval rule, and revocation path.
 ```
+
+governance dependency-map mirror: if this repo changes governance-facing files, check the upstream `../LawFirm-os-semantic-substrate/registry/governance-dependency-map.json` and update `.ai/control/governance-dependency-map-mirror.json`, local discovery surfaces, and `scripts/validate_governance_dependency_map_mirror.py` when affected.
 
 <!-- BEGIN REPO_SPECIFIC_INSTRUCTIONS -->
 # AI Work Start Here

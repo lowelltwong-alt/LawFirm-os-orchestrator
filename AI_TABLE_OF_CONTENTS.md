@@ -14,8 +14,11 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 ## Contract Authority
 
 - `contracts.lock.json` - pins the substrate checkout at `LawFirm-os-semantic-substrate` commit `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12`.
+- `.ai/control/governance-dependency-map-mirror.json` - local mirror of the upstream governance dependency map; it cannot override `LawFirm-os-semantic-substrate`.
+- `scripts/validate_governance_dependency_map_mirror.py` - fail-closed check for mirror shape and watched governance paths.
 - Substrate `manifests/contract_manifest.v1.json` - canonical orchestrator-facing manifest. Loading is manifest-first.
 - Substrate `registry/exception-route-registry.json` - canonical `route_id` and `event_class` authority.
+- Substrate `registry/governance-dependency-map.json` - canonical governance-facing dependency map and child mirror update gate.
 - Substrate `governance/AI_STRATEGY_DOCTRINE.md` - proposed AI strategy doctrine to consult, not override; not canon until approved in Semantic Substrate.
 - Substrate `governance/DECISION_BOTTLENECK_AND_DECISION_MODELS.md` - canonical decision-bottleneck and decision-model doctrine.
 - Substrate `registry/decision-model-registry.seed.json` - canonical seed decision-model registry consumed by orchestration guidance.
