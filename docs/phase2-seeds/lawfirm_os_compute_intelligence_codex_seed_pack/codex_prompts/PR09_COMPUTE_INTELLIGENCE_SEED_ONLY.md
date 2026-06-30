@@ -227,7 +227,7 @@ docs/phase2-seeds/scripts/check_seed_pack_safety.py
 Run:
 
 ```bash
-python -m pytest
+python scripts/run_full_pytest.py
 python scripts/check_safety.py --stdout json
 python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json
 python docs/phase2-seeds/scripts/check_seed_pack_safety.py .

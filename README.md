@@ -58,7 +58,7 @@ python -m lawfirm_os_orchestrator classify-exception \
   --stdout json
 ```
 
-Use `python scripts/run_full_pytest.py` for full or focused pytest runs. Direct pytest invocation is blocked by `config/validation-runtime-policy.yaml` so local and agent validation always gets the required long timeout ceiling.
+Use `python scripts/run_full_pytest.py` for full or focused pytest runs. Direct pytest invocation is blocked by `config/validation-runtime-policy.yaml` so local and agent validation always gets the required 3600 second timeout ceiling.
 
 ## Safety boundaries
 
