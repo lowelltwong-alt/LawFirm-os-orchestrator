@@ -2,7 +2,7 @@
   "object_type": "governance_dependency_map_mirror",
   "trust_zone": "downstream_control",
   "lifecycle_status": "active",
-  "provenance_note": "Created 2026-06-29 to mirror the upstream LawFirm OS governance dependency-map update gate inside LawFirm-os-orchestrator. Updated 2026-06-30 to cover validation runtime policy, intake Orchestrator adoption review docket surfaces, the candidate intake owner-review packet builder, and the candidate intake Lake admission-review packet builder.",
+  "provenance_note": "Created 2026-06-29 to mirror the upstream LawFirm OS governance dependency-map update gate inside LawFirm-os-orchestrator. Updated 2026-06-30 to cover validation runtime policy, intake Orchestrator adoption review docket surfaces, the candidate intake owner-review packet builder, the candidate intake Lake admission-review packet builder, and seed-prompt validation commands that now require the pytest wrapper.",
   "reason_for_inclusion": "Force execution-plane governance changes to check the upstream governance dependency map and local mirror surfaces instead of relying on chat memory or workflow convenience.",
   "schema_version": "governance_dependency_map_mirror.v1",
   "mirror_id": "lawfirm_os_orchestrator_governance_dependency_map_mirror",
@@ -34,7 +34,11 @@
     "intake_owner_review_packet_fixture": "examples/intake_owner_review_request.synthetic.json",
     "intake_lake_admission_review_packet_doc": "docs/INTAKE_LAKE_ADMISSION_REVIEW_PACKET.md",
     "intake_lake_admission_review_packet_builder": "src/lawfirm_os_orchestrator/intake/lake_admission_review.py",
-    "intake_lake_admission_review_packet_test": "tests/test_intake_lake_admission_review_packet.py"
+    "intake_lake_admission_review_packet_test": "tests/test_intake_lake_admission_review_packet.py",
+    "seed_validation_commands": "docs/phase2-seeds/lawfirm_os_compute_intelligence_codex_seed_pack/09_VALIDATION_COMMANDS.md",
+    "seed_codex_prompt": "docs/phase2-seeds/lawfirm_os_compute_intelligence_codex_seed_pack/codex_prompts/PR09_COMPUTE_INTELLIGENCE_SEED_ONLY.md",
+    "codex_seed_architecture_task": "prompts/codex/v1/tasks/001_seed_architecture_memory.md",
+    "codex_eval_metrics_task": "prompts/codex/v1/tasks/002_eval_metrics_spine.md"
   },
   "authority": {
     "local_repo_may_override_upstream_dependency_map": false,
