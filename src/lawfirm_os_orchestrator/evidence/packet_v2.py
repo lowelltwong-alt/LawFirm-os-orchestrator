@@ -23,7 +23,7 @@ from __future__ import annotations
 import hashlib
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 from lawfirm_os_orchestrator.util.hashing import canonical_json, sha256_file
 from lawfirm_os_orchestrator.util.json_io import write_json

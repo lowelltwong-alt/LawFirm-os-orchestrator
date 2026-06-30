@@ -108,6 +108,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=".lawfirm-os-orchestrator/ledger",
     )
     owner_packet.add_argument("--stdout", choices=["json", "text"], default="json")
+    lake_review = intake_sub.add_parser("build-lake-admission-review-packet")
+    lake_review.add_argument("--owner-packet", required=True)
+    lake_review.add_argument(
+        "--out-dir",
+        default=".lawfirm-os-orchestrator/intake_lake_admission_review",
+    )
+    lake_review.add_argument(
+        "--ledger-dir",
+        default=".lawfirm-os-orchestrator/ledger",
+    )
+    lake_review.add_argument("--stdout", choices=["json", "text"], default="json")
 
     radar = sub.add_parser("research-radar")
     radar_sub = radar.add_subparsers(dest="research_command", required=True)

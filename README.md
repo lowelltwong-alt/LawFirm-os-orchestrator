@@ -89,6 +89,8 @@ The docket keeps all carrier rejection capture future-facing and fail-closed: em
 
 `lawfirm-os-orchestrator intake prepare-owner-packet` is the first candidate execution slice for that docket. It reads a synthetic local request, writes a local owner-review packet, classifies carrier rejection notices into known buckets or the unknown bucket, compares budget phases/tasks to actuals, records human-pause and budget-precondition blockers, and emits a Lake handoff preview with no write authority. See `docs/INTAKE_OWNER_REVIEW_PACKET.md`.
 
+`lawfirm-os-orchestrator intake build-lake-admission-review-packet` is the next local slice. It reads the owner-review packet, verifies the packet hash and no-write Lake preview, then emits a candidate Exception Lake owner-review packet with proposed record-family summaries, idempotency keys, source-hash status, and admission blockers. It still performs no Lake write, SQLite write, raw-payload storage, budget submission, appeal submission, route creation, or event-class creation. See `docs/INTAKE_LAKE_ADMISSION_REVIEW_PACKET.md`.
+
 ## Substrate consumption
 
 The orchestrator loads contracts from a pinned substrate checkout in this order:

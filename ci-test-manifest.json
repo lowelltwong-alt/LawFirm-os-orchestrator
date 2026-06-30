@@ -1063,6 +1063,73 @@
       ],
       "expected_runtime_seconds": 5,
       "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_intake_lake_admission_review_packet.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_intake_lake_admission_review_packet.py",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_intake_lake_admission_review_packet.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "intake_lake_admission_review_packet",
+        "exception_lake_evidence_boundary",
+        "carrier_rejection_learning_loop",
+        "budget_actuals_variance"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "workflow_change",
+        "evidence_boundary_change",
+        "human_gate_change",
+        "budget_actuals_change",
+        "carrier_rejection_classification_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_intake_lake_admission_review_packet.py",
+        "src/lawfirm_os_orchestrator/intake/lake_admission_review.py",
+        "src/lawfirm_os_orchestrator/intake/owner_review.py",
+        "src/lawfirm_os_orchestrator/commands/intake_workflow.py",
+        "examples/intake_owner_review_request.synthetic.json",
+        "docs/INTAKE_LAKE_ADMISSION_REVIEW_PACKET.md",
+        "docs/INTAKE_OWNER_REVIEW_PACKET.md",
+        "ENDPOINTS_AND_COMMANDS.md"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "intake_lake_admission_review_packet",
+        "protected"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-intake",
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "intake Lake admission-review packet builder changes",
+        "Exception Lake handoff or no-write behavior changes",
+        "carrier rejection record-family behavior changes",
+        "budget actuals variance admission-review behavior changes"
+      ],
+      "must_not_validate": [
+        "canonical route authority",
+        "canonical event class authority",
+        "production connector authority",
+        "Exception Lake write authority",
+        "SQLite migration authority",
+        "raw legal payload storage",
+        "budget submission authority",
+        "matter opening authority"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
     }
   ],
   "explicit_test_artifact_exclusions": [

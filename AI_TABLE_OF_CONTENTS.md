@@ -21,6 +21,8 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 - `scripts/validate_intake_orchestrator_adoption_review.py` - fail-closed check that the intake review docket remains candidate-only and does not assign canonical route/event/Lake/connector authority.
 - `docs/INTAKE_OWNER_REVIEW_PACKET.md` - candidate execution artifact for synthetic intake owner-review packets.
 - `src/lawfirm_os_orchestrator/intake/owner_review.py` - deterministic local packet builder for human pauses, rejection buckets, budget actuals variance, and Lake preview-only handoff.
+- `docs/INTAKE_LAKE_ADMISSION_REVIEW_PACKET.md` - candidate execution artifact for packaging owner-review evidence into Exception Lake owner-review record-family summaries.
+- `src/lawfirm_os_orchestrator/intake/lake_admission_review.py` - deterministic local packet builder for Lake admission-review blockers, source-hash status, idempotency keys, and no-write controls.
 - Substrate `manifests/contract_manifest.v1.json` - canonical orchestrator-facing manifest. Loading is manifest-first.
 - Substrate `registry/exception-route-registry.json` - canonical `route_id` and `event_class` authority.
 - Substrate `registry/governance-dependency-map.json` - canonical governance-facing dependency map and child mirror update gate.
@@ -50,6 +52,7 @@ Required manifest fields include `manifest_id`, `manifest_version`, `policy_bund
 - `scripts/render_codex_task.py` - inert Codex task draft renderer.
 - `scripts/check_safety.py` - safety regression check.
 - `tests/test_intake_owner_review_packet.py` - intake owner-review packet regression coverage.
+- `tests/test_intake_lake_admission_review_packet.py` - intake Lake admission-review packet regression coverage.
 
 ## Learning And Research
 
@@ -68,7 +71,7 @@ PR03 is implemented as local green-lane assumption watching. It may recommend do
 
 PR04 is implemented as local inert Codex task packet generation. It compresses iteration context without granting authority or executing work. PR05/PR06/PR07 remain future phases.
 
-The intake Orchestrator adoption review docket records future owner decisions for intake-to-budget workflow control, carrier rejection capture, appeal result learning, and budget actuals comparison without creating canonical authority. The local intake owner-review packet builder is a candidate execution artifact only; it remains synthetic-only, blocks on missing human/decision-model gates, and keeps Lake handoff preview-only.
+The intake Orchestrator adoption review docket records future owner decisions for intake-to-budget workflow control, carrier rejection capture, appeal result learning, and budget actuals comparison without creating canonical authority. The local intake owner-review packet builder is a candidate execution artifact only; it remains synthetic-only, blocks on missing human/decision-model gates, and keeps Lake handoff preview-only. The local intake Lake admission-review packet builder packages that owner-review evidence for Exception Lake owner review while preserving no-write, no-SQLite, no-raw-payload, and no-canon-mapping controls.
 
 ## Hard Boundaries
 

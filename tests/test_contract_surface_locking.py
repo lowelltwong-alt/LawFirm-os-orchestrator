@@ -10,7 +10,7 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from lawfirm_os_orchestrator.substrate.contract_lock import validate_contract_checkout
+from lawfirm_os_orchestrator.substrate.contract_lock import validate_contract_checkout  # noqa: E402
 
 
 def _git(repo: Path, *args: str) -> str:
