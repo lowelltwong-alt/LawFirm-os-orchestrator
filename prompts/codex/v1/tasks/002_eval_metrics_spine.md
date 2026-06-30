@@ -51,6 +51,5 @@ Add a first offline eval harness for `classify-exception` without changing produ
 
 ## Validation
 
-- `python -m pytest`
+- `python scripts/run_full_pytest.py`
 - `python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json`
-

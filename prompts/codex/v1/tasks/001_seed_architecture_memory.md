@@ -48,6 +48,5 @@ Add this seed pack into the Orchestrator repo as architecture memory.
 
 ## Validation
 
-- `python -m pytest`
+- `python scripts/run_full_pytest.py`
 - `git diff --check`
-

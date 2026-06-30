@@ -198,7 +198,7 @@ python scripts/render_codex_task.py --input examples/codex_task_drafts/validator
 python scripts/check_safety.py
 ```
 
-`config/validation-runtime-policy.yaml` requires all pytest runs to use `python scripts/run_full_pytest.py`; direct pytest invocation fails closed so short default ceilings do not create false failures.
+`config/validation-runtime-policy.yaml` requires all pytest runs to use `python scripts/run_full_pytest.py` with a 3600 second policy floor; direct pytest invocation fails closed so short default ceilings do not create false failures.
 
 ## Contract And Authority Notes
 
