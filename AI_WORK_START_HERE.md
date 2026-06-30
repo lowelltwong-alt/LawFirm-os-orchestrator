@@ -71,7 +71,7 @@ Loading discipline: manifest-first; required manifest fields (`manifest_id`, `ma
 Autonomy discipline: risk color controls authority; hardness controls harness depth; leverage controls priority; stakes modeling remains PR07.
 Green-lane discipline: green lanes are conditional; signals may downgrade green to yellow/red; humans restore green authority.
 Task-packet discipline: Codex task packets are inert build instructions only and must not execute tools, code, Git, models, network, Substrate writes, or Lake writes.
-Validation plan: run `python -m pytest`, `python scripts/check_safety.py --stdout json`, evals, and CLI smoke tests.
+Validation plan: run `python scripts/run_full_pytest.py`, `python scripts/check_safety.py --stdout json`, evals, and CLI smoke tests. The pytest wrapper is required by `config/validation-runtime-policy.yaml` so full and focused pytest runs receive the configured long ceiling.
 Stop conditions: see `docs/decisions/synthetic_only_policy.md`.
 
 <!-- END REPO_SPECIFIC_INSTRUCTIONS -->
@@ -86,7 +86,7 @@ Stop conditions: see `docs/decisions/synthetic_only_policy.md`.
 
 ## Validation Commands
 
-    python -m pytest -q
+    python scripts/run_full_pytest.py
     python ../LawFirm-os-semantic-substrate/scripts/validate_skill_agent_control_plane.py --workspace ..
 
 ## AI Strategy Doctrine Dependency

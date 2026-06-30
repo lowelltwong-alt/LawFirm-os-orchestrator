@@ -150,12 +150,17 @@ Purpose: deterministically score a local algorithm/method insight as proposal ev
 ## Scripts
 
 ```powershell
+python scripts/run_full_pytest.py
+python scripts/run_full_pytest.py tests/test_workflow_atlas.py -q
+python scripts/validate_intake_orchestrator_adoption_review.py
 python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json
 python scripts/run_shadow_eval.py --proposal examples/shadow_eval/validator_threshold_proposal.json --stdout json
 python scripts/build_upgrade_proposal.py --input examples/upgrade_proposals/validator_threshold_packet_request.json --stdout json
 python scripts/render_codex_task.py --input examples/codex_task_drafts/validator_task_draft_request.json --stdout json
 python scripts/check_safety.py
 ```
+
+`config/validation-runtime-policy.yaml` requires all pytest runs to use `python scripts/run_full_pytest.py`; direct pytest invocation fails closed so short default ceilings do not create false failures.
 
 ## Contract And Authority Notes
 

@@ -90,7 +90,7 @@ def sample_models():
         target_surface=TargetSurface.VALIDATORS,
         expected_metric_lift={"first_pass_validation_rate": 0.0},
         risks=["Synthetic proposal only; no automatic implementation."],
-        tests_required=["python -m pytest"],
+        tests_required=["python scripts/run_full_pytest.py"],
     )
     recommendation = ActionRecommendation(
         proposal_id=proposal.upgrade_proposal_id,
@@ -105,13 +105,27 @@ def sample_models():
         route="Draft a bounded local validator task.",
         mode="Local artifact drafting only.",
         allowed_paths=["src/lawfirm_os_orchestrator/policy/**", "tests/**"],
-        forbidden_paths=["../LawFirm-os-semantic-substrate/**", "../LawFirm-os-exceptions-lake-runtime/**"],
-        validation_commands=["python -m pytest"],
+        forbidden_paths=[
+            "../LawFirm-os-semantic-substrate/**",
+            "../LawFirm-os-exceptions-lake-runtime/**",
+        ],
+        validation_commands=["python scripts/run_full_pytest.py"],
         stop_conditions=["Stop if real client or matter data is required."],
         expected_artifacts=["codex_task_draft.md"],
         prompt_markdown="Draft a proposal-only validator improvement for human review.",
     )
-    return [defect, correction, pressure, candidate, hypothesis, plan, result, proposal, recommendation, draft]
+    return [
+        defect,
+        correction,
+        pressure,
+        candidate,
+        hypothesis,
+        plan,
+        result,
+        proposal,
+        recommendation,
+        draft,
+    ]
 
 
 def test_learning_models_round_trip_json():
@@ -195,7 +209,7 @@ def test_codex_task_draft_rejects_forbidden_execution_language():
             mode="Local artifact drafting only.",
             allowed_paths=["src/**"],
             forbidden_paths=["../LawFirm-os-semantic-substrate/**"],
-            validation_commands=["python -m pytest"],
+            validation_commands=["python scripts/run_full_pytest.py"],
             stop_conditions=["Stop if real data is required."],
             expected_artifacts=["codex_task_draft.md"],
             prompt_markdown="Implement and git push the change.",

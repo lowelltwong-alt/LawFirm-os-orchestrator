@@ -1,0 +1,21 @@
+policy_id: orchestrator-validation-runtime-policy
+version: "0.1"
+status: candidate
+contains_real_firm_data: false
+
+# Local pytest can exceed a short/default 300 second tool ceiling on Windows and
+# in multi-repo validation work. Agents and humans must use this policy-backed
+# wrapper instead of raw pytest so slow suites do not create false failures.
+commands:
+  full_pytest:
+    command: python -m pytest -q
+    minimum_timeout_seconds: 900
+    reason: Full suite can exceed 300 seconds on local Windows/OneDrive worktrees and during control-plane validation.
+    wrapper: python scripts/run_full_pytest.py
+  focused_pytest:
+    command: python -m pytest <paths> -q
+    minimum_timeout_seconds: 900
+    reason: Focused tests may import governance validators and should not inherit a short ceiling.
+    wrapper: python scripts/run_full_pytest.py <paths> -q
+
+agent_instruction: Use the configured minimum timeout or higher for pytest commands; full and focused pytest must run through scripts/run_full_pytest.py and direct pytest invocation is blocked.

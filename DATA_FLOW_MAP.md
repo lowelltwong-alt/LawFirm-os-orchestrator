@@ -37,6 +37,8 @@ flowchart LR
     HAR["PR02 harness selector\nhardness controls depth\nleverage controls priority"]
     WATCH["PR03 green-lane watcher\nassumption drift downgrade only"]
     TASK["PR04 Codex task packet builder\ninert build instructions only"]
+    INTAKE["Intake adoption review docket\ncandidate owner review only"]
+    CARR["Carrier rejection capture plan\nemail/portal future channels disabled now"]
 
     SS -->|"read-only manifest-first contracts"| OR
     OR -->|"validated synthetic run records"| LED
@@ -48,6 +50,8 @@ flowchart LR
     WATCH -->|"yellow/red recommendation only"| LEARN
     HAR -->|"autonomy + harness + scorecard"| TASK
     TASK -->|"local inert task packet"| LEARN
+    INTAKE -->|"future owner decisions\nno canonical IDs"| OR
+    CARR -->|"known bucket or unknown pattern\nhuman appeal gate"| INTAKE
     PKT -->|"disabled by default / dry-run only when explicit"| EL
     RR -->|"local JSON/Markdown signals only"| LEARN
     LEARN -->|"proposal-only artifacts"| HUM
@@ -55,6 +59,7 @@ flowchart LR
 
     OR -. "no substrate writes" .-> SS
     OR -. "no local canonical route_id/event_class authority" .-> SS
+    INTAKE -. "no connector, Lake write, budget submission, or appeal authority" .-> INTAKE
     RR -. "no live crawl, API, model call, schedule, or external write" .-> RR
 ```
 
@@ -114,6 +119,8 @@ Implemented locally:
 - PR02 autonomy gate and harness selector
 - PR03 green-lane assumption watcher
 - PR04 inert Codex task packet builder
+- candidate-only intake Orchestrator adoption review docket
+- future carrier rejection capture plan with deterministic unknown bucket, human appeal gate, and budget actuals comparison inputs
 
 Still non-authoritative and local-only:
 
@@ -122,6 +129,7 @@ Still non-authoritative and local-only:
 - autonomy decisions, hardness scores, leverage scores, and harness plans
 - green-lane watch recommendations and reclassification evidence
 - Codex task packets and inert agent review plans
+- intake owner review docket entries and carrier rejection capture plans
 - all Phase 2 upgrade and decision-support artifacts
 
 ## Hard Prohibitions

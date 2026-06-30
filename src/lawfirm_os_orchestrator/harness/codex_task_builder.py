@@ -5,10 +5,20 @@ from typing import Any, Literal
 
 from pydantic import Field
 
-from lawfirm_os_orchestrator.autonomy.autonomy_gate import AutonomyDecision, LocalPhase2Model, RiskColor
-from lawfirm_os_orchestrator.harness.agent_committee import AgentReviewPlan, build_agent_review_plan
+from lawfirm_os_orchestrator.autonomy.autonomy_gate import (
+    AutonomyDecision,
+    LocalPhase2Model,
+    RiskColor,
+)
+from lawfirm_os_orchestrator.harness.agent_committee import (
+    AgentReviewPlan,
+    build_agent_review_plan,
+)
 from lawfirm_os_orchestrator.harness.harness_selector import HarnessPlan
-from lawfirm_os_orchestrator.harness.leverage_scorer import OpportunityScorecard, score_leverage
+from lawfirm_os_orchestrator.harness.leverage_scorer import (
+    OpportunityScorecard,
+    score_leverage,
+)
 from lawfirm_os_orchestrator.util.ids import new_id
 from lawfirm_os_orchestrator.util.json_io import read_json, write_json
 from lawfirm_os_orchestrator.util.time import utc_now
@@ -29,7 +39,9 @@ class OpportunityInput(LocalPhase2Model):
 
 
 class CodexTaskPacket(LocalPhase2Model):
-    task_packet_id: str = Field(default_factory=lambda: new_id("codex_task_packet"), min_length=1)
+    task_packet_id: str = Field(
+        default_factory=lambda: new_id("codex_task_packet"), min_length=1
+    )
     generated_at: str = Field(default_factory=utc_now)
     objective: str = Field(min_length=1)
     source_refs: list[str] = Field(default_factory=list)
@@ -99,7 +111,9 @@ def _payload_section(raw: dict[str, Any], key: str) -> dict[str, Any]:
 
 
 def _load_autonomy(path: Path) -> AutonomyDecision:
-    return AutonomyDecision.model_validate(_payload_section(read_json(path), "autonomy_decision"))
+    return AutonomyDecision.model_validate(
+        _payload_section(read_json(path), "autonomy_decision")
+    )
 
 
 def _load_harness(path: Path) -> HarnessPlan:
@@ -110,20 +124,36 @@ def _allowed_actions(risk_color: RiskColor, harness: HarnessPlan) -> list[str]:
     if risk_color == RiskColor.RED:
         return ["prepare proposal-only risk memo", "prepare human decision packet"]
     if risk_color == RiskColor.YELLOW:
-        return ["prepare local draft", "prepare test evidence", "prepare review packet", "recommend green-candidate"]
-    return ["perform local reversible work inside preapproved lane", *harness.allowed_outputs]
+        return [
+            "prepare local draft",
+            "prepare test evidence",
+            "prepare review packet",
+            "recommend green-candidate",
+        ]
+    return [
+        "perform local reversible work inside preapproved lane",
+        *harness.allowed_outputs,
+    ]
 
 
-def _forbidden_actions(risk_color: RiskColor, autonomy: AutonomyDecision, harness: HarnessPlan) -> list[str]:
+def _forbidden_actions(
+    risk_color: RiskColor, autonomy: AutonomyDecision, harness: HarnessPlan
+) -> list[str]:
     forbidden = set(BASE_FORBIDDEN_ACTIONS)
     forbidden.update(autonomy.forbidden_actions)
     forbidden.update(harness.forbidden_outputs)
     if risk_color == RiskColor.RED:
-        forbidden.update(["auto-merge", "production release", "canon mutation", "external writes"])
+        forbidden.update(
+            ["auto-merge", "production release", "canon mutation", "external writes"]
+        )
     elif risk_color == RiskColor.YELLOW:
-        forbidden.update(["auto-merge", "production release", "canon mutation", "external writes"])
+        forbidden.update(
+            ["auto-merge", "production release", "canon mutation", "external writes"]
+        )
     else:
-        forbidden.update(["canon mutation", "external writes", "green restoration by agents"])
+        forbidden.update(
+            ["canon mutation", "external writes", "green restoration by agents"]
+        )
     return sorted(forbidden)
 
 
@@ -150,7 +180,9 @@ def build_codex_task_packet(
     harness: HarnessPlan,
 ) -> CodexTaskPacket:
     leverage = score_leverage(scorecard)
-    source_refs = sorted(set(opportunity.source_refs + autonomy.source_refs + harness.reasons))
+    source_refs = sorted(
+        set(opportunity.source_refs + autonomy.source_refs + harness.reasons)
+    )
     review_plan = build_agent_review_plan(
         risk_color=autonomy.risk_color,
         harness_level=harness.harness_level,
@@ -169,8 +201,16 @@ def build_codex_task_packet(
         allowed_actions=_allowed_actions(autonomy.risk_color, harness),
         forbidden_actions=_forbidden_actions(autonomy.risk_color, autonomy, harness),
         files_to_add_or_update=opportunity.files_to_add_or_update,
-        acceptance_criteria=_defaulted(opportunity.acceptance_criteria, ["human reviewer confirms packet scope"]),
-        tests_to_run=_defaulted(opportunity.tests_to_run, ["python -m pytest", "python scripts/check_safety.py --stdout json"]),
+        acceptance_criteria=_defaulted(
+            opportunity.acceptance_criteria, ["human reviewer confirms packet scope"]
+        ),
+        tests_to_run=_defaulted(
+            opportunity.tests_to_run,
+            [
+                "python scripts/run_full_pytest.py",
+                "python scripts/check_safety.py --stdout json",
+            ],
+        ),
         rollback_rule="Stop and revert only the proposed future implementation if validation or authority checks fail.",
         docs_updates_required=opportunity.docs_updates_required,
         safety_invariants=BASE_SAFETY_INVARIANTS,
@@ -182,7 +222,9 @@ def build_codex_task_packet(
         ),
         stop_conditions=_defaulted(
             opportunity.stop_conditions,
-            ["stop if task requires real data, external writes, model calls, Git execution, or canon mutation"],
+            [
+                "stop if task requires real data, external writes, model calls, Git execution, or canon mutation"
+            ],
         ),
         review_plan=review_plan,
     )
@@ -200,7 +242,9 @@ def write_codex_task_packet(
     scorecard = OpportunityScorecard.model_validate(read_json(scorecard_path))
     autonomy = _load_autonomy(autonomy_path)
     harness = _load_harness(harness_path)
-    packet = build_codex_task_packet(opportunity=opportunity, scorecard=scorecard, autonomy=autonomy, harness=harness)
+    packet = build_codex_task_packet(
+        opportunity=opportunity, scorecard=scorecard, autonomy=autonomy, harness=harness
+    )
     payload = {
         "schema_version": "1.0",
         "status": "ok",

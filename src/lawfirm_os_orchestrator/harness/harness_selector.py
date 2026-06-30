@@ -4,7 +4,11 @@ from typing import Literal
 
 from pydantic import Field
 
-from lawfirm_os_orchestrator.autonomy.autonomy_gate import AutonomyDecision, LocalPhase2Model, RiskColor
+from lawfirm_os_orchestrator.autonomy.autonomy_gate import (
+    AutonomyDecision,
+    LocalPhase2Model,
+    RiskColor,
+)
 from lawfirm_os_orchestrator.harness.hardness_scorer import HardnessBand, HardnessScore
 from lawfirm_os_orchestrator.harness.leverage_scorer import LeverageScore
 from lawfirm_os_orchestrator.util.ids import new_id
@@ -12,7 +16,9 @@ from lawfirm_os_orchestrator.util.time import utc_now
 
 
 class HarnessPlan(LocalPhase2Model):
-    harness_plan_id: str = Field(default_factory=lambda: new_id("harness_plan"), min_length=1)
+    harness_plan_id: str = Field(
+        default_factory=lambda: new_id("harness_plan"), min_length=1
+    )
     target_object_id: str = Field(min_length=1)
     risk_color: RiskColor
     hardness_level: int = Field(ge=0, le=5)
@@ -78,12 +84,20 @@ def select_harness(
         allowed_outputs = ["proposal-only risk memo", "human decision packet"]
         human_required = True
         rollback_required = True
-        reasons = ["red risk color controls authority", "hard red requires human-required H5 harness"]
+        reasons = [
+            "red risk color controls authority",
+            "hard red requires human-required H5 harness",
+        ]
     elif autonomy.risk_color == RiskColor.YELLOW:
         level = max(2, min(4, hardness.hardness_level))
         if leverage.leverage_score >= 0.66:
             level = min(4, max(level, 4))
-        allowed_outputs = ["local draft artifact", "test evidence", "human review packet", "green-candidate recommendation"]
+        allowed_outputs = [
+            "local draft artifact",
+            "test evidence",
+            "human review packet",
+            "green-candidate recommendation",
+        ]
         human_required = True
         rollback_required = level >= 3
         reasons = ["yellow risk color requires review before final authority"]
@@ -109,7 +123,10 @@ def select_harness(
         leverage_score=leverage.leverage_score,
         harness_level=_band(level),
         required_agents=_required_agents(level, autonomy.risk_color),
-        required_tests=["python -m pytest", "python scripts/check_safety.py --stdout json"],
+        required_tests=[
+            "python scripts/run_full_pytest.py",
+            "python scripts/check_safety.py --stdout json",
+        ],
         allowed_outputs=allowed_outputs,
         forbidden_outputs=_base_forbidden_outputs(autonomy.risk_color),
         human_required=human_required,

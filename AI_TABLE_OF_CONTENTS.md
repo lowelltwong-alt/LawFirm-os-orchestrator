@@ -16,6 +16,9 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 - `contracts.lock.json` - pins the substrate checkout at `LawFirm-os-semantic-substrate` commit `43991155f0286e6d8bc5ba0bfe6b42407b1b3f12`.
 - `.ai/control/governance-dependency-map-mirror.json` - local mirror of the upstream governance dependency map; it cannot override `LawFirm-os-semantic-substrate`.
 - `scripts/validate_governance_dependency_map_mirror.py` - fail-closed check for mirror shape and watched governance paths.
+- `config/validation-runtime-policy.yaml` - local validation runtime policy requiring the long-ceiling pytest wrapper.
+- `registry/intake-orchestrator-adoption-review-registry.json` - candidate-only Orchestrator owner review docket for intake-to-budget workflow and carrier rejection capture/appeal interfaces.
+- `scripts/validate_intake_orchestrator_adoption_review.py` - fail-closed check that the intake review docket remains candidate-only and does not assign canonical route/event/Lake/connector authority.
 - Substrate `manifests/contract_manifest.v1.json` - canonical orchestrator-facing manifest. Loading is manifest-first.
 - Substrate `registry/exception-route-registry.json` - canonical `route_id` and `event_class` authority.
 - Substrate `registry/governance-dependency-map.json` - canonical governance-facing dependency map and child mirror update gate.
@@ -38,6 +41,7 @@ Required manifest fields include `manifest_id`, `manifest_version`, `policy_bund
 
 - `ENDPOINTS_AND_COMMANDS.md` - current CLI commands and local-only script surfaces.
 - `DATA_FLOW_MAP.md` - current execution-plane data flow.
+- `scripts/run_full_pytest.py` - policy-backed pytest wrapper; direct pytest invocation is blocked.
 - `scripts/run_evals.py` - offline classify-exception eval runner.
 - `scripts/run_shadow_eval.py` - local proposal-only shadow eval runner.
 - `scripts/build_upgrade_proposal.py` - local upgrade proposal packet builder.
@@ -60,6 +64,8 @@ PR02 is implemented as execution-plane local records and CLI artifacts only. It 
 PR03 is implemented as local green-lane assumption watching. It may recommend downgrades to yellow/red but never restores green.
 
 PR04 is implemented as local inert Codex task packet generation. It compresses iteration context without granting authority or executing work. PR05/PR06/PR07 remain future phases.
+
+The intake Orchestrator adoption review docket is review metadata only. It records future owner decisions for intake-to-budget workflow control, carrier rejection capture, appeal result learning, and budget actuals comparison without creating runtime authority.
 
 ## Hard Boundaries
 

@@ -44,10 +44,16 @@ REQUIRED_WATCHED = {
     "AI_TABLE_OF_CONTENTS.md",
     "AI_WORK_START_HERE.md",
     "README.md",
+    "config/validation-runtime-policy.yaml",
     "contracts.lock.json",
     "docs/",
+    "registry/",
+    "scripts/run_full_pytest.py",
+    "scripts/validate_intake_orchestrator_adoption_review.py",
     "scripts/validate_governance_dependency_map_mirror.py",
     "skill-agent-manifest.json",
+    "tests/test_intake_orchestrator_adoption_review.py",
+    "tests/test_validation_runtime_policy.py",
     "tests/test_governance_dependency_map_mirror.py",
 }
 

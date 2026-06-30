@@ -1,0 +1,248 @@
+{
+  "schema_version": "intake_orchestrator_adoption_review_registry.v0_1",
+  "object_type": "intake_orchestrator_adoption_review_registry",
+  "registry_id": "orchestrator.intake_adoption_review.v0_1",
+  "status": "candidate_review_only",
+  "owner_repo": "LawFirm-os-orchestrator",
+  "source_repo": "LawFirm-os-intake",
+  "source_package_ref": "LawFirm-os-intake:promotion/cross_repo_promotion_package.json",
+  "contains_real_firm_data": false,
+  "non_authoritative": true,
+  "direct_promotion_performed": false,
+  "external_writes_performed": false,
+  "no_canonical_route_or_event_class_authority": true,
+  "no_runtime_connector_authority": true,
+  "no_exception_lake_write_authority": true,
+  "generated_from_proposal_ids": [
+    "orchestrator.workflow-human-pauses-evidence-packet.v0_1",
+    "orchestrator.carrier-rejection-capture-appeal.v0_1"
+  ],
+  "review_items": [
+    {
+      "review_item_id": "orchestrator.review.workflow-human-pauses-evidence-packet.v0_1",
+      "source_proposal_id": "orchestrator.workflow-human-pauses-evidence-packet.v0_1",
+      "target_repo": "LawFirm-os-orchestrator",
+      "authority_plane": "execution",
+      "proposal_type": "workflow_interface",
+      "local_workflow_label": "orchestrator.local.intake_to_budget_owner_review",
+      "label_authority": "local_operational_label_only",
+      "adoption_status": "owner_review_required",
+      "summary": "Review future Orchestrator ownership for intake-to-budget gate order, human pauses, evidence packet assembly, run ledger ownership, and guarded Lake handoff.",
+      "candidate_artifact_refs": [
+        "workflow/intake-to-budget.workflow.yaml",
+        "schemas/review-package-manifest.schema.json",
+        "schemas/run-ledger-event.schema.json",
+        "schemas/run-ledger-integrity-report.schema.json",
+        "schemas/human-gate-status-report.schema.json",
+        "schemas/budget-precondition-report.schema.json",
+        "schemas/safety-gate-report.schema.json",
+        "docs/workflow/intake-to-budget.md",
+        "docs/workflow/state-machine.md"
+      ],
+      "proposed_contract_refs": [
+        "orchestrator://candidate/workflows/intake-to-budget.v0_1",
+        "orchestrator://candidate/interfaces/human-pause.v0_1",
+        "orchestrator://candidate/interfaces/evidence-packet-assembly.v0_1"
+      ],
+      "required_owner_decisions": [
+        "confirm Orchestrator is the single outer runtime owner",
+        "define execution passport and retry semantics",
+        "define terminal blocked states for missing evidence and missing human confirmation",
+        "define evidence packet assembly ownership before Lake handoff"
+      ],
+      "required_orchestrator_gates": [
+        "source_inventory_gate",
+        "human_confirmation_pause",
+        "budget_precondition_gate",
+        "evidence_packet_assembly_gate",
+        "run_ledger_integrity_gate",
+        "lake_handoff_gate"
+      ],
+      "required_human_pauses": [
+        "confirm_matter_family",
+        "confirm_representation_posture",
+        "confirm_principal_party_roles",
+        "approve_budget_proposal_before_external_submission",
+        "approve_exception_lake_handoff_before_admission"
+      ],
+      "exception_lake_handoff_policy": {
+        "current_mode": "disabled_or_validate_only",
+        "future_handoff": "candidate_evidence_packet_only",
+        "canonical_route_id_assignment": "none",
+        "canonical_event_class_assignment": "none",
+        "allowed_existing_route_refs_for_future_mapping_review": [
+          "route.workflow_escalation.v1"
+        ],
+        "lake_write_authority_now": false
+      },
+      "prohibited_actions": [
+        "canonical_route_id_creation",
+        "canonical_event_class_creation",
+        "semantic_substrate_write",
+        "exception_lake_write",
+        "production_connector_write",
+        "real_data_ingestion",
+        "budget_submission_without_human_authorization",
+        "appeal_submission_without_human_authorization",
+        "matter_opening"
+      ],
+      "acceptance_criteria": [
+        "all source refs, segment refs, offsets, and hashes survive workflow handoff",
+        "observed evidence remains separate from practice-context priors and human-confirmed facts",
+        "missing budget preconditions block budget proposal promotion",
+        "human corrections are append/superseding artifacts, never silent mutation",
+        "Lake handoff remains disabled or validate-only until owner contracts are promoted"
+      ],
+      "non_authoritative": true,
+      "direct_promotion_performed": false,
+      "external_writes_performed": false
+    },
+    {
+      "review_item_id": "orchestrator.review.carrier-rejection-capture-appeal.v0_1",
+      "source_proposal_id": "orchestrator.carrier-rejection-capture-appeal.v0_1",
+      "target_repo": "LawFirm-os-orchestrator",
+      "authority_plane": "execution",
+      "proposal_type": "workflow_interface",
+      "local_workflow_label": "orchestrator.local.carrier_rejection_capture_owner_review",
+      "label_authority": "local_operational_label_only",
+      "adoption_status": "owner_review_required",
+      "summary": "Review future Orchestrator ownership for carrier rejection capture, response-state ledgering, human appeal pauses, appeal result capture, actuals comparison, and guarded Lake handoff.",
+      "candidate_artifact_refs": [
+        "schemas/carrier-rejection-orchestrator-interface-draft.schema.json",
+        "schemas/carrier-rejection-orchestrator-connector-channel.schema.json",
+        "schemas/carrier-rejection-orchestrator-workflow-step.schema.json",
+        "schemas/carrier-response-reconciliation-report.schema.json",
+        "schemas/carrier-rejection-review-packet.schema.json",
+        "schemas/carrier-rejection-learning-report.schema.json",
+        "schemas/carrier-rejection-roadmap-audit-report.schema.json",
+        "docs/carrier-rejection-learning-loop-roadmap.md",
+        "ENDPOINTS_AND_COMMANDS.md"
+      ],
+      "proposed_contract_refs": [
+        "orchestrator://candidate/interfaces/carrier-rejection-capture.v0_1",
+        "orchestrator://candidate/interfaces/response-state-ledger.v0_1",
+        "orchestrator://candidate/interfaces/human-carrier-rejection-pause.v0_1",
+        "orchestrator://candidate/interfaces/appeal-submission-gate.v0_1",
+        "orchestrator://candidate/interfaces/exception-lake-handoff.v0_1"
+      ],
+      "capture_channels": [
+        {
+          "channel": "email",
+          "enabled_now": false,
+          "future_capture_metadata": [
+            "message_id",
+            "thread_id",
+            "received_at",
+            "sender_identity_claim",
+            "attachment_hashes",
+            "source_hash"
+          ]
+        },
+        {
+          "channel": "carrier_portal",
+          "enabled_now": false,
+          "future_capture_metadata": [
+            "portal_name",
+            "portal_transaction_id",
+            "notice_id",
+            "downloaded_at",
+            "source_hash",
+            "attachment_hashes"
+          ]
+        }
+      ],
+      "candidate_rejection_classification_buckets": [
+        "rate_or_cap_rejection",
+        "staffing_or_leverage_rejection",
+        "task_scope_rejection",
+        "expense_documentation_rejection",
+        "preapproval_missing",
+        "duplicate_or_format_rejection",
+        "timing_or_deadline_rejection",
+        "portal_technical_rejection",
+        "identity_or_matter_mismatch",
+        "actuals_or_invoice_variance",
+        "unknown_or_new_rejection_pattern"
+      ],
+      "required_response_state_ledger_states": [
+        "received_candidate",
+        "reconciled_to_budget_or_invoice",
+        "human_review_required",
+        "appeal_draft_requested",
+        "appeal_authorized_by_human",
+        "appeal_submitted_by_authorized_channel",
+        "appeal_result_received",
+        "closed_financial_outcome_recorded",
+        "learning_candidate_prepared"
+      ],
+      "required_orchestrator_gates": [
+        "source_authenticity_gate",
+        "response_state_reconciliation_gate",
+        "human_rejection_review_pause",
+        "appeal_authorization_gate",
+        "appeal_result_capture_gate",
+        "budget_actuals_comparison_gate",
+        "lake_handoff_gate"
+      ],
+      "required_human_pauses": [
+        "confirm_rejection_notice_matches_matter_budget_or_invoice",
+        "confirm_fix_or_appeal_strategy",
+        "authorize_appeal_submission",
+        "confirm_appeal_result_and_financial_outcome",
+        "approve_learning_candidate_before_promotion_review"
+      ],
+      "learning_loop_inputs": [
+        "carrier_rejection_notice",
+        "human_rejection_review_outcome",
+        "fix_or_appeal_action",
+        "appeal_submission_record",
+        "appeal_result",
+        "financial_outcome",
+        "budget_actual_variance",
+        "new_rejection_pattern_candidate"
+      ],
+      "budget_actuals_comparison_inputs": [
+        "budget_phase",
+        "budget_task_code",
+        "proposed_budget_amount",
+        "carrier_compliant_projection_amount",
+        "approved_budget_amount_if_known",
+        "actual_billed_amount",
+        "write_down_or_disallowed_amount",
+        "variance_driver_candidate"
+      ],
+      "exception_lake_handoff_policy": {
+        "current_mode": "disabled_or_validate_only",
+        "future_handoff": "candidate_evidence_packet_only",
+        "canonical_route_id_assignment": "none",
+        "canonical_event_class_assignment": "none",
+        "allowed_existing_route_refs_for_future_mapping_review": [
+          "route.workflow_escalation.v1"
+        ],
+        "lake_write_authority_now": false
+      },
+      "prohibited_actions": [
+        "canonical_route_id_creation",
+        "canonical_event_class_creation",
+        "semantic_substrate_write",
+        "exception_lake_write",
+        "production_connector_write",
+        "real_data_ingestion",
+        "budget_submission_without_human_authorization",
+        "appeal_submission_without_human_authorization",
+        "matter_opening"
+      ],
+      "acceptance_criteria": [
+        "every rejection notice is captured into a deterministic envelope or unknown bucket",
+        "every classification has source-bound evidence refs or routes to human review",
+        "all appeal/fix actions have a human authorization ref before submission",
+        "appeal results append outcome records and never overwrite the original rejection",
+        "budget actuals variance compares proposed, compliant, approved-if-known, and actual amounts",
+        "reviewed learning candidates remain blocked until owner repos promote contracts"
+      ],
+      "non_authoritative": true,
+      "direct_promotion_performed": false,
+      "external_writes_performed": false
+    }
+  ]
+}
