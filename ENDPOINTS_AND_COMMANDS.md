@@ -107,6 +107,24 @@ Purpose: import curated local JSON or Markdown research signals into a local JSO
 
 This is local-only. It does not crawl the web, call APIs, call models, schedule jobs, execute code, run Git, patch files, write to the Semantic Substrate, or write to the Exception Lake.
 
+### intake prepare-owner-packet
+
+```powershell
+python -m lawfirm_os_orchestrator intake prepare-owner-packet --input examples/intake_owner_review_request.synthetic.json --stdout json
+```
+
+Purpose: prepare a local, candidate-only owner-review packet for the intake-to-budget workflow.
+
+Important controls:
+
+- synthetic-only request data;
+- raw client, matter, privileged, or production transcript fields fail closed;
+- human pauses and missing budget preconditions block readiness;
+- every carrier rejection notice is classified into a known candidate bucket or `unknown_or_new_rejection_pattern`;
+- appeals/fixes require human authorization before any future submission;
+- budget actuals variance is calculated by phase/task against proposed, carrier-compliant, approved-if-known, and actual amounts;
+- Exception Lake handoff is preview-only and has no write authority.
+
 ### research-radar list-signals
 
 ```powershell
@@ -152,6 +170,7 @@ Purpose: deterministically score a local algorithm/method insight as proposal ev
 ```powershell
 python scripts/run_full_pytest.py
 python scripts/run_full_pytest.py tests/test_workflow_atlas.py -q
+python scripts/run_full_pytest.py tests/test_intake_owner_review_packet.py -q
 python scripts/validate_intake_orchestrator_adoption_review.py
 python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json
 python scripts/run_shadow_eval.py --proposal examples/shadow_eval/validator_threshold_proposal.json --stdout json

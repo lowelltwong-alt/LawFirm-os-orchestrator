@@ -87,6 +87,8 @@ If governance-facing Orchestrator files change, check the upstream governance de
 
 The docket keeps all carrier rejection capture future-facing and fail-closed: email and portal channels are disabled now, every future notice must land in a deterministic known bucket or `unknown_or_new_rejection_pattern`, appeals require human authorization, appeal results append outcome records, and Exception Lake handoff stays disabled or validate-only until owner contracts are promoted.
 
+`lawfirm-os-orchestrator intake prepare-owner-packet` is the first candidate execution slice for that docket. It reads a synthetic local request, writes a local owner-review packet, classifies carrier rejection notices into known buckets or the unknown bucket, compares budget phases/tasks to actuals, records human-pause and budget-precondition blockers, and emits a Lake handoff preview with no write authority. See `docs/INTAKE_OWNER_REVIEW_PACKET.md`.
+
 ## Substrate consumption
 
 The orchestrator loads contracts from a pinned substrate checkout in this order:
