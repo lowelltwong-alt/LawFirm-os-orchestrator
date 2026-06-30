@@ -12,7 +12,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_action_recommendations.py",
-      "runner_command": "python -m pytest tests/test_action_recommendations.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_action_recommendations.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -55,7 +55,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_algorithm_scoring.py",
-      "runner_command": "python -m pytest tests/test_algorithm_scoring.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_algorithm_scoring.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -98,7 +98,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_autonomy_harness.py",
-      "runner_command": "python -m pytest tests/test_autonomy_harness.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_autonomy_harness.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -141,7 +141,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_classify_exception.py",
-      "runner_command": "python -m pytest tests/test_classify_exception.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_classify_exception.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -184,7 +184,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_codex_task_packet_builder.py",
-      "runner_command": "python -m pytest tests/test_codex_task_packet_builder.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_codex_task_packet_builder.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -227,7 +227,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_contract_lock.py",
-      "runner_command": "python -m pytest tests/test_contract_lock.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_contract_lock.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -273,7 +273,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_cross_repo_contract.py",
-      "runner_command": "python -m pytest tests/test_cross_repo_contract.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_cross_repo_contract.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -322,7 +322,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_evals.py",
-      "runner_command": "python -m pytest tests/test_evals.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_evals.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -365,7 +365,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_green_lane_watcher.py",
-      "runner_command": "python -m pytest tests/test_green_lane_watcher.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_green_lane_watcher.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -408,7 +408,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_lake_envelope.py",
-      "runner_command": "python -m pytest tests/test_lake_envelope.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_lake_envelope.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -452,7 +452,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_learning_cli.py",
-      "runner_command": "python -m pytest tests/test_learning_cli.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_learning_cli.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -495,7 +495,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_learning_models.py",
-      "runner_command": "python -m pytest tests/test_learning_models.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_learning_models.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -538,7 +538,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_legal_knowledge_adapter.py",
-      "runner_command": "python -m pytest tests/test_legal_knowledge_adapter.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_legal_knowledge_adapter.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -583,7 +583,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_research_radar.py",
-      "runner_command": "python -m pytest tests/test_research_radar.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_research_radar.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -626,7 +626,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_safety_regressions.py",
-      "runner_command": "python -m pytest tests/test_safety_regressions.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_safety_regressions.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -670,7 +670,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_shadow_eval.py",
-      "runner_command": "python -m pytest tests/test_shadow_eval.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_shadow_eval.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -713,7 +713,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_upgrade_proposals.py",
-      "runner_command": "python -m pytest tests/test_upgrade_proposals.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_upgrade_proposals.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -756,7 +756,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_workflow_atlas.py",
-      "runner_command": "python -m pytest tests/test_workflow_atlas.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_workflow_atlas.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -803,7 +803,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_contract_surface_locking.py",
-      "runner_command": "python -m pytest tests/test_contract_surface_locking.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_contract_surface_locking.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -855,7 +855,7 @@
       "framework": "pytest",
       "artifact_type": "pytest_file",
       "path": "tests/test_contract_surface_git_validation.py",
-      "runner_command": "python -m pytest tests/test_contract_surface_git_validation.py -q",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_contract_surface_git_validation.py -q",
       "owning_repo": "LawFirm-os-orchestrator",
       "owning_plane": "orchestrator",
       "architecture_surface": [
@@ -900,6 +900,107 @@
         "route authority mutation"
       ],
       "expected_runtime_seconds": 120,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_validation_runtime_policy.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_validation_runtime_policy.py",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_validation_runtime_policy.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "validation_runtime_policy",
+        "repo_local_regression"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "validation_policy_change",
+        "ai_instruction_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_validation_runtime_policy.py",
+        "tests/conftest.py",
+        "scripts/run_full_pytest.py",
+        "config/validation-runtime-policy.yaml",
+        "ci-test-manifest.json"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "validation_runtime_policy",
+        "protected"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [],
+      "must_run_when": [
+        "pytest runtime policy changes",
+        "AI validation instructions change",
+        "CI test manifest runner commands change"
+      ],
+      "must_not_validate": [
+        "canonical semantic authority outside Semantic Substrate",
+        "production runtime scheduling authority"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_intake_orchestrator_adoption_review.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_intake_orchestrator_adoption_review.py",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_intake_orchestrator_adoption_review.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "intake_owner_review",
+        "carrier_rejection_capture_review"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "workflow_change",
+        "governance_facing_review_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_intake_orchestrator_adoption_review.py",
+        "scripts/validate_intake_orchestrator_adoption_review.py",
+        "registry/intake-orchestrator-adoption-review-registry.json",
+        "docs/INTAKE_ORCHESTRATOR_ADOPTION_REVIEW.md"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "intake_owner_review",
+        "protected"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-intake",
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "intake Orchestrator adoption review docket changes",
+        "carrier rejection capture review metadata changes"
+      ],
+      "must_not_validate": [
+        "canonical route authority",
+        "canonical event class authority",
+        "production connector authority",
+        "Exception Lake write authority"
+      ],
+      "expected_runtime_seconds": 5,
       "full_regression_required": false
     }
   ],

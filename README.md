@@ -50,12 +50,15 @@ PR04 adds inert Codex task packet generation. Packets compress iteration context
 
 ```bash
 python -m pip install -e ".[dev]"
+python scripts/run_full_pytest.py
 python -m lawfirm_os_orchestrator classify-exception \
   --input examples/synthetic_exception_event.json \
   --substrate tests/fixtures/substrate \
   --lake-mode disabled \
   --stdout json
 ```
+
+Use `python scripts/run_full_pytest.py` for full or focused pytest runs. Direct pytest invocation is blocked by `config/validation-runtime-policy.yaml` so local and agent validation always gets the required long timeout ceiling.
 
 ## Safety boundaries
 
@@ -77,6 +80,12 @@ python -m lawfirm_os_orchestrator classify-exception \
 This repo carries `.ai/control/governance-dependency-map-mirror.json` as a local mirror of the upstream governance dependency map in `LawFirm-os-semantic-substrate/registry/governance-dependency-map.json`.
 
 If governance-facing Orchestrator files change, check the upstream governance dependency map and update the local mirror, AI work router, AI table of contents, README, validator, and tests when affected. The mirror is downstream enforcement only; it cannot override Semantic Substrate governance, create canonical route or event authority, authorize external writes, or turn workflow convenience into legal/compliance authority.
+
+## Intake Orchestrator Adoption Review
+
+`registry/intake-orchestrator-adoption-review-registry.json` is a candidate-only owner review docket for intake-to-budget workflow ownership and carrier rejection capture/appeal ownership. It is validated by `scripts/validate_intake_orchestrator_adoption_review.py`.
+
+The docket keeps all carrier rejection capture future-facing and fail-closed: email and portal channels are disabled now, every future notice must land in a deterministic known bucket or `unknown_or_new_rejection_pattern`, appeals require human authorization, appeal results append outcome records, and Exception Lake handoff stays disabled or validate-only until owner contracts are promoted.
 
 ## Substrate consumption
 

@@ -38,7 +38,7 @@ This repository owns execution-plane orchestration, bounded adapters, policy gat
 
 ## Required validation
 
-Before reporting success, run `python -m pytest -q` in this repository and the AI front-door integrity gate: `python ../LawFirm-os-semantic-substrate/scripts/validate_ai_front_door.py --substrate-root ../LawFirm-os-semantic-substrate` (from a sibling checkout, adjust paths if your workspace layout differs).
+Before reporting success, run `python scripts/run_full_pytest.py` in this repository and the AI front-door integrity gate: `python ../LawFirm-os-semantic-substrate/scripts/validate_ai_front_door.py --substrate-root ../LawFirm-os-semantic-substrate` (from a sibling checkout, adjust paths if your workspace layout differs). The pytest wrapper is required by `config/validation-runtime-policy.yaml`; direct pytest invocation is blocked so validation always gets the long ceiling.
 
 ## Canonical names
 
@@ -111,7 +111,7 @@ PR05, PR06, and PR07 remain future phases.
 
 ## Validation Commands
 
-    python -m pytest -q
+    python scripts/run_full_pytest.py
     python ../LawFirm-os-semantic-substrate/scripts/validate_skill_agent_control_plane.py --workspace ..
 
 ## AI Strategy Doctrine Dependency

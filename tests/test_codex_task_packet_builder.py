@@ -6,12 +6,22 @@ import sys
 import uuid
 from pathlib import Path
 
-from lawfirm_os_orchestrator.autonomy.autonomy_gate import ActionDescriptor, RiskColor, classify_autonomy
+from lawfirm_os_orchestrator.autonomy.autonomy_gate import (
+    ActionDescriptor,
+    RiskColor,
+    classify_autonomy,
+)
 from lawfirm_os_orchestrator.harness.agent_committee import build_agent_review_plan
-from lawfirm_os_orchestrator.harness.codex_task_builder import OpportunityInput, build_codex_task_packet
+from lawfirm_os_orchestrator.harness.codex_task_builder import (
+    OpportunityInput,
+    build_codex_task_packet,
+)
 from lawfirm_os_orchestrator.harness.hardness_scorer import score_hardness
 from lawfirm_os_orchestrator.harness.harness_selector import select_harness
-from lawfirm_os_orchestrator.harness.leverage_scorer import OpportunityScorecard, score_leverage
+from lawfirm_os_orchestrator.harness.leverage_scorer import (
+    OpportunityScorecard,
+    score_leverage,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_PACKET_FIELDS = {
@@ -43,7 +53,12 @@ REQUIRED_PACKET_FIELDS = {
 
 
 def artifact_dir() -> Path:
-    path = ROOT / ".lawfirm-os-orchestrator" / "test-artifacts" / f"pr04-{uuid.uuid4().hex}"
+    path = (
+        ROOT
+        / ".lawfirm-os-orchestrator"
+        / "test-artifacts"
+        / f"pr04-{uuid.uuid4().hex}"
+    )
     path.mkdir(parents=True, exist_ok=True)
     return path
 
@@ -91,9 +106,17 @@ def opportunity() -> OpportunityInput:
             "objective": "Generate an inert Codex task packet for local review.",
             "source_refs": ["local://opportunity/pr04"],
             "repos_touched": ["LawFirm-os-orchestrator"],
-            "files_to_add_or_update": ["src/lawfirm_os_orchestrator/harness/codex_task_builder.py"],
-            "acceptance_criteria": ["packet is inert", "packet preserves risk authority"],
-            "tests_to_run": ["python -m pytest", "python scripts/check_safety.py --stdout json"],
+            "files_to_add_or_update": [
+                "src/lawfirm_os_orchestrator/harness/codex_task_builder.py"
+            ],
+            "acceptance_criteria": [
+                "packet is inert",
+                "packet preserves risk authority",
+            ],
+            "tests_to_run": [
+                "python scripts/run_full_pytest.py",
+                "python scripts/check_safety.py --stdout json",
+            ],
             "docs_updates_required": ["README.md", "DATA_FLOW_MAP.md"],
             "expected_output_artifacts": ["codex_task_packet.json"],
             "implementation_notes": ["Do not execute this packet automatically."],
@@ -107,7 +130,12 @@ def packet_for(action_payload: ActionDescriptor):
     hardness = score_hardness(action_payload)
     leverage = score_leverage(scorecard())
     harness = select_harness(autonomy=decision, hardness=hardness, leverage=leverage)
-    return build_codex_task_packet(opportunity=opportunity(), scorecard=scorecard(), autonomy=decision, harness=harness)
+    return build_codex_task_packet(
+        opportunity=opportunity(),
+        scorecard=scorecard(),
+        autonomy=decision,
+        harness=harness,
+    )
 
 
 def test_task_packet_contains_all_required_fields_and_requirements():
@@ -117,6 +145,7 @@ def test_task_packet_contains_all_required_fields_and_requirements():
     assert REQUIRED_PACKET_FIELDS <= set(payload)
     assert payload["docs_updates_required"]
     assert payload["tests_to_run"]
+    assert "python scripts/run_full_pytest.py" in payload["tests_to_run"]
     assert payload["rollback_rule"]
     assert payload["acceptance_criteria"]
 
@@ -136,15 +165,24 @@ def test_yellow_packet_preserves_authority_limits():
     assert "auto-merge" in packet.forbidden_actions
     assert "production release" in packet.forbidden_actions
     assert "canon mutation" in packet.forbidden_actions
-    assert "human review required before final authority" in packet.human_approval_requirements
+    assert (
+        "human review required before final authority"
+        in packet.human_approval_requirements
+    )
 
 
 def test_red_packet_is_human_required_and_decision_packet_only():
     packet = packet_for(action(contains_real_client_data=True))
 
     assert packet.risk_color == RiskColor.RED
-    assert packet.allowed_actions == ["prepare proposal-only risk memo", "prepare human decision packet"]
-    assert "human approval required before any execution authority" in packet.human_approval_requirements
+    assert packet.allowed_actions == [
+        "prepare proposal-only risk memo",
+        "prepare human decision packet",
+    ]
+    assert (
+        "human approval required before any execution authority"
+        in packet.human_approval_requirements
+    )
     assert "external writes" in packet.forbidden_actions
     assert "live model calls" in packet.forbidden_actions
 
@@ -174,7 +212,9 @@ def test_task_packet_builder_is_inert():
 
 
 def test_agent_committee_builder_is_inert():
-    review = build_agent_review_plan(risk_color=RiskColor.RED, harness_level="H5", source_refs=["local://review"])
+    review = build_agent_review_plan(
+        risk_color=RiskColor.RED, harness_level="H5", source_refs=["local://review"]
+    )
 
     assert review.human_decision_required is True
     assert review.inert_review_plan_only is True
@@ -189,16 +229,27 @@ def test_cli_generate_codex_task_writes_local_artifact():
     action_payload = action()
     decision = classify_autonomy(action_payload)
     hardness = score_hardness(action_payload)
-    harness = select_harness(autonomy=decision, hardness=hardness, leverage=score_leverage(scorecard()))
+    harness = select_harness(
+        autonomy=decision, hardness=hardness, leverage=score_leverage(scorecard())
+    )
     opportunity_path = root / "opportunity.json"
     scorecard_path = root / "scorecard.json"
     autonomy_path = root / "autonomy.json"
     harness_path = root / "harness.json"
     out_path = root / "codex_task_packet.json"
-    opportunity_path.write_text(json.dumps(opportunity().model_dump(mode="json")), encoding="utf-8")
-    scorecard_path.write_text(json.dumps(scorecard().model_dump(mode="json")), encoding="utf-8")
-    autonomy_path.write_text(json.dumps({"autonomy_decision": decision.model_dump(mode="json")}), encoding="utf-8")
-    harness_path.write_text(json.dumps({"harness_plan": harness.model_dump(mode="json")}), encoding="utf-8")
+    opportunity_path.write_text(
+        json.dumps(opportunity().model_dump(mode="json")), encoding="utf-8"
+    )
+    scorecard_path.write_text(
+        json.dumps(scorecard().model_dump(mode="json")), encoding="utf-8"
+    )
+    autonomy_path.write_text(
+        json.dumps({"autonomy_decision": decision.model_dump(mode="json")}),
+        encoding="utf-8",
+    )
+    harness_path.write_text(
+        json.dumps({"harness_plan": harness.model_dump(mode="json")}), encoding="utf-8"
+    )
 
     completed = subprocess.run(
         [

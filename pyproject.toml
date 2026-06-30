@@ -14,7 +14,7 @@ dependencies = [
 
 [project.optional-dependencies]
 openai = ["openai>=2.0,<3"]
-dev = ["pytest>=8.3,<9", "ruff>=0.6,<1", "mypy>=1.11,<2"]
+dev = ["pytest>=8.3,<9", "pyyaml>=6.0,<7", "ruff>=0.6,<1", "mypy>=1.11,<2"]
 
 [project.scripts]
 lawfirm-os-orchestrator = "lawfirm_os_orchestrator.cli:main"
