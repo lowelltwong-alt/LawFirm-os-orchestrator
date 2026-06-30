@@ -1002,6 +1002,67 @@
       ],
       "expected_runtime_seconds": 5,
       "full_regression_required": false
+    },
+    {
+      "test_id": "LawFirm-os-orchestrator.tests.test_intake_owner_review_packet.v1",
+      "language": "python",
+      "framework": "pytest",
+      "artifact_type": "pytest_file",
+      "path": "tests/test_intake_owner_review_packet.py",
+      "runner_command": "python scripts/run_full_pytest.py tests/test_intake_owner_review_packet.py -q",
+      "owning_repo": "LawFirm-os-orchestrator",
+      "owning_plane": "orchestrator",
+      "architecture_surface": [
+        "orchestrator_execution_plane",
+        "intake_owner_review_packet",
+        "carrier_rejection_learning_loop",
+        "budget_actuals_variance"
+      ],
+      "risk_tier": "protected",
+      "change_classes_covered": [
+        "test_artifact_change",
+        "workflow_change",
+        "human_gate_change",
+        "budget_actuals_change",
+        "carrier_rejection_classification_change"
+      ],
+      "trigger_patterns": [
+        "tests/test_intake_owner_review_packet.py",
+        "src/lawfirm_os_orchestrator/intake/owner_review.py",
+        "src/lawfirm_os_orchestrator/commands/intake_workflow.py",
+        "examples/intake_owner_review_request.synthetic.json",
+        "docs/INTAKE_OWNER_REVIEW_PACKET.md",
+        "ENDPOINTS_AND_COMMANDS.md"
+      ],
+      "markers": [
+        "pytest",
+        "orchestrator",
+        "intake_owner_review_packet",
+        "protected"
+      ],
+      "upstream_dependencies": [
+        "LawFirm-os-intake",
+        "LawFirm-os-semantic-substrate"
+      ],
+      "downstream_dependencies": [
+        "LawFirm-os-exceptions-lake-runtime"
+      ],
+      "must_run_when": [
+        "intake owner-review packet builder changes",
+        "carrier rejection bucket behavior changes",
+        "budget actuals variance behavior changes",
+        "human pause or Lake handoff preview behavior changes"
+      ],
+      "must_not_validate": [
+        "canonical route authority",
+        "canonical event class authority",
+        "production connector authority",
+        "Exception Lake write authority",
+        "budget submission authority",
+        "matter opening authority"
+      ],
+      "expected_runtime_seconds": 5,
+      "full_regression_required": false
     }
   ],
   "explicit_test_artifact_exclusions": [

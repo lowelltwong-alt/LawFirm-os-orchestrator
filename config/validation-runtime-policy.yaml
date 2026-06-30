@@ -9,12 +9,12 @@ contains_real_firm_data: false
 commands:
   full_pytest:
     command: python -m pytest -q
-    minimum_timeout_seconds: 900
-    reason: Full suite can exceed 300 seconds on local Windows/OneDrive worktrees and during control-plane validation.
+    minimum_timeout_seconds: 1800
+    reason: Full suite can exceed short/default tool ceilings on local Windows/OneDrive worktrees and during multi-repo validation.
     wrapper: python scripts/run_full_pytest.py
   focused_pytest:
     command: python -m pytest <paths> -q
-    minimum_timeout_seconds: 900
+    minimum_timeout_seconds: 1800
     reason: Focused tests may import governance validators and should not inherit a short ceiling.
     wrapper: python scripts/run_full_pytest.py <paths> -q
 

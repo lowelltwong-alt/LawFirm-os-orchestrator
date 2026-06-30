@@ -1,0 +1,133 @@
+{
+  "schema_version": "intake_owner_review_request.v0_1",
+  "request_id": "synthetic-intake-owner-review-001",
+  "generated_at": "2026-06-30T00:00:00Z",
+  "workflow_label": "orchestrator.local.intake_to_budget_owner_review",
+  "synthetic": true,
+  "contains_real_firm_data": false,
+  "contains_real_client_data": false,
+  "contains_real_matter_data": false,
+  "contains_privileged_data": false,
+  "source_refs": [
+    {
+      "source_ref_id": "source-email-budget-001",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "segment_refs": [
+        "seg-email-001",
+        "seg-email-002"
+      ],
+      "coverage": "full"
+    },
+    {
+      "source_ref_id": "source-carrier-rejection-001",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "segment_refs": [
+        "seg-rejection-001"
+      ],
+      "coverage": "full"
+    }
+  ],
+  "human_confirmations": {
+    "confirm_matter_family": {
+      "status": "confirmed",
+      "human_review_ref": "review-mf-001",
+      "evidence_refs": [
+        "source-email-budget-001#seg-email-001"
+      ]
+    },
+    "confirm_representation_posture": {
+      "status": "needs_more_information",
+      "human_review_ref": "review-posture-001",
+      "evidence_refs": [
+        "source-email-budget-001#seg-email-002"
+      ]
+    },
+    "confirm_principal_party_roles": {
+      "status": "unknown",
+      "human_review_ref": "review-party-001",
+      "evidence_refs": [
+        "source-email-budget-001#seg-email-002"
+      ]
+    },
+    "approve_budget_proposal_before_external_submission": {
+      "status": "pending",
+      "human_review_ref": "review-budget-001",
+      "evidence_refs": []
+    },
+    "approve_exception_lake_handoff_before_admission": {
+      "status": "pending",
+      "human_review_ref": "review-lake-001",
+      "evidence_refs": []
+    }
+  },
+  "budget_preconditions": {
+    "party_count_known": false,
+    "complexity_known": false,
+    "matter_family_confirmed": true,
+    "representation_posture_confirmed": false,
+    "principal_roles_confirmed": false
+  },
+  "budget_actual_lines": [
+    {
+      "line_id": "budget-line-l110",
+      "budget_phase": "initial_case_assessment",
+      "budget_task_code": "L110",
+      "proposed_budget_amount": "1000.00",
+      "carrier_compliant_projection_amount": "850.00",
+      "approved_budget_amount_if_known": "900.00",
+      "actual_billed_amount": "1200.00",
+      "write_down_or_disallowed_amount": "150.00",
+      "variance_driver_candidate": "unknown_party_count"
+    },
+    {
+      "line_id": "budget-line-e101",
+      "budget_phase": "expenses",
+      "budget_task_code": "E101",
+      "proposed_budget_amount": "200.00",
+      "carrier_compliant_projection_amount": "175.00",
+      "approved_budget_amount_if_known": "",
+      "actual_billed_amount": "250.00",
+      "write_down_or_disallowed_amount": "0.00",
+      "variance_driver_candidate": "filing_fee"
+    }
+  ],
+  "carrier_rejection_notices": [
+    {
+      "notice_id": "carrier-rejection-001",
+      "channel": "email",
+      "source_ref_id": "source-carrier-rejection-001",
+      "notice_title": "Rate cap exceeded",
+      "reason_summary": "Carrier rejected the proposed partner rate because the hourly cap was exceeded.",
+      "carrier_reason_code": "RATE_CAP",
+      "matched_budget_line_id": "budget-line-l110",
+      "appeal": {
+        "requested": true,
+        "human_authorization_ref": null
+      },
+      "appeal_results": [],
+      "financial_outcome": null
+    },
+    {
+      "notice_id": "carrier-rejection-002",
+      "channel": "carrier_portal",
+      "source_ref_id": "source-carrier-rejection-001",
+      "notice_title": "Unmapped carrier notice",
+      "reason_summary": "Synthetic carrier notice with a new reason pattern.",
+      "carrier_reason_code": "NEW_SYNTHETIC_PATTERN",
+      "matched_budget_line_id": "",
+      "appeal": {
+        "requested": false,
+        "human_authorization_ref": null
+      },
+      "appeal_results": [
+        {
+          "result_id": "appeal-result-001",
+          "result": "partially_granted",
+          "received_at": "2026-06-30T00:00:00Z"
+        }
+      ],
+      "financial_outcome": "partial_write_down_reversed"
+    }
+  ],
+  "lake_handoff_mode": "disabled"
+}

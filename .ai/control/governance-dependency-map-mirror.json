@@ -2,7 +2,7 @@
   "object_type": "governance_dependency_map_mirror",
   "trust_zone": "downstream_control",
   "lifecycle_status": "active",
-  "provenance_note": "Created 2026-06-29 to mirror the upstream LawFirm OS governance dependency-map update gate inside LawFirm-os-orchestrator. Updated 2026-06-30 to cover validation runtime policy and intake Orchestrator adoption review docket surfaces.",
+  "provenance_note": "Created 2026-06-29 to mirror the upstream LawFirm OS governance dependency-map update gate inside LawFirm-os-orchestrator. Updated 2026-06-30 to cover validation runtime policy, intake Orchestrator adoption review docket surfaces, and the candidate intake owner-review packet builder.",
   "reason_for_inclusion": "Force execution-plane governance changes to check the upstream governance dependency map and local mirror surfaces instead of relying on chat memory or workflow convenience.",
   "schema_version": "governance_dependency_map_mirror.v1",
   "mirror_id": "lawfirm_os_orchestrator_governance_dependency_map_mirror",
@@ -26,7 +26,12 @@
     "pytest_policy_wrapper": "scripts/run_full_pytest.py",
     "intake_orchestrator_adoption_review_registry": "registry/intake-orchestrator-adoption-review-registry.json",
     "intake_orchestrator_adoption_review_validator": "scripts/validate_intake_orchestrator_adoption_review.py",
-    "intake_orchestrator_adoption_review_test": "tests/test_intake_orchestrator_adoption_review.py"
+    "intake_orchestrator_adoption_review_test": "tests/test_intake_orchestrator_adoption_review.py",
+    "intake_owner_review_packet_doc": "docs/INTAKE_OWNER_REVIEW_PACKET.md",
+    "intake_owner_review_packet_builder": "src/lawfirm_os_orchestrator/intake/owner_review.py",
+    "intake_owner_review_packet_command": "src/lawfirm_os_orchestrator/commands/intake_workflow.py",
+    "intake_owner_review_packet_test": "tests/test_intake_owner_review_packet.py",
+    "intake_owner_review_packet_fixture": "examples/intake_owner_review_request.synthetic.json"
   },
   "authority": {
     "local_repo_may_override_upstream_dependency_map": false,
@@ -49,6 +54,8 @@
     "contracts.lock.json",
     "docs/",
     "registry/",
+    "src/lawfirm_os_orchestrator/commands/intake_workflow.py",
+    "src/lawfirm_os_orchestrator/intake/",
     "scripts/validate_",
     "scripts/check_",
     "scripts/run_full_pytest.py",
@@ -56,6 +63,7 @@
     "scripts/validate_governance_dependency_map_mirror.py",
     "skill-agent-manifest.json",
     "tests/test_intake_orchestrator_adoption_review.py",
+    "tests/test_intake_owner_review_packet.py",
     "tests/test_validation_runtime_policy.py",
     "tests/test_governance_dependency_map_mirror.py"
   ],

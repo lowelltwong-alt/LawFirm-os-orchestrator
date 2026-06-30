@@ -38,6 +38,7 @@ flowchart LR
     WATCH["PR03 green-lane watcher\nassumption drift downgrade only"]
     TASK["PR04 Codex task packet builder\ninert build instructions only"]
     INTAKE["Intake adoption review docket\ncandidate owner review only"]
+    INTAKEPKT["Intake owner review packet\nhuman pauses + budget actuals + Lake preview"]
     CARR["Carrier rejection capture plan\nemail/portal future channels disabled now"]
 
     SS -->|"read-only manifest-first contracts"| OR
@@ -51,7 +52,9 @@ flowchart LR
     HAR -->|"autonomy + harness + scorecard"| TASK
     TASK -->|"local inert task packet"| LEARN
     INTAKE -->|"future owner decisions\nno canonical IDs"| OR
-    CARR -->|"known bucket or unknown pattern\nhuman appeal gate"| INTAKE
+    OR -->|"synthetic intake request"| INTAKEPKT
+    INTAKEPKT -->|"local owner-review artifacts"| LEARN
+    CARR -->|"known bucket or unknown pattern\nhuman appeal gate"| INTAKEPKT
     PKT -->|"disabled by default / dry-run only when explicit"| EL
     RR -->|"local JSON/Markdown signals only"| LEARN
     LEARN -->|"proposal-only artifacts"| HUM
@@ -96,6 +99,7 @@ sequenceDiagram
 - `generate-codex-task`
 - `research-radar import-local`
 - `research-radar list-signals`
+- `intake prepare-owner-packet`
 - `learning run-shadow-eval`
 - `learning build-upgrade-proposal`
 - `learning render-codex-task`
@@ -121,6 +125,7 @@ Implemented locally:
 - PR04 inert Codex task packet builder
 - candidate-only intake Orchestrator adoption review docket
 - future carrier rejection capture plan with deterministic unknown bucket, human appeal gate, and budget actuals comparison inputs
+- candidate intake owner-review packet builder with human pauses, budget precondition blockers, carrier rejection unknown bucket, appeal authorization blockers, actuals variance, and Lake handoff preview only
 
 Still non-authoritative and local-only:
 
@@ -130,6 +135,7 @@ Still non-authoritative and local-only:
 - green-lane watch recommendations and reclassification evidence
 - Codex task packets and inert agent review plans
 - intake owner review docket entries and carrier rejection capture plans
+- intake owner-review packets and local ledger rows
 - all Phase 2 upgrade and decision-support artifacts
 
 ## Hard Prohibitions

@@ -71,6 +71,7 @@ Loading discipline: manifest-first; required manifest fields (`manifest_id`, `ma
 Autonomy discipline: risk color controls authority; hardness controls harness depth; leverage controls priority; stakes modeling remains PR07.
 Green-lane discipline: green lanes are conditional; signals may downgrade green to yellow/red; humans restore green authority.
 Task-packet discipline: Codex task packets are inert build instructions only and must not execute tools, code, Git, models, network, Substrate writes, or Lake writes.
+Intake owner-review discipline: `intake prepare-owner-packet` is a candidate local execution artifact only. It may prepare synthetic human-pause, carrier rejection, budget actuals variance, and Lake preview artifacts, but it must not approve budgets, open matters, submit appeals, write Exception Lake records, define canonical route/event authority, or ingest real data.
 Validation plan: run `python scripts/run_full_pytest.py`, `python scripts/check_safety.py --stdout json`, evals, and CLI smoke tests. The pytest wrapper is required by `config/validation-runtime-policy.yaml` so full and focused pytest runs receive the configured long ceiling.
 Stop conditions: see `docs/decisions/synthetic_only_policy.md`.
 
