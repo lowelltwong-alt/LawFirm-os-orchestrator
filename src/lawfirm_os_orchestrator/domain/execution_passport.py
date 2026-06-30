@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import hashlib
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from typing import Any
 
 from lawfirm_os_orchestrator.util.hashing import canonical_json

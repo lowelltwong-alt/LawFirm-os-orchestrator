@@ -39,6 +39,7 @@ flowchart LR
     TASK["PR04 Codex task packet builder\ninert build instructions only"]
     INTAKE["Intake adoption review docket\ncandidate owner review only"]
     INTAKEPKT["Intake owner review packet\nhuman pauses + budget actuals + Lake preview"]
+    LAKEPKT["Intake Lake admission review packet\ncandidate records + blockers\nno Lake write"]
     CARR["Carrier rejection capture plan\nemail/portal future channels disabled now"]
 
     SS -->|"read-only manifest-first contracts"| OR
@@ -54,6 +55,8 @@ flowchart LR
     INTAKE -->|"future owner decisions\nno canonical IDs"| OR
     OR -->|"synthetic intake request"| INTAKEPKT
     INTAKEPKT -->|"local owner-review artifacts"| LEARN
+    INTAKEPKT -->|"candidate Lake-owner review packet"| LAKEPKT
+    LAKEPKT -->|"local review artifact only"| LEARN
     CARR -->|"known bucket or unknown pattern\nhuman appeal gate"| INTAKEPKT
     PKT -->|"disabled by default / dry-run only when explicit"| EL
     RR -->|"local JSON/Markdown signals only"| LEARN
@@ -63,6 +66,7 @@ flowchart LR
     OR -. "no substrate writes" .-> SS
     OR -. "no local canonical route_id/event_class authority" .-> SS
     INTAKE -. "no connector, Lake write, budget submission, or appeal authority" .-> INTAKE
+    LAKEPKT -. "no SQLite, Lake admission, raw payload storage, or canon mapping" .-> EL
     RR -. "no live crawl, API, model call, schedule, or external write" .-> RR
 ```
 
@@ -100,6 +104,7 @@ sequenceDiagram
 - `research-radar import-local`
 - `research-radar list-signals`
 - `intake prepare-owner-packet`
+- `intake build-lake-admission-review-packet`
 - `learning run-shadow-eval`
 - `learning build-upgrade-proposal`
 - `learning render-codex-task`
@@ -126,6 +131,7 @@ Implemented locally:
 - candidate-only intake Orchestrator adoption review docket
 - future carrier rejection capture plan with deterministic unknown bucket, human appeal gate, and budget actuals comparison inputs
 - candidate intake owner-review packet builder with human pauses, budget precondition blockers, carrier rejection unknown bucket, appeal authorization blockers, actuals variance, and Lake handoff preview only
+- candidate intake Lake admission-review packet builder with record-family summaries, idempotency keys, source-hash status, admission blockers, and no Lake or SQLite write authority
 
 Still non-authoritative and local-only:
 
@@ -136,6 +142,7 @@ Still non-authoritative and local-only:
 - Codex task packets and inert agent review plans
 - intake owner review docket entries and carrier rejection capture plans
 - intake owner-review packets and local ledger rows
+- intake Lake admission-review packets and local ledger rows
 - all Phase 2 upgrade and decision-support artifacts
 
 ## Hard Prohibitions

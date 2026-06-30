@@ -125,6 +125,24 @@ Important controls:
 - budget actuals variance is calculated by phase/task against proposed, carrier-compliant, approved-if-known, and actual amounts;
 - Exception Lake handoff is preview-only and has no write authority.
 
+### intake build-lake-admission-review-packet
+
+```powershell
+python -m lawfirm_os_orchestrator intake build-lake-admission-review-packet --owner-packet .lawfirm-os-orchestrator/intake_owner_review/<packet_id>/intake_owner_review_packet.json --stdout json
+```
+
+Purpose: prepare a local, candidate-only Exception Lake owner-review packet from an intake owner-review packet.
+
+Important controls:
+
+- owner packet hash is recomputed before packaging;
+- input must remain synthetic, non-authoritative, and not authorized for client submission;
+- raw client, matter, privileged, or production transcript fields fail closed;
+- Lake handoff must still be `handoff_allowed=false`;
+- Lake writes, SQLite writes, raw-payload storage, real-data admission, budget submission, and appeal submission remain unauthorized;
+- canonical route and event-class assignments remain `none`;
+- output record-family summaries are candidate-only and require Exception Lake owner review before any admission path.
+
 ### research-radar list-signals
 
 ```powershell
@@ -171,6 +189,7 @@ Purpose: deterministically score a local algorithm/method insight as proposal ev
 python scripts/run_full_pytest.py
 python scripts/run_full_pytest.py tests/test_workflow_atlas.py -q
 python scripts/run_full_pytest.py tests/test_intake_owner_review_packet.py -q
+python scripts/run_full_pytest.py tests/test_intake_lake_admission_review_packet.py -q
 python scripts/validate_intake_orchestrator_adoption_review.py
 python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json
 python scripts/run_shadow_eval.py --proposal examples/shadow_eval/validator_threshold_proposal.json --stdout json

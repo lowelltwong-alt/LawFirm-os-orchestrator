@@ -56,6 +56,7 @@ REQUIRED_WATCHED = {
     "scripts/validate_governance_dependency_map_mirror.py",
     "skill-agent-manifest.json",
     "tests/test_intake_orchestrator_adoption_review.py",
+    "tests/test_intake_lake_admission_review_packet.py",
     "tests/test_intake_owner_review_packet.py",
     "tests/test_validation_runtime_policy.py",
     "tests/test_governance_dependency_map_mirror.py",

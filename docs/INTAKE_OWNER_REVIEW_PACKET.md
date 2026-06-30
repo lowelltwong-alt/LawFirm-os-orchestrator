@@ -25,3 +25,7 @@ The packet is not a promoted workflow contract. It is an execution-plane proof t
 - Lake handoff is preview-only with `lake_write_authority_now=false`.
 
 The packet also records that no promoted intake-to-budget decision model exists in the current substrate seed registry. That keeps the artifact reviewable as owner-docket evidence while preventing it from becoming a decision-ready request.
+
+## Downstream Review Packet
+
+`lawfirm-os-orchestrator intake build-lake-admission-review-packet` may consume this packet as local input and emit an Exception Lake owner-review packet. That downstream packet summarizes candidate record families, source-hash status, idempotency keys, and blockers, but it still performs no Exception Lake write, SQLite write, raw-payload storage, route creation, event-class creation, budget submission, or appeal submission.
