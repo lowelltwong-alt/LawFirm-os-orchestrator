@@ -91,6 +91,12 @@ The docket keeps all carrier rejection capture future-facing and fail-closed: em
 
 `lawfirm-os-orchestrator intake build-lake-admission-review-packet` is the next local slice. It reads the owner-review packet, verifies the packet hash and no-write Lake preview, then emits a candidate Exception Lake owner-review packet with proposed record-family summaries, idempotency keys, source-hash status, and admission blockers. It still performs no Lake write, SQLite write, raw-payload storage, budget submission, appeal submission, route creation, or event-class creation. See `docs/INTAKE_LAKE_ADMISSION_REVIEW_PACKET.md`.
 
+`lawfirm-os-orchestrator intake run-vertical-slice-demo` is the no-write cross-repo proof path. It checks required sibling governance/readiness surfaces, builds the owner-review packet, builds the Lake admission-review packet, and writes a local attorney-review demo report. It is synthetic-only, non-authoritative, and blocked pending attorney/owner review; it performs no model call, connector call, external write, Semantic Substrate write, Exception Lake/SQLite write, budget submission, matter opening, conflict clearance, route creation, or event-class creation. See `docs/INTAKE_NO_WRITE_VERTICAL_SLICE_DEMO.md`.
+
+## Litigation Simulation Adapter Planning
+
+`docs/LITIGATION_SIMULATION_ADAPTER_EXECUTION_PLAN.md` records a future, no-write adapter plan for Albers/ALS-style litigation simulator tools. It consumes the Substrate simulator and real-work shadow-mode gates read-only. No connector, simulator call, model call, real-data path, trial-strategy reliance, settlement authority, external write, Lake/SQLite write, or production automation is authorized.
+
 ## Substrate consumption
 
 The orchestrator loads contracts from a pinned substrate checkout in this order:

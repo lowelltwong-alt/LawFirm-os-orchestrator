@@ -143,6 +143,22 @@ Important controls:
 - canonical route and event-class assignments remain `none`;
 - output record-family summaries are candidate-only and require Exception Lake owner review before any admission path.
 
+### intake run-vertical-slice-demo
+
+```powershell
+python -m lawfirm_os_orchestrator intake run-vertical-slice-demo --input examples/intake_owner_review_request.synthetic.json --workspace .. --stdout json
+```
+
+Purpose: run the local no-write Intake vertical slice through Orchestrator owner review, candidate Lake admission review, sibling surface checks, and an attorney-review demo report.
+
+Important controls:
+
+- synthetic-only request data;
+- required sibling governance/readiness surfaces are checked but never mutated;
+- owner-review and Lake-admission packets remain candidate-only;
+- the attorney-review report is local evidence only;
+- model calls, connector calls, external writes, Semantic Substrate writes, Exception Lake/SQLite writes, conflict clearance, matter opening, budget submission, canonical route creation, and event-class creation remain unauthorized.
+
 ### research-radar list-signals
 
 ```powershell
@@ -190,6 +206,8 @@ python scripts/run_full_pytest.py
 python scripts/run_full_pytest.py tests/test_workflow_atlas.py -q
 python scripts/run_full_pytest.py tests/test_intake_owner_review_packet.py -q
 python scripts/run_full_pytest.py tests/test_intake_lake_admission_review_packet.py -q
+python scripts/run_full_pytest.py tests/test_intake_vertical_slice_demo.py -q
+python scripts/validate_intake_vertical_slice_demo.py --report .lawfirm-os-orchestrator/intake_vertical_slice_demo/<demo_id>/intake_vertical_slice_demo_report.json
 python scripts/validate_intake_orchestrator_adoption_review.py
 python scripts/run_evals.py --fixture evals/fixtures/classify_exception_cases.jsonl --gold evals/gold/classify_exception_gold.jsonl --stdout json
 python scripts/run_shadow_eval.py --proposal examples/shadow_eval/validator_threshold_proposal.json --stdout json
