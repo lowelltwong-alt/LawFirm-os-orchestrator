@@ -23,11 +23,15 @@ This repo executes bounded local workflows and builds evidence packets. It consu
 - `src/lawfirm_os_orchestrator/intake/owner_review.py` - deterministic local packet builder for human pauses, rejection buckets, budget actuals variance, and Lake preview-only handoff.
 - `docs/INTAKE_LAKE_ADMISSION_REVIEW_PACKET.md` - candidate execution artifact for packaging owner-review evidence into Exception Lake owner-review record-family summaries.
 - `src/lawfirm_os_orchestrator/intake/lake_admission_review.py` - deterministic local packet builder for Lake admission-review blockers, source-hash status, idempotency keys, and no-write controls.
+- `docs/INTAKE_NO_WRITE_VERTICAL_SLICE_DEMO.md` - Orchestrator-owned no-write cross-repo demo path for Intake -> owner review -> Lake admission review -> attorney review report.
+- `src/lawfirm_os_orchestrator/intake/vertical_slice_demo.py` - deterministic local demo builder with sibling surface checks and no-write controls.
+- `docs/LITIGATION_SIMULATION_ADAPTER_EXECUTION_PLAN.md` - future no-write adapter plan for Albers/ALS-style litigation simulator tools; no connector or real-data authority.
 - Substrate `manifests/contract_manifest.v1.json` - canonical orchestrator-facing manifest. Loading is manifest-first.
 - Substrate `registry/exception-route-registry.json` - canonical `route_id` and `event_class` authority.
 - Substrate `registry/governance-dependency-map.json` - canonical governance-facing dependency map and child mirror update gate.
 - Substrate `governance/AI_STRATEGY_DOCTRINE.md` - proposed AI strategy doctrine to consult, not override; not canon until approved in Semantic Substrate.
 - Substrate `governance/DECISION_BOTTLENECK_AND_DECISION_MODELS.md` - canonical decision-bottleneck and decision-model doctrine.
+- Substrate `governance/LITIGATION_SIMULATION_ADAPTER_BOUNDARY.md` and `governance/REAL_WORK_SHADOW_MODE_PILOT_GATES.md` - canonical future simulator and real-work shadow-mode boundaries.
 - Substrate `registry/decision-model-registry.seed.json` - canonical seed decision-model registry consumed by orchestration guidance.
 - `docs/CANONICAL_ROUTE_MAPPING.md` - maps local orchestrator labels to substrate authority and marks unmapped labels as non-canonical.
 - `docs/ai-workflow/decision-model-gates.md` - execution-plane guidance for consuming decision-model gates.
@@ -53,6 +57,7 @@ Required manifest fields include `manifest_id`, `manifest_version`, `policy_bund
 - `scripts/check_safety.py` - safety regression check.
 - `tests/test_intake_owner_review_packet.py` - intake owner-review packet regression coverage.
 - `tests/test_intake_lake_admission_review_packet.py` - intake Lake admission-review packet regression coverage.
+- `tests/test_intake_vertical_slice_demo.py` - no-write cross-repo vertical-slice demo regression coverage.
 
 ## Learning And Research
 

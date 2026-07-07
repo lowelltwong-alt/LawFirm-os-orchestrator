@@ -13,6 +13,9 @@ from lawfirm_os_orchestrator.intake.owner_review import (
     prepare_intake_owner_review_packet,
     write_intake_owner_review_artifacts,
 )
+from lawfirm_os_orchestrator.intake.vertical_slice_demo import (
+    write_intake_vertical_slice_demo_artifacts,
+)
 from lawfirm_os_orchestrator.util.json_io import read_json
 
 
@@ -53,6 +56,25 @@ def run(args: Any) -> tuple[int, dict[str, Any]]:
             )
         except OSError as exc:
             return EXIT_ARTIFACT, {"status": "artifact_failed", "error": str(exc)}
+        return 0, summary
+
+    if args.intake_command == "run-vertical-slice-demo":
+        try:
+            request = read_json(Path(args.input))
+            summary = write_intake_vertical_slice_demo_artifacts(
+                request=request,
+                workspace=Path(args.workspace),
+                out_dir=Path(args.out_dir),
+                ledger_dir=Path(args.ledger_dir),
+            )
+        except (
+            OSError,
+            IntakeOwnerReviewError,
+            IntakeLakeAdmissionReviewError,
+            ValueError,
+            TypeError,
+        ) as exc:
+            return EXIT_INPUT_POLICY, {"status": "failed_validation", "error": str(exc)}
         return 0, summary
 
     else:
