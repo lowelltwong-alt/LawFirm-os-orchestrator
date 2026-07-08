@@ -91,3 +91,14 @@ The intake Orchestrator adoption review docket records future owner decisions fo
 - no external writes
 - no Git operations from inside the application
 - Exception Lake mode remains disabled by default and not attempted unless explicitly configured
+
+<!-- BEGIN DIGITAL_ASSET_DIRECTORY_TOC_ROWS -->
+| Path | What It Is | Tags | Use When |
+| --- | --- | --- | --- |
+| `.digital-asset/dad-integration.json` | Versioned DAD enrollment contract and approved write boundary. | dad, enrollment, governance | Confirm DAD cadence, control planes, approval IDs, and managed paths. |
+| `.digital-asset/context-map.json` | Repo context to DAD asset/control-plane route map. | dad, context, assets | Choose relevant DAD assets, skills, templates, or architecture references for a task. |
+| `.digital-asset/governance-map.yaml` | Repo-local governance dependency mirror. | governance, authority, dependencies | Check local authority boundaries and DAD-managed surfaces. |
+| `.digital-asset/data-map.yaml` | Repo-local sensitive-boundary and data-movement map. | data-map, privacy, release | Check what data can move through DAD mail or public-facing release paths. |
+| `.digital-asset/mail/` | Candidate-only DAD inbox/outbox/archive. | mail, suggestions, daily | Read or send cross-repo suggestions without mutating source authority. |
+| `.digital-asset/assets/index.jsonl` | Repo-local metadata-only digital asset cards using compact DAD address layers. | assets, address-model, learning | Record source-owned asset pointers, workflow refs, validation refs, and learning deltas without copying private content. |
+<!-- END DIGITAL_ASSET_DIRECTORY_TOC_ROWS -->
